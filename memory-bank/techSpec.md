@@ -4,7 +4,7 @@
 **Name**: GoMafia Analytics Web App
 **Type**: Analytics Dashboard for gomafia.pro data
 **Complexity**: Level 3 (Complex System)
-**Technology**: Next.js + TypeScript + Context7
+**Technology**: Next.js + TypeScript (Context7 Removed)
 
 ## DATA SOURCE SPECIFICATION
 
@@ -95,7 +95,6 @@ src/
 | Chart.js | Data visualization | react-chartjs-2 wrapper |
 | Zustand | State management | TypeScript-native |
 | Zod | Schema validation | Runtime type checking |
-| Context7 MCP | Documentation | npx integration |
 
 ### Development Tools
 | Tool | Purpose |
@@ -104,25 +103,6 @@ src/
 | Prettier | Code formatting |
 | Jest | Unit testing |
 | React Testing Library | Component testing |
-
-## CONTEXT7 INTEGRATION SPECIFICATION
-
-### MCP Server Setup
-```json
-{
-  "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": ["-y", "@upstash/context7-mcp"]
-    }
-  }
-}
-```
-
-### Integration Points
-1. **Development Documentation**: Real-time library documentation
-2. **Code Examples**: Context-aware code suggestions
-3. **API Reference**: Dynamic API documentation access
 
 ## DATA FETCHING SPECIFICATION
 
@@ -148,7 +128,7 @@ export async function GET() {
 ```
 
 ### Caching Strategy
-- **Client-side**: React Query or SWR for data caching
+- **Client-side**: SWR or React Query for data caching
 - **Revalidation**: 5-minute intervals for live data
 - **Fallback**: Local storage for offline capability
 
@@ -175,7 +155,6 @@ export async function GET() {
 ```env
 NEXT_PUBLIC_API_BASE_URL=https://your-domain.com/api
 GOMAFIA_PROXY_ENABLED=true
-CONTEXT7_MCP_ENABLED=true
 ```
 
 ### Build Configuration
@@ -247,3 +226,4 @@ const securityHeaders = {
 - **Fallbacks**: Graceful degradation for unsupported features
 
 This specification serves as the technical foundation for implementation and will be referenced throughout the development process.
+
