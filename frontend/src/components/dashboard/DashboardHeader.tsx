@@ -8,7 +8,7 @@ export function DashboardHeader() {
         {/* Left Section - Title and Breadcrumb */}
         <div className="flex items-center space-x-4">
           <h1 className="text-2xl font-bold text-white">
-            GoMafia Analytics
+            GoMafia Insights
           </h1>
           <div className="hidden md:flex items-center text-slate-400 text-sm">
             <span>/</span>

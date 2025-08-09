@@ -14,10 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GoMafia Analytics - Professional Mafia Game Statistics",
+  title: "GoMafia Insights - Professional Mafia Game Statistics",
   description: "Comprehensive analytics platform for competitive Mafia game performance tracking, tournament statistics, and player insights from GoMafia.pro",
-  keywords: "mafia game, analytics, statistics, gomafia, tournament, player tracking, competitive gaming",
-  authors: [{ name: "GoMafia Analytics Team" }],
+  keywords: "mafia game, analytics, statistics, gomafia, tournament, player tracking, competitive gaming, insights",
+  authors: [{ name: "GoMafia Insights Team" }],
   viewport: "width=device-width, initial-scale=1",
   themeColor: "#0f172a",
 };
