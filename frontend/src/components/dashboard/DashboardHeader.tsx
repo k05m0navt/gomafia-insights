@@ -1,4 +1,5 @@
 import { Bell, Search, Settings, User } from 'lucide-react';
+import { RealtimeStatusIndicator } from '../realtime/RealtimeStatusIndicator';
 
 export function DashboardHeader() {
   return (
@@ -26,6 +27,14 @@ export function DashboardHeader() {
               className="bg-slate-700 text-white pl-10 pr-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none w-80"
             />
           </div>
+
+          {/* Real-time Status Indicator */}
+          <RealtimeStatusIndicator 
+            position="header-right"
+            size="medium"
+            expandable={true}
+            showUpdateCount={true}
+          />
 
           {/* Notifications */}
           <button className="relative p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-lg transition-colors">
