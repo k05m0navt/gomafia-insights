@@ -15,7 +15,7 @@ import { RealtimePostgresChangesPayload } from '@supabase/supabase-js'
 /**
  * Main hook for real-time data subscriptions
  */
-export function useRealtime<T = any>(options: UseRealtimeOptions = {}): UseRealtimeReturn<T> {
+export function useRealtime<T extends { [key: string]: any } = any>(options: UseRealtimeOptions = {}): UseRealtimeReturn<T> {
   const {
     table,
     filter,

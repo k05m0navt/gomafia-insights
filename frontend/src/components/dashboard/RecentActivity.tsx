@@ -1,8 +1,11 @@
 'use client';
 
-import { Calendar, Clock, Users, Trophy, Wifi, WifiOff, AlertCircle } from 'lucide-react';
-import { useRealtimeActivityFeed } from '../../hooks/useRealtime';
+import { Calendar, Clock, Users, Trophy, Wifi, WifiOff, AlertCircle, Activity } from 'lucide-react';
+import { useRealtimeActivityFeed, useRealtimeConnection, useRealtimeSubscriptions } from '../../hooks/useRealtime';
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ComponentStatusIndicator } from '../realtime/ComponentStatusIndicator';
+import toast from 'react-hot-toast';
 
 interface ActivityItem {
   id: string;
@@ -17,9 +20,9 @@ interface ActivityItem {
 
 function ActivityIcon({ type }: { type: 'game' | 'tournament' }) {
   if (type === 'tournament') {
-    return <Trophy className="w-5 h-5 text-yellow-400" />;
+    return <Trophy className="w-5 h-5 text-yellow-400" aria-hidden="true" />;
   }
-  return <Calendar className="w-5 h-5 text-blue-400" />;
+  return <Calendar className="w-5 h-5 text-blue-400" aria-hidden="true" />;
 }
 
 function StatusBadge({ status }: { status: ActivityItem['status'] }) {
@@ -50,9 +53,10 @@ function StatusBadge({ status }: { status: ActivityItem['status'] }) {
 interface RealtimeActivityItemProps {
   activity: ActivityItem;
   isNew?: boolean;
+  index: number;
 }
 
-function RealtimeActivityItem({ activity, isNew }: RealtimeActivityItemProps) {
+function RealtimeActivityItem({ activity, isNew, index }: RealtimeActivityItemProps) {
   const [showAnimation, setShowAnimation] = useState(isNew);
 
   useEffect(() => {
@@ -63,86 +67,180 @@ function RealtimeActivityItem({ activity, isNew }: RealtimeActivityItemProps) {
   }, [isNew]);
 
   return (
-    <div 
+    <motion.div 
       className={`flex items-start space-x-4 p-4 hover:bg-slate-700 rounded-lg transition-all duration-300 ${
         showAnimation ? 'bg-blue-900/30 border-l-4 border-blue-400' : ''
       }`}
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ 
+        duration: 0.3, 
+        delay: index * 0.05,
+        type: "spring",
+        stiffness: 300,
+        damping: 25
+      }}
+      whileHover={{ scale: 1.01, x: 4 }}
     >
-      <div className="p-2 bg-slate-700 rounded-lg">
+      {/* Update Flash Overlay */}
+      <AnimatePresence>
+        {showAnimation && (
+          <motion.div
+            className="absolute inset-0 bg-blue-400/10 rounded-lg pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          />
+        )}
+      </AnimatePresence>
+
+      <motion.div 
+        className="p-2 bg-slate-700 rounded-lg"
+        whileHover={{ scale: 1.05 }}
+        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+      >
         <ActivityIcon type={activity.type} />
-      </div>
+      </motion.div>
+      
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-medium text-white truncate">
+          <motion.h4 
+            className="text-sm font-medium text-white truncate"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+          >
             {activity.title}
-            {showAnimation && (
-              <span className="ml-2 px-2 py-1 text-xs bg-blue-600 text-blue-100 rounded-full animate-pulse">
-                New
-              </span>
-            )}
-          </h4>
+            <AnimatePresence>
+              {showAnimation && (
+                <motion.span
+                  className="ml-2 px-2 py-1 text-xs bg-blue-600 text-blue-100 rounded-full"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                >
+                  New
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.h4>
           <StatusBadge status={activity.status} />
         </div>
-        <p className="text-sm text-slate-400 mt-1">
+        <motion.p 
+          className="text-sm text-slate-400 mt-1"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+        >
           {activity.description}
-        </p>
-        <div className="flex items-center space-x-4 mt-2 text-xs text-slate-500">
+        </motion.p>
+        <motion.div 
+          className="flex items-center space-x-4 mt-2 text-xs text-slate-500"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <div className="flex items-center space-x-1">
-            <Clock className="w-3 h-3" />
+            <Clock className="w-3 h-3" aria-hidden="true" />
             <span>{activity.time}</span>
           </div>
           {activity.participants && (
             <div className="flex items-center space-x-1">
-              <Users className="w-3 h-3" />
+              <Users className="w-3 h-3" aria-hidden="true" />
               <span>{activity.participants} players</span>
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
-    </div>
-  );
-}
-
-interface RealtimeStatusIndicatorProps {
-  isConnected: boolean;
-  onClick: () => void;
-}
-
-function RealtimeStatusIndicator({ isConnected, onClick }: RealtimeStatusIndicatorProps) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-center space-x-2 px-3 py-1 rounded-full hover:bg-slate-700 transition-colors"
-      aria-label={`Real-time status: ${isConnected ? 'Connected' : 'Disconnected'}`}
-    >
-      {isConnected ? (
-        <>
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-          <span className="text-xs text-green-400">Live</span>
-        </>
-      ) : (
-        <>
-          <div className="w-2 h-2 bg-red-400 rounded-full" />
-          <span className="text-xs text-red-400">Offline</span>
-        </>
-      )}
-    </button>
+    </motion.div>
   );
 }
 
 export function RecentActivity() {
   const [showStatusPanel, setShowStatusPanel] = useState(false);
   const [newActivityIds, setNewActivityIds] = useState<Set<string>>(new Set());
+  const [previousActivities, setPreviousActivities] = useState<ActivityItem[]>([]);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [previousConnectionStatus, setPreviousConnectionStatus] = useState<string | null>(null);
 
-  // Real-time activity feed integration
+  // Real-time activity feed integration with enhanced hooks
   const {
-    data: realtimeActivities,
+    activities: realtimeActivities,
     isConnected,
-    connectionStatus,
-    lastUpdated,
-    updateCount,
-    error
+    isLoading
   } = useRealtimeActivityFeed();
+
+  const {
+    connectionHealth,
+    isRealTimeEnabled,
+    reconnect,
+    toggleRealTime
+  } = useRealtimeConnection();
+
+  const {
+    totalUpdates,
+    subscriptionCount
+  } = useRealtimeSubscriptions();
+
+  // Helper function to map ConnectionStatus to component-expected status
+  const mapConnectionStatus = (status: typeof connectionHealth.status): 'connected' | 'connecting' | 'disconnected' => {
+    switch (status) {
+      case 'connected':
+        return 'connected';
+      case 'connecting':
+      case 'reconnecting':
+        return 'connecting';
+      case 'disconnected':
+      default:
+        return 'disconnected';
+    }
+  };
+
+  const mappedConnectionStatus = mapConnectionStatus(connectionHealth.status);
+  const lastUpdated = new Date(); // Placeholder - will be enhanced with real data
+
+  // Enhanced connection status change notifications
+  useEffect(() => {
+    if (previousConnectionStatus && previousConnectionStatus !== mappedConnectionStatus) {
+      const statusMessages = {
+        connected: 'Activity feed connected successfully',
+        connecting: 'Activity feed attempting to connect...',
+        disconnected: 'Activity feed disconnected'
+      };
+
+      const statusColors = {
+        connected: 'success',
+        connecting: 'loading',
+        disconnected: 'error'
+      };
+
+      const message = statusMessages[mappedConnectionStatus];
+      const colorType = statusColors[mappedConnectionStatus];
+
+      if (colorType === 'success') {
+        toast.success(message, {
+          duration: 3000,
+          position: 'top-right',
+          icon: '🟢',
+        });
+      } else if (colorType === 'error') {
+        toast.error(message, {
+          duration: 4000,
+          position: 'top-right',
+          icon: '🔴',
+        });
+      } else {
+        toast.loading(message, {
+          duration: 2000,
+          position: 'top-right',
+          icon: '🟡',
+        });
+      }
+    }
+    setPreviousConnectionStatus(mappedConnectionStatus);
+  }, [mappedConnectionStatus, previousConnectionStatus]);
 
   // Default activities for fallback
   const defaultActivities: ActivityItem[] = [
@@ -193,20 +291,55 @@ export function RecentActivity() {
     }
   ];
 
+  // Convert RealtimeActivity to ActivityItem format
+  const convertedActivities: ActivityItem[] = realtimeActivities 
+    ? realtimeActivities.map((activity: any) => ({
+        id: activity.id,
+        type: activity.type,
+        title: activity.title,
+        description: activity.description,
+        time: activity.timestamp ? new Date(activity.timestamp).toLocaleTimeString() : 'Unknown time',
+        participants: activity.participants,
+        status: activity.status,
+        timestamp: activity.timestamp ? new Date(activity.timestamp) : undefined
+      }))
+    : [];
+
+  const activities = convertedActivities.length > 0 ? convertedActivities : defaultActivities;
+
+  // Track activities updates for animation triggers
+  useEffect(() => {
+    if (activities && previousActivities.length > 0) {
+      const hasChanges = activities.length !== previousActivities.length ||
+        activities.some((activity, index) => 
+          !previousActivities[index] || activity.id !== previousActivities[index].id
+        );
+      
+      if (hasChanges) {
+        setIsUpdating(true);
+        const timer = setTimeout(() => setIsUpdating(false), 500);
+        return () => clearTimeout(timer);
+      }
+    }
+    setPreviousActivities(activities);
+  }, [activities, previousActivities]);
+
   // Track new activities for animation
   useEffect(() => {
     if (realtimeActivities && realtimeActivities.length > 0) {
-      const currentIds = new Set(realtimeActivities.map(a => a.id));
+      const currentIds = new Set(realtimeActivities.map((a: any) => a.id));
       const newIds = new Set<string>();
       
-      currentIds.forEach(id => {
-        if (!newActivityIds.has(id)) {
-          newIds.add(id);
+      currentIds.forEach((id: unknown) => {
+        const idString = String(id);
+        if (!newActivityIds.has(idString)) {
+          newIds.add(idString);
         }
       });
       
       if (newIds.size > 0) {
-        setNewActivityIds(currentIds);
+        const currentIdsStrings = new Set(Array.from(currentIds).map(id => String(id)));
+        setNewActivityIds(currentIdsStrings);
         // Remove new status after animation
         const timer = setTimeout(() => {
           setNewActivityIds(prev => {
@@ -220,94 +353,264 @@ export function RecentActivity() {
     }
   }, [realtimeActivities, newActivityIds]);
 
-  const activities = realtimeActivities || defaultActivities;
+  const handleStatusClick = () => {
+    setShowStatusPanel(true);
+  };
+
+  const handleReconnect = async () => {
+    try {
+      await reconnect();
+      setShowStatusPanel(false);
+    } catch (error) {
+      console.error('Failed to reconnect:', error);
+    }
+  };
+
+  const handleToggleRealtime = (enabled: boolean) => {
+    toggleRealTime();
+  };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <motion.div 
+      className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ staggerChildren: 0.1 }}
+    >
       {/* Recent Activity List */}
-      <div className="bg-slate-800 rounded-lg border border-slate-700">
-        <div className="p-6 border-b border-slate-700 flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-white">Recent Activity</h3>
-          <RealtimeStatusIndicator 
+      <motion.div 
+        className="bg-slate-800 rounded-lg border border-slate-700 relative"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        {/* Enhanced Real-time Status Indicator */}
+        <div className="absolute top-4 right-4 z-10">
+          <ComponentStatusIndicator
             isConnected={isConnected}
-            onClick={() => setShowStatusPanel(true)}
+            connectionStatus={mappedConnectionStatus}
+            lastUpdated={lastUpdated}
+            updateCount={totalUpdates}
+            componentName="Activity Feed"
+            updateFrequency="Real-time"
+            onReconnect={handleReconnect}
+            onToggleRealtime={handleToggleRealtime}
+            isRealtimeEnabled={isRealTimeEnabled}
+            className="hover:bg-slate-700/50"
           />
         </div>
-        <div className="p-6">
-          <div className="space-y-4 max-h-96 overflow-y-auto">
-            {activities.map((activity) => (
-              <RealtimeActivityItem
-                key={activity.id}
-                activity={activity}
-                isNew={newActivityIds.has(activity.id)}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
 
-      {/* Quick Stats */}
-      <div className="bg-slate-800 rounded-lg border border-slate-700">
+        {/* Loading Overlay */}
+        <AnimatePresence>
+          {isUpdating && (
+            <motion.div
+              className="absolute inset-0 bg-slate-800/80 rounded-lg flex items-center justify-center backdrop-blur-sm z-20"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <motion.div
+                className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                aria-label="Updating activity feed"
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="p-6 border-b border-slate-700 flex items-center justify-between">
+          <motion.h3 
+            className="text-lg font-semibold text-white flex items-center space-x-2"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Activity className="w-5 h-5 text-blue-400" aria-hidden="true" />
+            <span>Recent Activity</span>
+          </motion.h3>
+        </div>
+        <div className="p-6">
+          <motion.div 
+            className="space-y-4 max-h-96 overflow-y-auto"
+            role="feed"
+            aria-label="Recent game and tournament activities"
+            aria-live="polite"
+            aria-relevant="additions"
+          >
+            <AnimatePresence mode="popLayout">
+              {activities.map((activity: ActivityItem, index) => (
+                <RealtimeActivityItem
+                  key={activity.id}
+                  activity={activity}
+                  isNew={newActivityIds.has(activity.id)}
+                  index={index}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Quick Stats - Enhanced with animations */}
+      <motion.div 
+        className="bg-slate-800 rounded-lg border border-slate-700"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+      >
         <div className="p-6 border-b border-slate-700">
-          <h3 className="text-lg font-semibold text-white">Quick Stats</h3>
+          <motion.h3 
+            className="text-lg font-semibold text-white"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            Quick Stats
+          </motion.h3>
         </div>
         <div className="p-6 space-y-6">
           {/* Today's Activity */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.3 }}
+          >
             <h4 className="text-sm font-medium text-slate-300 mb-3">Today's Activity</h4>
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
+              <motion.div 
+                className="flex justify-between items-center"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <span className="text-sm text-slate-400">Games Completed</span>
                 <span className="text-sm font-semibold text-white">47</span>
-              </div>
-              <div className="flex justify-between items-center">
+              </motion.div>
+              <motion.div 
+                className="flex justify-between items-center"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <span className="text-sm text-slate-400">Active Players</span>
                 <span className="text-sm font-semibold text-white">312</span>
-              </div>
-              <div className="flex justify-between items-center">
+              </motion.div>
+              <motion.div 
+                className="flex justify-between items-center"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <span className="text-sm text-slate-400">Tournaments Running</span>
                 <span className="text-sm font-semibold text-white">5</span>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* System Status */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.4 }}
+          >
             <h4 className="text-sm font-medium text-slate-300 mb-3">System Status</h4>
             <div className="space-y-3">
-              <div className="flex justify-between items-center">
+              <motion.div 
+                className="flex justify-between items-center"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <span className="text-sm text-slate-400">Data Collection</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <motion.div 
+                    className="w-2 h-2 bg-green-400 rounded-full"
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [1, 0.7, 1]
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
                   <span className="text-sm text-green-400">Active</span>
                 </div>
-              </div>
-              <div className="flex justify-between items-center">
+              </motion.div>
+              <motion.div 
+                className="flex justify-between items-center"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <span className="text-sm text-slate-400">Database</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                  <motion.div 
+                    className="w-2 h-2 bg-green-400 rounded-full"
+                    animate={{ 
+                      scale: [1, 1.2, 1],
+                      opacity: [1, 0.7, 1]
+                    }}
+                    transition={{ 
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
                   <span className="text-sm text-green-400">Healthy</span>
                 </div>
-              </div>
-              <div className="flex justify-between items-center">
+              </motion.div>
+              <motion.div 
+                className="flex justify-between items-center"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <span className="text-sm text-slate-400">Real-time Updates</span>
                 <div className="flex items-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${isConnected ? 'bg-green-400' : 'bg-red-400'}`}></div>
+                  <AnimatePresence mode="wait">
+                    {isConnected ? (
+                      <motion.div
+                        key="connected"
+                        className="w-2 h-2 bg-green-400 rounded-full"
+                        initial={{ scale: 0 }}
+                        animate={{ 
+                          scale: [1, 1.2, 1],
+                          opacity: [1, 0.7, 1]
+                        }}
+                        exit={{ scale: 0 }}
+                        transition={{ 
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    ) : (
+                      <motion.div
+                        key="disconnected"
+                        className="w-2 h-2 bg-red-400 rounded-full"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        exit={{ scale: 0 }}
+                      />
+                    )}
+                  </AnimatePresence>
                   <span className={`text-sm ${isConnected ? 'text-green-400' : 'text-red-400'}`}>
                     {isConnected ? 'Connected' : 'Offline'}
                   </span>
                 </div>
-              </div>
-              <div className="flex justify-between items-center">
+              </motion.div>
+              <motion.div 
+                className="flex justify-between items-center"
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <span className="text-sm text-slate-400">Last Update</span>
                 <span className="text-sm text-slate-400">
                   {lastUpdated ? lastUpdated.toLocaleTimeString() : '2 min ago'}
                 </span>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Status Panel Modal */}
       {showStatusPanel && (
@@ -339,21 +642,21 @@ export function RecentActivity() {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-slate-400">Updates received:</span>
-                <span className="text-white">{updateCount}</span>
+                <span className="text-white">{totalUpdates}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Connection status:</span>
-                <span className="text-white capitalize">{connectionStatus}</span>
+                <span className="text-white capitalize">{connectionHealth.status}</span>
               </div>
-              {error && (
+              {connectionHealth.error && (
                 <div className="text-red-400 text-xs mt-2">
-                  Error: {error.message}
+                  Error: {connectionHealth.error}
                 </div>
               )}
             </div>
           </div>
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

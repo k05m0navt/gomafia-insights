@@ -26,12 +26,12 @@ import { toast } from 'react-hot-toast'
 /**
  * Throttle function to limit update frequency
  */
-function throttle<T extends (...args: unknown[]) => unknown>(
+function throttle<T extends (...args: any[]) => any>(
   func: T, 
   limit: number
 ): T {
   let inThrottle: boolean
-  return ((...args: unknown[]) => {
+  return ((...args: any[]) => {
     if (!inThrottle) {
       func(...args)
       inThrottle = true

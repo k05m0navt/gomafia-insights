@@ -14,9 +14,12 @@ import {
 } from 'chart.js';
 
 import { Line, Bar } from 'react-chartjs-2';
-import { Wifi, WifiOff, AlertCircle } from 'lucide-react';
-import { useRealtimeChartData } from '../../hooks/useRealtime';
+import { Wifi, WifiOff, AlertCircle, TrendingUp, BarChart3, PieChart, Activity } from 'lucide-react';
+import { useRealtimeChartData, useRealtimeConnection, useRealtimeSubscriptions } from '../../hooks/useRealtime';
 import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ComponentStatusIndicator } from '../realtime/ComponentStatusIndicator';
+import toast from 'react-hot-toast';
 
 // Register Chart.js components
 ChartJS.register(
@@ -81,12 +84,35 @@ interface ChartCardProps {
   title: string;
   children: React.ReactNode;
   isRealTimeConnected: boolean;
-  onStatusClick: () => void;
+  connectionStatus: 'connected' | 'connecting' | 'disconnected';
+  lastUpdated?: Date;
+  updateCount: number;
+  onReconnect?: () => void;
+  onToggleRealtime?: (enabled: boolean) => void;
+  isRealtimeEnabled?: boolean;
   hasRecentUpdate?: boolean;
+  chartName: string;
+  index: number;
+  isUpdating?: boolean;
 }
 
-function ChartCard({ title, children, isRealTimeConnected, onStatusClick, hasRecentUpdate }: ChartCardProps) {
+function ChartCard({ 
+  title, 
+  children, 
+  isRealTimeConnected, 
+  connectionStatus,
+  lastUpdated,
+  updateCount,
+  onReconnect,
+  onToggleRealtime,
+  isRealtimeEnabled = true,
+  hasRecentUpdate,
+  chartName,
+  index,
+  isUpdating = false
+}: ChartCardProps) {
   const [showUpdateIndicator, setShowUpdateIndicator] = useState(hasRecentUpdate);
+  const chartRef = useRef<ChartJS | null>(null);
 
   useEffect(() => {
     if (hasRecentUpdate) {
@@ -96,122 +122,226 @@ function ChartCard({ title, children, isRealTimeConnected, onStatusClick, hasRec
     }
   }, [hasRecentUpdate]);
 
+  // Chart.js memory management
+  useEffect(() => {
+    return () => {
+      // Cleanup Chart.js instance on unmount
+      if (chartRef.current) {
+        chartRef.current.destroy();
+        chartRef.current = null;
+      }
+    };
+  }, []);
+
   return (
-    <div className={`bg-slate-800 rounded-lg p-6 border border-slate-700 relative transition-all duration-300 ${
-      showUpdateIndicator ? 'ring-2 ring-blue-400/50' : ''
-    }`}>
-      {/* Real-time Status Indicator */}
-      <div className="absolute top-4 right-4 flex items-center space-x-2">
+    <motion.div 
+      className={`bg-slate-800 rounded-lg p-6 border border-slate-700 relative transition-all duration-300 ${
+        showUpdateIndicator ? 'ring-2 ring-blue-400/50' : ''
+      }`}
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ 
+        duration: 0.4, 
+        delay: index * 0.1,
+        type: "spring",
+        stiffness: 300,
+        damping: 25
+      }}
+      whileHover={{ scale: 1.02, y: -4 }}
+      layout
+    >
+      {/* Enhanced Real-time Status Indicator */}
+      <div className="absolute top-4 right-4 z-10">
+        <ComponentStatusIndicator
+          isConnected={isRealTimeConnected}
+          connectionStatus={connectionStatus}
+          lastUpdated={lastUpdated}
+          updateCount={updateCount}
+          componentName={`${title} Chart`}
+          updateFrequency="Every 15 seconds"
+          onReconnect={onReconnect}
+          onToggleRealtime={onToggleRealtime}
+          isRealtimeEnabled={isRealtimeEnabled}
+          className="hover:bg-slate-700/50"
+        />
+      </div>
+
+      {/* Update Flash Overlay */}
+      <AnimatePresence>
         {showUpdateIndicator && (
-          <span className="px-2 py-1 text-xs bg-blue-600 text-blue-100 rounded-full animate-pulse">
-            Updated
-          </span>
+          <motion.div
+            className="absolute inset-0 bg-blue-400/10 rounded-lg pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          />
         )}
-        <button
-          onClick={onStatusClick}
-          className="p-1 rounded-full hover:bg-slate-700 transition-colors"
-          aria-label={`Chart real-time status: ${isRealTimeConnected ? 'Connected' : 'Disconnected'}`}
-        >
-          {isRealTimeConnected ? (
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-          ) : (
-            <div className="w-2 h-2 bg-red-400 rounded-full" />
-          )}
-        </button>
-      </div>
+      </AnimatePresence>
 
-      <h3 className="text-lg font-semibold text-white mb-4">{title}</h3>
-      <div className="h-64">
+      {/* Loading Overlay */}
+      <AnimatePresence>
+        {isUpdating && (
+          <motion.div
+            className="absolute inset-0 bg-slate-800/80 rounded-lg flex items-center justify-center backdrop-blur-sm z-20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div
+              className="w-6 h-6 border-2 border-blue-400 border-t-transparent rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              aria-label={`Updating ${title} chart`}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.h3 
+        className="text-lg font-semibold text-white mb-4 flex items-center space-x-2"
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, delay: index * 0.1 + 0.2 }}
+      >
+        {getChartIcon(chartName)}
+        <span>{title}</span>
+      </motion.h3>
+      
+      <motion.div 
+        className="h-64"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, delay: index * 0.1 + 0.3 }}
+        role="img"
+        aria-label={`${title} data visualization`}
+        tabIndex={0}
+      >
         {children}
-      </div>
-    </div>
+      </motion.div>
+
+      {/* Update Badge */}
+      <AnimatePresence>
+        {showUpdateIndicator && (
+          <motion.div
+            className="absolute bottom-4 left-4 bg-blue-600 text-white text-xs px-2 py-1 rounded-full flex items-center space-x-1"
+            initial={{ scale: 0, y: 10 }}
+            animate={{ scale: 1, y: 0 }}
+            exit={{ scale: 0, y: -10 }}
+            transition={{ type: "spring", stiffness: 500, damping: 25 }}
+          >
+            <Activity className="w-3 h-3" aria-hidden="true" />
+            <span>Updated</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
-interface RealtimeChartStatusPanelProps {
-  isOpen: boolean;
-  onClose: () => void;
-  connectionStatus: 'connected' | 'connecting' | 'disconnected';
-  lastUpdated?: Date;
-  updateCount: number;
-  chartName: string;
-}
-
-function RealtimeChartStatusPanel({ 
-  isOpen, 
-  onClose, 
-  connectionStatus, 
-  lastUpdated, 
-  updateCount, 
-  chartName 
-}: RealtimeChartStatusPanelProps) {
-  if (!isOpen) return null;
-
-  const statusConfig = {
-    connected: { color: 'text-green-400', bg: 'bg-green-900/20', icon: Wifi },
-    connecting: { color: 'text-yellow-400', bg: 'bg-yellow-900/20', icon: AlertCircle },
-    disconnected: { color: 'text-red-400', bg: 'bg-red-900/20', icon: WifiOff }
-  };
-
-  const config = statusConfig[connectionStatus];
-  const StatusIcon = config.icon;
-
-  return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={onClose}>
-      <div className="bg-slate-800 rounded-lg p-6 border border-slate-700 max-w-md w-full mx-4" onClick={e => e.stopPropagation()}>
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-white">{chartName} Status</h3>
-          <button onClick={onClose} className="text-slate-400 hover:text-white">×</button>
-        </div>
-        
-        <div className={`flex items-center space-x-3 p-3 rounded-lg ${config.bg} mb-4`}>
-          <StatusIcon className={`w-5 h-5 ${config.color}`} />
-          <div>
-            <p className={`font-medium ${config.color}`}>
-              {connectionStatus.charAt(0).toUpperCase() + connectionStatus.slice(1)}
-            </p>
-            <p className="text-sm text-slate-400">
-              Chart data {connectionStatus === 'connected' ? 'updating live' : 'using cached data'}
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-2 text-sm">
-          <div className="flex justify-between">
-            <span className="text-slate-400">Data updates:</span>
-            <span className="text-white">{updateCount}</span>
-          </div>
-          {lastUpdated && (
-            <div className="flex justify-between">
-              <span className="text-slate-400">Last update:</span>
-              <span className="text-white">{lastUpdated.toLocaleTimeString()}</span>
-            </div>
-          )}
-          <div className="flex justify-between">
-            <span className="text-slate-400">Update frequency:</span>
-            <span className="text-white">Every 15 seconds</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+// Helper function to get chart icons
+function getChartIcon(chartName: string): React.ReactNode {
+  const iconClass = "w-5 h-5 text-blue-400";
+  
+  switch (chartName) {
+    case 'gamesOverTime':
+    case 'winRateTrends':
+      return <TrendingUp className={iconClass} aria-hidden="true" />;
+    case 'playerRole':
+      return <PieChart className={iconClass} aria-hidden="true" />;
+    case 'tournamentParticipation':
+      return <BarChart3 className={iconClass} aria-hidden="true" />;
+    default:
+      return <Activity className={iconClass} aria-hidden="true" />;
+  }
 }
 
 export function ChartGrid() {
   const [activeStatusPanel, setActiveStatusPanel] = useState<string | null>(null);
   const [chartUpdateTriggers, setChartUpdateTriggers] = useState<Record<string, number>>({});
+  const [previousChartData, setPreviousChartData] = useState<any>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [previousConnectionStatus, setPreviousConnectionStatus] = useState<string | null>(null);
   
-  // Real-time chart data integration
+  // Real-time chart data integration with enhanced hooks
   const {
-    data: realtimeChartData,
+    chartData: realtimeChartData,
     isConnected,
-    connectionStatus,
     lastUpdated,
-    updateCount,
-    error
+    isLoading
   } = useRealtimeChartData();
 
-  // Track chart updates for animation triggers
+  const {
+    connectionHealth,
+    isRealTimeEnabled,
+    reconnect,
+    toggleRealTime
+  } = useRealtimeConnection();
+
+  const {
+    totalUpdates,
+    subscriptionCount
+  } = useRealtimeSubscriptions();
+
+  // Helper function to map ConnectionStatus to component-expected status
+  const mapConnectionStatus = (status: typeof connectionHealth.status): 'connected' | 'connecting' | 'disconnected' => {
+    switch (status) {
+      case 'connected':
+        return 'connected';
+      case 'connecting':
+      case 'reconnecting':
+        return 'connecting';
+      case 'disconnected':
+      default:
+        return 'disconnected';
+    }
+  };
+
+  const mappedConnectionStatus = mapConnectionStatus(connectionHealth.status);
+
+  // Enhanced connection status change notifications
+  useEffect(() => {
+    if (previousConnectionStatus && previousConnectionStatus !== mappedConnectionStatus) {
+      const statusMessages = {
+        connected: 'Chart data feed connected successfully',
+        connecting: 'Chart data feed attempting to connect...',
+        disconnected: 'Chart data feed disconnected'
+      };
+
+      const statusColors = {
+        connected: 'success',
+        connecting: 'loading',
+        disconnected: 'error'
+      };
+
+      const message = statusMessages[mappedConnectionStatus];
+      const colorType = statusColors[mappedConnectionStatus];
+
+      if (colorType === 'success') {
+        toast.success(message, {
+          duration: 3000,
+          position: 'top-right',
+          icon: '📊',
+        });
+      } else if (colorType === 'error') {
+        toast.error(message, {
+          duration: 4000,
+          position: 'top-right',
+          icon: '📊',
+        });
+      } else {
+        toast.loading(message, {
+          duration: 2000,
+          position: 'top-right',
+          icon: '📊',
+        });
+      }
+    }
+    setPreviousConnectionStatus(mappedConnectionStatus);
+  }, [mappedConnectionStatus, previousConnectionStatus]);
+
+  // Track chart updates for animation triggers and update detection
   useEffect(() => {
     if (realtimeChartData) {
       const newTriggers: Record<string, number> = {};
@@ -219,8 +349,16 @@ export function ChartGrid() {
         newTriggers[chartKey] = Date.now();
       });
       setChartUpdateTriggers(newTriggers);
+
+      // Check for data changes to trigger update animation
+      if (previousChartData && JSON.stringify(previousChartData) !== JSON.stringify(realtimeChartData)) {
+        setIsUpdating(true);
+        const timer = setTimeout(() => setIsUpdating(false), 500);
+        return () => clearTimeout(timer);
+      }
     }
-  }, [realtimeChartData]);
+    setPreviousChartData(realtimeChartData);
+  }, [realtimeChartData, previousChartData]);
 
   // Default chart data for fallback
   const defaultChartData = {
@@ -294,70 +432,172 @@ export function ChartGrid() {
   // Use real-time data if available, otherwise fall back to defaults
   const chartData = realtimeChartData || defaultChartData;
 
+  // Convert real-time data to Chart.js format if needed
+  const convertedChartData = realtimeChartData ? {
+    gamesOverTime: {
+      labels: realtimeChartData.gamesOverTime.map(item => item.date),
+      datasets: [
+        {
+          label: 'Games Played',
+          data: realtimeChartData.gamesOverTime.map(item => item.count),
+          borderColor: '#3b82f6', // blue-500
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          fill: true,
+          tension: 0.4
+        }
+      ]
+    },
+    
+    playerRole: {
+      labels: realtimeChartData.roleDistribution.map(item => item.role),
+      datasets: [
+        {
+          label: 'Role Distribution',
+          data: realtimeChartData.roleDistribution.map(item => item.count),
+          backgroundColor: [
+            '#ef4444', // red-500
+            '#22c55e', // green-500
+            '#3b82f6', // blue-500
+            '#f59e0b', // amber-500
+            '#8b5cf6'  // violet-500
+          ],
+          borderColor: '#475569', // slate-600
+          borderWidth: 1
+        }
+      ]
+    },
+
+    winRateTrends: {
+      labels: realtimeChartData.winRateTrends.map(item => item.date),
+      datasets: [
+        {
+          label: 'Win Rate',
+          data: realtimeChartData.winRateTrends.map(item => item.winRate),
+          borderColor: '#ef4444', // red-500
+          backgroundColor: 'rgba(239, 68, 68, 0.1)',
+          tension: 0.4
+        }
+      ]
+    },
+
+    tournamentParticipation: {
+      labels: realtimeChartData.tournamentParticipation.map(item => item.tournament),
+      datasets: [
+        {
+          label: 'Participants',
+          data: realtimeChartData.tournamentParticipation.map(item => item.participants),
+          backgroundColor: 'rgba(59, 130, 246, 0.8)', // blue-500
+          borderColor: '#3b82f6',
+          borderWidth: 1
+        }
+      ]
+    }
+  } : defaultChartData;
+
   const handleStatusClick = (chartName: string) => {
     setActiveStatusPanel(chartName);
   };
 
-  const hasRecentUpdate = (chartKey: string) => {
+  const handleReconnect = async () => {
+    try {
+      await reconnect();
+      setActiveStatusPanel(null);
+    } catch (error) {
+      console.error('Failed to reconnect:', error);
+    }
+  };
+
+  const handleToggleRealtime = (enabled: boolean) => {
+    toggleRealTime();
+  };
+
+  const hasRecentUpdate = (chartKey: string): boolean => {
     const updateTime = chartUpdateTriggers[chartKey];
-    return updateTime && (Date.now() - updateTime) < 3000;
+    return !!(updateTime && (Date.now() - updateTime) < 3000);
   };
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <motion.div 
+        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ staggerChildren: 0.1 }}
+        role="region"
+        aria-label="Real-time analytics charts"
+      >
         {/* Games Over Time */}
         <ChartCard
           title="Games Over Time"
           isRealTimeConnected={isConnected}
-          onStatusClick={() => handleStatusClick('gamesOverTime')}
+          connectionStatus={mappedConnectionStatus}
+          lastUpdated={lastUpdated}
+          updateCount={totalUpdates}
+          onReconnect={handleReconnect}
+          onToggleRealtime={handleToggleRealtime}
+          isRealtimeEnabled={isRealTimeEnabled}
           hasRecentUpdate={hasRecentUpdate('gamesOverTime')}
+          chartName="gamesOverTime"
+          index={0}
+          isUpdating={isUpdating}
         >
-          <Line data={chartData.gamesOverTime} options={chartOptions} />
+          <Line data={convertedChartData.gamesOverTime} options={chartOptions} />
         </ChartCard>
 
         {/* Player Role Distribution */}
         <ChartCard
           title="Role Distribution"
           isRealTimeConnected={isConnected}
-          onStatusClick={() => handleStatusClick('playerRole')}
+          connectionStatus={mappedConnectionStatus}
+          lastUpdated={lastUpdated}
+          updateCount={totalUpdates}
+          onReconnect={handleReconnect}
+          onToggleRealtime={handleToggleRealtime}
+          isRealtimeEnabled={isRealTimeEnabled}
           hasRecentUpdate={hasRecentUpdate('playerRole')}
+          chartName="playerRole"
+          index={1}
+          isUpdating={isUpdating}
         >
-          <Bar data={chartData.playerRole} options={chartOptions} />
+          <Bar data={convertedChartData.playerRole} options={chartOptions} />
         </ChartCard>
 
         {/* Win Rate Trends */}
         <ChartCard
           title="Win Rate Trends"
           isRealTimeConnected={isConnected}
-          onStatusClick={() => handleStatusClick('winRateTrends')}
+          connectionStatus={mappedConnectionStatus}
+          lastUpdated={lastUpdated}
+          updateCount={totalUpdates}
+          onReconnect={handleReconnect}
+          onToggleRealtime={handleToggleRealtime}
+          isRealtimeEnabled={isRealTimeEnabled}
           hasRecentUpdate={hasRecentUpdate('winRateTrends')}
+          chartName="winRateTrends"
+          index={2}
+          isUpdating={isUpdating}
         >
-          <Line data={chartData.winRateTrends} options={chartOptions} />
+          <Line data={convertedChartData.winRateTrends} options={chartOptions} />
         </ChartCard>
 
         {/* Tournament Participation */}
         <ChartCard
           title="Tournament Participation"
           isRealTimeConnected={isConnected}
-          onStatusClick={() => handleStatusClick('tournamentParticipation')}
-          hasRecentUpdate={hasRecentUpdate('tournamentParticipation')}
-        >
-          <Bar data={chartData.tournamentParticipation} options={chartOptions} />
-        </ChartCard>
-      </div>
-
-      {/* Status Panel Modals */}
-      {activeStatusPanel && (
-        <RealtimeChartStatusPanel
-          isOpen={true}
-          onClose={() => setActiveStatusPanel(null)}
-          connectionStatus={connectionStatus}
+          connectionStatus={mappedConnectionStatus}
           lastUpdated={lastUpdated}
-          updateCount={updateCount}
-          chartName={activeStatusPanel.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-        />
-      )}
+          updateCount={totalUpdates}
+          onReconnect={handleReconnect}
+          onToggleRealtime={handleToggleRealtime}
+          isRealtimeEnabled={isRealTimeEnabled}
+          hasRecentUpdate={hasRecentUpdate('tournamentParticipation')}
+          chartName="tournamentParticipation"
+          index={3}
+          isUpdating={isUpdating}
+        >
+          <Bar data={convertedChartData.tournamentParticipation} options={chartOptions} />
+        </ChartCard>
+      </motion.div>
     </>
   );
 }
