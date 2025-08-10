@@ -24,34 +24,20 @@ import { toast } from 'react-hot-toast'
 // =============================================================================
 
 /**
- * Throttle function to limit update frequency
+ * Throttle function for rate limiting
  */
-function throttle<T extends (...args: any[]) => any>(
-  func: T, 
-  limit: number
-): T {
-  let inThrottle: boolean
-  return ((...args: any[]) => {
-    if (!inThrottle) {
-      func(...args)
-      inThrottle = true
-      setTimeout(() => inThrottle = false, limit)
-    }
-  }) as T
-}
-
-/**
- * Debounce function for batching updates
- */
-function debounce<T extends (...args: any[]) => any>(
-  func: T, 
+function throttle<TFunc extends (...args: unknown[]) => unknown>(
+  func: TFunc, 
   delay: number
-): T {
-  let timeoutId: NodeJS.Timeout
-  return ((...args: any[]) => {
-    clearTimeout(timeoutId)
-    timeoutId = setTimeout(() => func.apply(null, args), delay)
-  }) as T
+): TFunc {
+  let lastCall = 0
+  return ((...args: unknown[]) => {
+    const now = Date.now()
+    if (now - lastCall >= delay) {
+      lastCall = now
+      return (func as (...args: unknown[]) => unknown)(...args)
+    }
+  }) as TFunc
 }
 
 /**
@@ -240,9 +226,9 @@ export const useRealtimeStore = create<RealtimeStore>()(
     // SUBSCRIPTION MANAGEMENT
     // =============================================================================
 
-    subscribe: (
+    subscribe: <T extends { [key: string]: any } = { [key: string]: any }>(
       table: string,
-              callback: (payload: RealtimePostgresChangesPayload<any>) => void,
+      callback: (payload: RealtimePostgresChangesPayload<T>) => void,
       options: SubscriptionOptions = {}
     ) => {
       const state = get()

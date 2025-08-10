@@ -38,11 +38,11 @@ export interface SubscriptionOptions {
   immediate?: boolean
 }
 
-export interface ActiveSubscription {
+export interface ActiveSubscription<T extends { [key: string]: any } = { [key: string]: any }> {
   id: string
   table: string
   filter?: string
-  callback: (payload: RealtimePostgresChangesPayload<any>) => void
+  callback: (payload: RealtimePostgresChangesPayload<T>) => void
   options: SubscriptionOptions
   createdAt: Date
   lastUpdate?: Date
@@ -69,7 +69,7 @@ export interface RealtimeActivity {
   timestamp: Date
   participants?: number
   status: 'completed' | 'ongoing' | 'upcoming'
-  metadata?: Record<string, any>
+  metadata?: Record<string, unknown>
 }
 
 export interface RealtimeChartData {
@@ -123,9 +123,9 @@ export interface RealtimeActions {
   updateConnectionStatus: (status: ConnectionStatus, error?: string) => void
   
   // Subscription management
-  subscribe: (
+  subscribe: <T extends { [key: string]: any } = { [key: string]: any }>(
     table: string,
-          callback: (payload: RealtimePostgresChangesPayload<any>) => void,
+    callback: (payload: RealtimePostgresChangesPayload<T>) => void,
     options?: SubscriptionOptions
   ) => () => void
   unsubscribe: (subscriptionId: string) => void
@@ -154,11 +154,11 @@ export interface UseRealtimeOptions {
   filter?: string
   enabled?: boolean
   throttleMs?: number
-  onUpdate?: (data: any) => void
+  onUpdate?: (data: { [key: string]: any }) => void
   onError?: (error: string) => void
 }
 
-export interface UseRealtimeReturn<T = any> {
+export interface UseRealtimeReturn<T extends { [key: string]: any } = { [key: string]: any }> {
   data: T | null
   isLoading: boolean
   isConnected: boolean
@@ -218,7 +218,7 @@ export interface RealtimeError {
   type: 'connection' | 'subscription' | 'data' | 'performance'
   message: string
   timestamp: Date
-  details?: Record<string, any>
+  details?: Record<string, unknown>
   recoverable: boolean
 }
 
@@ -228,4 +228,19 @@ export interface ErrorRecoveryStrategy {
   initialDelay: number
   maxDelay: number
   shouldRetry: (error: RealtimeError) => boolean
+}
+
+// For PostgreSQL change payload constraint
+export type DatabaseRecord = Record<string, unknown>
+
+export interface PerformanceThresholds {
+  responseTimes: Record<string, unknown>
+  errorRates: Record<string, unknown>
+  connectionHealth: Record<string, unknown>
+}
+
+export interface DetailedErrorInfo {
+  timestamp: Date
+  context: Record<string, unknown>
+  stackTrace?: string
 }

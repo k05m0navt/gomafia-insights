@@ -506,7 +506,7 @@ class ErrorRecoveryManager {
     return history.filter(err => err.errorId === errorId).length;
   }
 
-  private async retryOriginalOperation(context: ErrorContext): Promise<boolean> {
+  private async retryOriginalOperation(_context: ErrorContext): Promise<boolean> {
     // This would typically retry the original operation that failed
     // For now, simulate with a success rate
     return Math.random() > 0.3; // 70% success rate
@@ -525,7 +525,7 @@ class ErrorRecoveryManager {
     return data;
   }
 
-  private async getCachedData(operation: string): Promise<any> {
+  private async getCachedData(_operation: string): Promise<any> {
     // Simulate cache lookup
     return Math.random() > 0.5 ? { cached: true, data: 'fallback' } : null;
   }

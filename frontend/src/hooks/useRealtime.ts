@@ -15,7 +15,7 @@ import { RealtimePostgresChangesPayload } from '@supabase/supabase-js'
 /**
  * Main hook for real-time data subscriptions
  */
-export function useRealtime<T extends { [key: string]: any } = any>(options: UseRealtimeOptions = {}): UseRealtimeReturn<T> {
+export function useRealtime<T extends { [key: string]: any } = { [key: string]: any }>(options: UseRealtimeOptions = {}): UseRealtimeReturn<T> {
   const {
     table,
     filter,
@@ -341,9 +341,9 @@ export function useRealtimeActivityFeed() {
         id: `game_${gameData.id}`,
         type: 'game',
         title: `Game #${gameData.id}`,
-        description: `${gameData.outcome || 'Game'} - ${gameData.playerCount || 0} players`,
+        description: `${gameData.outcome || 'Game'} - ${(gameData.playerCount as number) || 0} players`,
         timestamp: new Date(),
-        participants: gameData.playerCount,
+        participants: (gameData.playerCount as number) || undefined,
         status: gameData.status === 'completed' ? 'completed' : 'ongoing'
       }
       addActivity(activity)
@@ -359,11 +359,11 @@ export function useRealtimeActivityFeed() {
       const activity: RealtimeActivity = {
         id: `tournament_${tournamentData.id}`,
         type: 'tournament',
-        title: tournamentData.name || `Tournament #${tournamentData.id}`,
-        description: `${tournamentData.status} - ${tournamentData.participantCount || 0} participants`,
+        title: (tournamentData.name as string) || `Tournament #${tournamentData.id}`,
+        description: `${tournamentData.status} - ${(tournamentData.participantCount as number) || 0} participants`,
         timestamp: new Date(),
-        participants: tournamentData.participantCount,
-        status: tournamentData.status
+        participants: (tournamentData.participantCount as number) || undefined,
+        status: (tournamentData.status as 'completed' | 'ongoing' | 'upcoming') || 'upcoming'
       }
       addActivity(activity)
     }

@@ -3,8 +3,6 @@
 // =============================================================================
 // Dynamic connection pooling with load balancing for real-time subscriptions
 
-import { toast } from 'react-hot-toast';
-
 export interface ConnectionConfig {
   url: string;
   apikey?: string;
@@ -331,7 +329,7 @@ class ConnectionPool {
    * Re-subscribe all subscriptions for a connection
    */
   private resubscribeConnection(connection: PoolConnection) {
-    connection.subscriptions.forEach((subscription, id) => {
+    connection.subscriptions.forEach((subscription, _id) => {
       this.sendSubscription(connection, subscription);
     });
   }

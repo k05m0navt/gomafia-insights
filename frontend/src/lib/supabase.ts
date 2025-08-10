@@ -66,7 +66,7 @@ export const supabaseAdmin = supabaseServiceRoleKey
  */
 export async function testSupabaseConnection() {
   try {
-    const { data, error } = await supabase.from('players').select('count').limit(1)
+    const { error } = await supabase.from('players').select('count').limit(1)
     
     if (error) {
       return { 
@@ -156,7 +156,7 @@ export function subscribeToTable(
   callback: (payload: any) => void,
   filter?: string
 ) {
-  let subscription = supabase
+  const subscription = supabase
     .channel(`realtime-${table}`)
     .on(
       'postgres_changes',

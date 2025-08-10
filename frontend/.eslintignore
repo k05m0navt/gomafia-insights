@@ -1,0 +1,16 @@
+# Generated files
+src/generated/**/*
+**/prisma/**/*
+**/*.generated.*
+**/wasm*.js
+
+# Node modules and build files
+node_modules/
+.next/
+out/
+dist/
+build/
+
+# System files
+.DS_Store
+*.log
