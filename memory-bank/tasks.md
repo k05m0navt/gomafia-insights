@@ -1,98 +1,95 @@
 # TASKS.MD - SOURCE OF TRUTH
 
 ## PROJECT STATUS
-- Status: COMPLETED
-- Current Mode: COMPLETED
+- Status: IN_PROGRESS
+- Current Mode: REFLECT
 - Current Phase: Phase 4B - Dashboard Component Real-time Integration (Production Readiness)
-- Next Step: VAN
+- Next Step: ARCHIVE
 
-## ACTIVE TASK - LEVEL 2 - Sub-phase 3C Testing & Production Readiness Bootstrap
-- Task: Establish unit test infrastructure and initial smoke tests for critical components
+## ACTIVE TASK - LEVEL 2 - Sub-phase 4: Global Realtime UX Integration
+- Task: Integrate global connection status UI and controls; initialize realtime connection on app load
 - Priority: HIGH
 - Status: IMPLEMENTATION COMPLETE → REFLECTION COMPLETE — Ready to ARCHIVE
 
 ## TASK OBJECTIVE
-- Primary Goal: Add Vitest + React Testing Library setup compatible with Next 15 and React 19
+- Primary Goal: Make realtime connection state visible and controllable across the app with accessible UX
 - Deliverables:
-  - Test runner and JSDOM environment configured
-  - Scripts: test and test:watch
-  - Example tests: RealtimeErrorBoundary fallback renders; DashboardHeader renders core UI
-  - CI-ready configuration (no interactive steps)
+  - `RealtimeStatusIndicator` integrated into `DashboardHeader` and app `layout`
+  - Auto-connect on client mount with safe fallback (no env secrets required at build)
+  - Connect/Disconnect/Retry controls surfaced in header
+  - Non-blocking toasts for connection changes
+  - Smoke tests for indicator render and control wiring
 
 ## TECHNOLOGY STACK
 - Framework: Next.js 15 (React 19)
 - Language: TypeScript 5
-- Test Runner: Vitest
-- Test Env: jsdom
-- UI Testing: @testing-library/react + @testing-library/jest-dom
+- State: Zustand realtime store (`useRealtimeStore`)
+- Tests: Vitest + React Testing Library (jsdom)
 
 ## TECHNOLOGY VALIDATION CHECKPOINTS
-- [x] Technology stack clearly defined
-- [ ] Required devDependencies identified and added to package.json
-- [ ] Vitest config created with jsdom + setupFiles
-- [ ] Hello World test executes (simple React component renders)
-- [ ] Test build passes: `npm run test`
-- [ ] App build unaffected: `npm run build`
+- [x] Minimal Hello-world: render indicator in header without runtime errors
+- [x] Build config: no SSR import of Supabase; client-only boundaries respected
+- [x] Required dependencies present (already in package.json)
+- [x] `npm run test` passes
+- [x] `npm run build` remains clean
 
 ## IMPLEMENTATION PLAN
-### Phase 1: Test Infrastructure
-1. Add devDependencies:
-   - vitest, jsdom, @testing-library/react, @testing-library/jest-dom, @types/testing-library__jest-dom (or ambient types via setup)
-2. Create `frontend/vitest.config.ts` with:
-   - environment: 'jsdom'
-   - setupFiles: ['src/setupTests.ts']
-   - include patterns: `['src/**/*.test.{ts,tsx}']`
-   - resolve.alias for `@/*` if used
-3. Create `frontend/src/setupTests.ts` to extend `expect` with `jest-dom` and RTL config
-4. Update `frontend/package.json` scripts:
-   - "test": "vitest --run"
-   - "test:watch": "vitest"
+### 0) Safety & Client Boundary
+1. Refactor `frontend/src/lib/supabase.ts` to lazy-init client:
+   - Export `getSupabase()` returning a cached client or `null` if env missing
+   - Remove top-level `throw`; guard env inside `getSupabase()`
+2. Update `frontend/src/lib/realtime.ts` to import `getSupabase` and resolve client inside methods (`connect`, `subscribe`, etc.). If `null`, set `connectionHealth.status='error'` with friendly message and skip.
+3. Add `'use client'` to `frontend/src/hooks/useRealtime.ts` to enforce client boundary.
 
-### Phase 2: Smoke Tests
-1. Add `frontend/src/components/realtime/__tests__/RealtimeErrorBoundary.test.tsx`
-   - Renders a child that throws → fallback UI visible
-2. Add `frontend/src/components/dashboard/__tests__/DashboardHeader.test.tsx`
-   - Renders header → asserts title and key controls present
+### 1) App Integration
+1. Create `frontend/src/components/providers/RealtimeBootstrap.tsx` (client) that calls `connect()` on mount (only if `getSupabase()` resolves).
+2. Inject `<RealtimeBootstrap />` in `frontend/src/app/layout.tsx` just before `<Toaster />`.
 
-### Phase 3: Validation
-1. Run `npm run test` (expect all passing)
-2. Run `npm run build` (should remain clean)
+### 2) Header Controls & UX
+1. Ensure `RealtimeStatusIndicator` reflects `connectionHealth.status`, `totalUpdates`.
+2. Add actions (Connect/Disconnect/Retry) wired to `useRealtimeConnection()`.
+3. Toasts: connection established/closed/error already handled in store; verify messages.
+4. Accessibility: labels on buttons, focus management when panel opens.
+
+### 3) Testing
+1. `RealtimeStatusIndicator` smoke test: renders for each mocked status.
+2. `DashboardHeader` test: indicator present; triggers call mocked actions.
+3. Mock hooks via `vi.mock('src/hooks/useRealtime', ...)` to avoid real Supabase.
+
+### 4) Validation
+1. Run `npm run test` (passing)
+2. Run `npm run build` (clean; no SSR env crashes)
 
 ## AFFECTED FILES / LOCATIONS
-- Config: `frontend/vitest.config.ts`, `frontend/src/setupTests.ts`, `frontend/package.json`
-- Tests: 
-  - `frontend/src/components/realtime/__tests__/RealtimeErrorBoundary.test.tsx`
-  - `frontend/src/components/dashboard/__tests__/DashboardHeader.test.tsx`
-- Components under test (no edits expected):
-  - `frontend/src/components/realtime/RealtimeErrorBoundary.tsx`
-  - `frontend/src/components/dashboard/DashboardHeader.tsx`
+- Edit: `frontend/src/lib/supabase.ts` (lazy client)
+- Edit: `frontend/src/lib/realtime.ts` (use `getSupabase` inside methods)
+- Edit: `frontend/src/hooks/useRealtime.ts` (`'use client'`)
+- Add: `frontend/src/components/providers/RealtimeBootstrap.tsx` (client)
+- Edit: `frontend/src/app/layout.tsx` (inject bootstrap)
+- Tests: `frontend/src/components/realtime/__tests__/RealtimeStatusIndicator.test.tsx`, `frontend/src/components/dashboard/__tests__/DashboardHeader.test.tsx`
 
 ## DEPENDENCIES
-- devDependencies: vitest, jsdom, @testing-library/react, @testing-library/jest-dom, @types/testing-library__jest-dom
+- Existing: Zustand store `useRealtimeStore`, toast system, components above
+- No new npm packages expected
 
-## POTENTIAL CHALLENGES & MITIGATIONS
-- Next 15 + ESM with Vitest: use Vitest (not Jest); ensure ESM-compatible imports in config
-- React 19 concurrent rendering warnings: use RTL's `render` and await updates; avoid legacy `act` calls
-- DOM APIs in tests: jsdom provides `window`/`navigator`; mock timers when necessary
-- UI libs (framer-motion, lucide-react, react-hot-toast): for smoke tests, avoid animation timing assertions; mock `react-hot-toast` as needed
-- Tailwind classes: not required for behavior; assert text/roles instead of classes
-
-## TESTING STRATEGY
-- Scope: Smoke tests to validate baseline rendering and error boundary behavior
-- Non-goals: Full interaction/e2e; to be added later (Playwright)
+## RISKS & MITIGATIONS
+- Supabase env missing causes runtime error:
+  - Mitigation: lazy `getSupabase()` + guarded connect path; show error in indicator not crash build
+- Server/client boundary issues:
+  - Mitigation: add `'use client'` to hooks and provider; avoid importing Supabase in server-only files
 
 ## SUCCESS CRITERIA
-- npm run test passes locally (0 failures)
-- next build unaffected (no new errors)
-- Two smoke tests pass and are stable
+- Visible, accurate connection status in header
+- Working controls without regressions
+- Clean test and build
 
 ## CHECKLIST
-- [ ] Infra: devDependencies added
-- [ ] Config: vitest.config.ts and src/setupTests.ts created
-- [ ] Scripts: test and test:watch added to package.json
-- [ ] Tests: RealtimeErrorBoundary smoke test added
-- [ ] Tests: DashboardHeader (or OverviewCards) smoke test added
-- [ ] Validation: tests and build pass
+- [x] Safety: lazy Supabase client + guards
+- [x] Client boundary: `'use client'` added where required
+- [x] Bootstrap: auto-connect on mount (client-only)
+- [x] Controls: connect/disconnect/retry
+- [x] Tests: indicator + header wiring
+- [x] Validation: tests and build pass
 
 ## PLAN VERIFICATION
 - Requirements documented: YES
@@ -105,24 +102,19 @@
 - tasks.md updated with plan: YES
 
 ## MODE TRANSITION
-- Recommendation: IMPLEMENT MODE (no creative design needed)
+- Recommendation: IMPLEMENT MODE (Level 2)
 
-- [x] Infra: devDependencies added
-- [x] Config: vitest.config.ts and src/setupTests.ts created
-- [x] Scripts: test and test:watch added to package.json
-- [x] Tests: RealtimeErrorBoundary smoke test added
-- [x] Tests: DashboardHeader (or OverviewCards) smoke test added
-- [x] Validation: tests and build pass
 
 ## Reflection Highlights
-- **What Went Well**: Vitest + RTL configured cleanly with jsdom; two smoke tests added; CI-safe mocks for `react-hot-toast`, `framer-motion`, and `lucide-react`
-- **Challenges**: Vite React plugin missing, PostCSS plugin shape errors with Next 15, `vi` type leakage into app build
-- **Solutions**: Removed plugin dependency in Vitest config; fixed PostCSS config to object form; excluded tests and `src/setupTests.ts` from TS build
-- **Results**: `npm run test` passes (2/2); `npm run build` clean
+- **What Went Well**: Lazy client pattern, minimal bootstrap, green CI
+- **Challenges**: SSR side effects, safe unsubscribe when client missing
+- **Solutions**: Guarded store methods, client-only hook/provider, friendly error state
+- **Results**: Tests 2/2 PASS; Next build clean
 - **Next Steps**: ARCHIVE NOW
-- **Reflection Doc**: [memory-bank/reflection-level2-subphase3c-testing-production-readiness.md](reflection-level2-subphase3c-testing-production-readiness.md)
+- **Reflection Doc**: [memory-bank/reflection-level2-subphase4-global-realtime-ux-integration.md](reflection-level2-subphase4-global-realtime-ux-integration.md)
+
 
 ## ARCHIVE
-- Date: 2025-08-11
-- Archive Document: [docs/archive/subphase3c-testing-readiness_20250811.md](../docs/archive/subphase3c-testing-readiness_20250811.md)
+- Date: 2025-08-12
+- Archive Document: [docs/archive/subphase4-global-realtime-ux-integration_20250812.md](../docs/archive/subphase4-global-realtime-ux-integration_20250812.md)
 - Status: COMPLETED

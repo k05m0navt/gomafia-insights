@@ -6,7 +6,7 @@
 
 import { create } from 'zustand'
 import { subscribeWithSelector } from 'zustand/middleware'
-import { supabase } from './supabase'
+import { getSupabase } from './supabase'
 import { 
   RealtimeState, 
   RealtimeActions, 
@@ -121,6 +121,11 @@ export const useRealtimeStore = create<RealtimeStore>()(
       })
 
       try {
+        const supabase = getSupabase()
+        if (!supabase) {
+          throw new Error('Supabase is not configured')
+        }
+
         // Test connection with a simple query
         const { error } = await supabase.from('players').select('count').limit(1)
         
@@ -168,7 +173,10 @@ export const useRealtimeStore = create<RealtimeStore>()(
       
       // Unsubscribe from all active subscriptions
       state.activeSubscriptions.forEach((subscription) => {
-        supabase.removeChannel(supabase.channel(subscription.id))
+        const supabase = getSupabase()
+        if (supabase) {
+          supabase.removeChannel(supabase.channel(subscription.id))
+        }
       })
 
       set({
@@ -234,6 +242,19 @@ export const useRealtimeStore = create<RealtimeStore>()(
       const state = get()
       if (!state.isRealTimeEnabled) return () => {}
 
+      const supabase = getSupabase()
+      if (!supabase) {
+        // Mark error state but do not crash
+        set({
+          connectionHealth: {
+            ...state.connectionHealth,
+            status: 'error',
+            error: 'Supabase is not configured'
+          }
+        })
+        return () => {}
+      }
+
       const subscriptionId = generateSubscriptionId(table, options.filter)
       
       // Create throttled callback if specified
@@ -291,7 +312,10 @@ export const useRealtimeStore = create<RealtimeStore>()(
 
       // Return unsubscribe function
       return () => {
-        supabase.removeChannel(channel)
+        const supabase = getSupabase()
+        if (supabase) {
+          supabase.removeChannel(channel)
+        }
         const currentState = get()
         const updatedSubscriptions = new Map(currentState.activeSubscriptions)
         updatedSubscriptions.delete(subscriptionId)
@@ -304,7 +328,10 @@ export const useRealtimeStore = create<RealtimeStore>()(
       const subscription = state.activeSubscriptions.get(subscriptionId)
       
       if (subscription) {
-        supabase.removeChannel(supabase.channel(subscriptionId))
+        const supabase = getSupabase()
+        if (supabase) {
+          supabase.removeChannel(supabase.channel(subscriptionId))
+        }
         const updatedSubscriptions = new Map(state.activeSubscriptions)
         updatedSubscriptions.delete(subscriptionId)
         set({ activeSubscriptions: updatedSubscriptions })
@@ -314,9 +341,12 @@ export const useRealtimeStore = create<RealtimeStore>()(
     unsubscribeAll: () => {
       const state = get()
       
-      state.activeSubscriptions.forEach((subscription) => {
-        supabase.removeChannel(supabase.channel(subscription.id))
-      })
+      const supabase = getSupabase()
+      if (supabase) {
+        state.activeSubscriptions.forEach((subscription) => {
+          supabase.removeChannel(supabase.channel(subscription.id))
+        })
+      }
 
       set({ activeSubscriptions: new Map() })
     },
@@ -399,90 +429,13 @@ export const useRealtimeStore = create<RealtimeStore>()(
 // REAL-TIME MANAGER SINGLETON
 // =============================================================================
 
-/**
- * Real-time manager singleton for application-wide real-time functionality
- */
-export class RealtimeManager {
-  private static instance: RealtimeManager
-  private cleanupInterval?: NodeJS.Timeout
-  private performanceInterval?: NodeJS.Timeout
-
-  private constructor() {
-    this.startPerformanceMonitoring()
-    this.startCleanupTasks()
-  }
-
-  static getInstance(): RealtimeManager {
-    if (!RealtimeManager.instance) {
-      RealtimeManager.instance = new RealtimeManager()
-    }
-    return RealtimeManager.instance
-  }
-
-  /**
-   * Initialize real-time manager and connect
-   */
-  async initialize() {
-    const store = useRealtimeStore.getState()
-    await store.connect()
-  }
-
-  /**
-   * Start performance monitoring
-   */
-  private startPerformanceMonitoring() {
-    this.performanceInterval = setInterval(() => {
-      const state = useRealtimeStore.getState()
-      
-      // Check for performance issues
-      if (state.activeSubscriptions.size > 20) {
-        console.warn('High number of active subscriptions:', state.activeSubscriptions.size)
-      }
-
-      if (state.activities.length > 150) {
-        console.warn('High number of activities, triggering cleanup')
-        state.clearOldActivities(24 * 60 * 60 * 1000) // 24 hours
-      }
-
-      // Update performance metrics
-      useRealtimeStore.setState({
-        lastPerformanceCheck: new Date()
-      })
-    }, 60000) // Check every minute
-  }
-
-  /**
-   * Start cleanup tasks
-   */
-  private startCleanupTasks() {
-    this.cleanupInterval = setInterval(() => {
-      const state = useRealtimeStore.getState()
-      
-      // Clean old activities (older than 24 hours)
-      state.clearOldActivities(24 * 60 * 60 * 1000)
-      
-      // Garbage collection hint
-      if (global.gc) {
-        global.gc()
-      }
-    }, 5 * 60 * 1000) // Every 5 minutes
-  }
-
-  /**
-   * Cleanup resources
-   */
-  cleanup() {
-    if (this.cleanupInterval) {
-      clearInterval(this.cleanupInterval)
-    }
-    if (this.performanceInterval) {
-      clearInterval(this.performanceInterval)
-    }
-
-    const store = useRealtimeStore.getState()
-    store.disconnect()
-  }
+export const RealtimeManager = {
+  connect: () => useRealtimeStore.getState().connect(),
+  disconnect: () => useRealtimeStore.getState().disconnect(),
+  reconnect: () => useRealtimeStore.getState().reconnect(),
+  updateConnectionStatus: (status: ConnectionStatus, error?: string) =>
+    useRealtimeStore.getState().updateConnectionStatus(status, error),
+  subscribe: useRealtimeStore.getState().subscribe,
+  unsubscribe: useRealtimeStore.getState().unsubscribe,
+  unsubscribeAll: useRealtimeStore.getState().unsubscribeAll
 }
-
-// Export singleton instance
-export const realtimeManager = RealtimeManager.getInstance()
