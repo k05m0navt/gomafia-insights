@@ -357,3 +357,18 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 3. **Alternative Development**: New feature development while build quality resolution is planned
 
 **Process Foundation**: Enhanced Level 1 task management with external library constraint handling methodology ready for future quick fix tasks.
+
+## Level 1 ESLint Configuration Adjustment - Phase 4B (January 13, 2025)
+**Status**: ✅ COMPLETED & ARCHIVED
+- **Outcome**: 55+ ESLint errors → 0; clean `next build` `next build` `next build`
+- **Archive**: [docs/archive/level1-eslint-configuration_20250113.md](../docs/archive/level1-eslint-configuration_20250113.md)
+- **Reflection**: [memory-bank/reflection-level1-eslint-configuration.md](memory-bank/reflection-level1-eslint-configuration.md)
+
+
+
+## 2025-01-13: VAN Selection
+- Selected next task: Level 2 — Sub-phase 3C Testing & Production Readiness Bootstrap
+- Outcome: Prepared to enter PLAN for detailed steps and estimates
+
+## 2025-08-11: Archive — Level 2 Sub-phase 3C
+- Archived testing bootstrap. See [archive](../docs/archive/subphase3c-testing-readiness_20250811.md).

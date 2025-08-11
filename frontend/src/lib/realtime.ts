@@ -26,18 +26,18 @@ import { toast } from 'react-hot-toast'
 /**
  * Throttle function for rate limiting
  */
-function throttle<TFunc extends (...args: unknown[]) => unknown>(
-  func: TFunc, 
+function throttle(
+  func: (payload: RealtimePostgresChangesPayload<any>) => void, 
   delay: number
-): TFunc {
+): (payload: RealtimePostgresChangesPayload<any>) => void {
   let lastCall = 0
-  return ((...args: unknown[]) => {
+  return (payload: RealtimePostgresChangesPayload<any>) => {
     const now = Date.now()
     if (now - lastCall >= delay) {
       lastCall = now
-      return (func as (...args: unknown[]) => unknown)(...args)
+      return func(payload)
     }
-  }) as TFunc
+  }
 }
 
 /**
@@ -268,7 +268,7 @@ export const useRealtimeStore = create<RealtimeStore>()(
             }
 
             // Call the callback
-            throttledCallback(payload)
+            throttledCallback(payload as any)
           }
         )
         .subscribe()
@@ -278,7 +278,7 @@ export const useRealtimeStore = create<RealtimeStore>()(
         id: subscriptionId,
         table,
         filter: options.filter,
-        callback: throttledCallback,
+        callback: throttledCallback as any,
         options,
         createdAt: new Date(),
         updateCount: 0

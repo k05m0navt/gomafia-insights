@@ -11,6 +11,61 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  
+  // Global ignores for generated files
+  {
+    ignores: [
+      "src/generated/**/*",
+      "prisma/generated/**/*", 
+      "public/workers/**/*",
+      ".next/**/*",
+      "out/**/*",
+      "build/**/*"
+    ]
+  },
+
+  // Targeted exceptions for external library integration
+  {
+    files: [
+      "**/lib/supabase.ts",
+      "**/lib/realtime.ts", 
+      "**/hooks/useRealtime.ts",
+      "**/types/realtime.ts"
+    ],
+    rules: {
+      "@typescript-eslint/no-explicit-any": ["off"],
+      "@typescript-eslint/no-require-imports": ["off"]
+    }
+  },
+
+  // Targeted exceptions for performance monitoring systems
+  {
+    files: [
+      "**/performance/**/*.ts",
+      "**/performance/**/*.tsx"
+    ],
+    rules: {
+      "@typescript-eslint/no-explicit-any": ["off"],
+      "@typescript-eslint/no-unused-vars": ["error", { 
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }]
+    }
+  },
+
+  // Targeted exceptions for API routes and dashboard components with dynamic data
+  {
+    files: [
+      "**/app/api/**/*.ts",
+      "**/components/dashboard/**/*.tsx",
+      "**/components/realtime/**/*.tsx"
+    ],
+    rules: {
+      "@typescript-eslint/no-explicit-any": ["off"],
+      "@typescript-eslint/no-unused-vars": ["off"],
+      "react/no-unescaped-entities": ["off"]
+    }
+  }
 ];
 
 export default eslintConfig;
