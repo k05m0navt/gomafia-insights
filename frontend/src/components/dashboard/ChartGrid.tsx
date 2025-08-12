@@ -16,6 +16,7 @@ import {
 import { Line, Bar } from 'react-chartjs-2';
 import { Wifi, WifiOff, AlertCircle, TrendingUp, BarChart3, PieChart, Activity } from 'lucide-react';
 import { useRealtimeChartData, useRealtimeConnection, useRealtimeSubscriptions } from '../../hooks/useRealtime';
+import { useDashboardCharts } from '@/hooks/useDashboardData';
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ComponentStatusIndicator } from '../realtime/ComponentStatusIndicator';
@@ -432,6 +433,9 @@ export function ChartGrid() {
   // Use real-time data if available, otherwise fall back to defaults
   const chartData = realtimeChartData || defaultChartData;
 
+  const { data: chartsQuery } = useDashboardCharts(30, { enabled: !isConnected })
+  const charts = chartsQuery?.data
+
   // Convert real-time data to Chart.js format if needed
   const convertedChartData = realtimeChartData ? {
     gamesOverTime: {
@@ -440,7 +444,7 @@ export function ChartGrid() {
         {
           label: 'Games Played',
           data: realtimeChartData.gamesOverTime.map(item => item.count),
-          borderColor: '#3b82f6', // blue-500
+          borderColor: '#3b82f6',
           backgroundColor: 'rgba(59, 130, 246, 0.1)',
           fill: true,
           tension: 0.4
@@ -455,13 +459,13 @@ export function ChartGrid() {
           label: 'Role Distribution',
           data: realtimeChartData.roleDistribution.map(item => item.count),
           backgroundColor: [
-            '#ef4444', // red-500
-            '#22c55e', // green-500
-            '#3b82f6', // blue-500
-            '#f59e0b', // amber-500
-            '#8b5cf6'  // violet-500
+            '#ef4444',
+            '#22c55e',
+            '#3b82f6',
+            '#f59e0b',
+            '#8b5cf6'
           ],
-          borderColor: '#475569', // slate-600
+          borderColor: '#475569',
           borderWidth: 1
         }
       ]
@@ -473,7 +477,7 @@ export function ChartGrid() {
         {
           label: 'Win Rate',
           data: realtimeChartData.winRateTrends.map(item => item.winRate),
-          borderColor: '#ef4444', // red-500
+          borderColor: '#ef4444',
           backgroundColor: 'rgba(239, 68, 68, 0.1)',
           tension: 0.4
         }
@@ -486,7 +490,63 @@ export function ChartGrid() {
         {
           label: 'Participants',
           data: realtimeChartData.tournamentParticipation.map(item => item.participants),
-          backgroundColor: 'rgba(59, 130, 246, 0.8)', // blue-500
+          backgroundColor: 'rgba(59, 130, 246, 0.8)',
+          borderColor: '#3b82f6',
+          borderWidth: 1
+        }
+      ]
+    }
+  } : charts ? {
+    gamesOverTime: {
+      labels: charts.gamesOverTime.labels,
+      datasets: [
+        {
+          label: 'Games Played',
+          data: charts.gamesOverTime.values,
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59, 130, 246, 0.1)',
+          fill: true,
+          tension: 0.4
+        }
+      ]
+    },
+    playerRole: {
+      labels: charts.roleDistribution.labels,
+      datasets: [
+        {
+          label: 'Role Distribution',
+          data: charts.roleDistribution.values,
+          backgroundColor: [
+            '#ef4444',
+            '#22c55e',
+            '#3b82f6',
+            '#f59e0b',
+            '#8b5cf6'
+          ],
+          borderColor: '#475569',
+          borderWidth: 1
+        }
+      ]
+    },
+    winRateTrends: {
+      labels: charts.winRates.labels,
+      datasets: [
+        {
+          label: 'Win Rate',
+          data: charts.winRates.values,
+          borderColor: '#ef4444',
+          backgroundColor: 'rgba(239, 68, 68, 0.1)',
+          tension: 0.4
+        }
+      ]
+    },
+    tournamentParticipation: {
+      labels: charts.tournamentParticipation.labels,
+      datasets: [
+        {
+          label: 'Participants',
+          data: charts.tournamentParticipation.values,
+          backgroundColor: 'rgba(59, 130, 246, 0.8)',
           borderColor: '#3b82f6',
           borderWidth: 1
         }

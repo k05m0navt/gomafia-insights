@@ -2,98 +2,95 @@
 
 ## PROJECT STATUS
 - Status: IN_PROGRESS
-- Current Mode: REFLECT
-- Current Phase: Phase 4B - Dashboard Component Real-time Integration (Production Readiness)
-- Next Step: ARCHIVE
+- Current Mode: VAN
+- Current Phase: Phase 4B - Dashboard Component Real-time Integration (Analytics Wiring)
+- Next Step: VAN
 
-## ACTIVE TASK - LEVEL 2 - Sub-phase 4: Global Realtime UX Integration
-- Task: Integrate global connection status UI and controls; initialize realtime connection on app load
+## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
+- Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
 - Priority: HIGH
-- Status: IMPLEMENTATION COMPLETE → REFLECTION COMPLETE — Ready to ARCHIVE
+- Status: ARCHIVED
 
-## TASK OBJECTIVE
-- Primary Goal: Make realtime connection state visible and controllable across the app with accessible UX
-- Deliverables:
-  - `RealtimeStatusIndicator` integrated into `DashboardHeader` and app `layout`
-  - Auto-connect on client mount with safe fallback (no env secrets required at build)
-  - Connect/Disconnect/Retry controls surfaced in header
-  - Non-blocking toasts for connection changes
-  - Smoke tests for indicator render and control wiring
+## DESCRIPTION
+Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when realtime (Supabase) is not connected. Preserve realtime when available; otherwise, auto-fallback to API data with smooth UI.
+
+## COMPLEXITY
+- Level: 2 (Simple Enhancement)
+- Type: Enhancement (data wiring + fetch hooks)
 
 ## TECHNOLOGY STACK
 - Framework: Next.js 15 (React 19)
 - Language: TypeScript 5
-- State: Zustand realtime store (`useRealtimeStore`)
-- Tests: Vitest + React Testing Library (jsdom)
+- Data Fetching: React Query (@tanstack/react-query) — already installed
+- API: Next app routes
 
 ## TECHNOLOGY VALIDATION CHECKPOINTS
-- [x] Minimal Hello-world: render indicator in header without runtime errors
-- [x] Build config: no SSR import of Supabase; client-only boundaries respected
-- [x] Required dependencies present (already in package.json)
-- [x] `npm run test` passes
-- [x] `npm run build` remains clean
+- [x] React Query present in dependencies
+- [x] API routes exist: `stats`, `charts`, `activity`
+- [x] Test/build baseline green (`npm run test`, `npm run build` passed)
+- [x] No SSR crash risk (Supabase lazy client confirmed)
 
-## IMPLEMENTATION PLAN
-### 0) Safety & Client Boundary
-1. Refactor `frontend/src/lib/supabase.ts` to lazy-init client:
-   - Export `getSupabase()` returning a cached client or `null` if env missing
-   - Remove top-level `throw`; guard env inside `getSupabase()`
-2. Update `frontend/src/lib/realtime.ts` to import `getSupabase` and resolve client inside methods (`connect`, `subscribe`, etc.). If `null`, set `connectionHealth.status='error'` with friendly message and skip.
-3. Add `'use client'` to `frontend/src/hooks/useRealtime.ts` to enforce client boundary.
-
-### 1) App Integration
-1. Create `frontend/src/components/providers/RealtimeBootstrap.tsx` (client) that calls `connect()` on mount (only if `getSupabase()` resolves).
-2. Inject `<RealtimeBootstrap />` in `frontend/src/app/layout.tsx` just before `<Toaster />`.
-
-### 2) Header Controls & UX
-1. Ensure `RealtimeStatusIndicator` reflects `connectionHealth.status`, `totalUpdates`.
-2. Add actions (Connect/Disconnect/Retry) wired to `useRealtimeConnection()`.
-3. Toasts: connection established/closed/error already handled in store; verify messages.
-4. Accessibility: labels on buttons, focus management when panel opens.
-
-### 3) Testing
-1. `RealtimeStatusIndicator` smoke test: renders for each mocked status.
-2. `DashboardHeader` test: indicator present; triggers call mocked actions.
-3. Mock hooks via `vi.mock('src/hooks/useRealtime', ...)` to avoid real Supabase.
-
-### 4) Validation
-1. Run `npm run test` (passing)
-2. Run `npm run build` (clean; no SSR env crashes)
+## REQUIREMENTS
+- **Fallback logic**: If `isConnected === false` or no realtime data, fetch from API
+- **KPI mapping**: Use `stats` fields: `totalPlayers`, `totalGames`, `activeTournaments` → map to UI; use `averageElo` as `%` placeholder for Win Rate
+- **Charts mapping**: Convert `charts` response `{labels, values}` into Chart.js datasets
+- **Activity mapping**: Use `activity.activities[]`; format `time` human-readable
+- **UX**: Keep animations/spinners; no layout shifts
 
 ## AFFECTED FILES / LOCATIONS
-- Edit: `frontend/src/lib/supabase.ts` (lazy client)
-- Edit: `frontend/src/lib/realtime.ts` (use `getSupabase` inside methods)
-- Edit: `frontend/src/hooks/useRealtime.ts` (`'use client'`)
-- Add: `frontend/src/components/providers/RealtimeBootstrap.tsx` (client)
-- Edit: `frontend/src/app/layout.tsx` (inject bootstrap)
-- Tests: `frontend/src/components/realtime/__tests__/RealtimeStatusIndicator.test.tsx`, `frontend/src/components/dashboard/__tests__/DashboardHeader.test.tsx`
+- Add: `frontend/src/lib/api.ts` (fetch helpers)
+- Add: `frontend/src/hooks/useDashboardData.ts` (React Query hooks)
+- Edit: `frontend/src/components/dashboard/OverviewCards.tsx` (fallback to `useDashboardStats`)
+- Edit: `frontend/src/components/dashboard/ChartGrid.tsx` (fallback to `useDashboardCharts`)
+- Edit: `frontend/src/components/dashboard/RecentActivity.tsx` (fallback to `useRecentActivity`)
+
+## IMPLEMENTATION PLAN
+1) Data layer
+   - Create `lib/api.ts` with:
+     - `getDashboardStats()` → GET `/api/dashboard/stats`
+     - `getDashboardCharts(params)` → GET `/api/dashboard/charts?timeframe=...`
+     - `getRecentActivity(params)` → GET `/api/dashboard/activity?limit=...`
+2) Hooks
+   - Create `hooks/useDashboardData.ts` with React Query hooks:
+     - `useDashboardStats()` (staleTime 15s)
+     - `useDashboardCharts(timeframe=30)` (staleTime 30s)
+     - `useRecentActivity(limit=10)` (staleTime 15s)
+3) Component wiring
+   - `OverviewCards`: when `!isConnected || !metrics`, use `stats` values; format numbers with locale
+   - `ChartGrid`: when `!isConnected || !realtimeChartData`, build Chart.js datasets from API `{labels, values}`
+   - `RecentActivity`: when `!isConnected || realtimeActivities.length===0`, use API activities; format time
+4) Testing & validation
+   - Smoke: render components with mocked disconnected state and ensure API data appears
+   - Build: `npm run build` remains clean
+
+## CHECKLIST
+- [x] API helpers created (`lib/api.ts`)
+- [x] React Query hooks created (`hooks/useDashboardData.ts`)
+- [x] `OverviewCards` uses API fallback
+- [x] `ChartGrid` uses API fallback
+- [x] `RecentActivity` uses API fallback
+- [x] Tests/build pass
 
 ## DEPENDENCIES
-- Existing: Zustand store `useRealtimeStore`, toast system, components above
+- Existing: React Query, Next API routes, realtime store/hooks
 - No new npm packages expected
 
 ## RISKS & MITIGATIONS
-- Supabase env missing causes runtime error:
-  - Mitigation: lazy `getSupabase()` + guarded connect path; show error in indicator not crash build
-- Server/client boundary issues:
-  - Mitigation: add `'use client'` to hooks and provider; avoid importing Supabase in server-only files
+- API shape mismatch with chart components
+  - Mitigation: centralize conversion in hooks; add defensive defaults
+- Time formatting differences
+  - Mitigation: use `toLocaleTimeString()`; fallback labels
+- Double-fetch when realtime toggles rapidly
+  - Mitigation: React Query dedup + short stale times
 
 ## SUCCESS CRITERIA
-- Visible, accurate connection status in header
-- Working controls without regressions
-- Clean test and build
-
-## CHECKLIST
-- [x] Safety: lazy Supabase client + guards
-- [x] Client boundary: `'use client'` added where required
-- [x] Bootstrap: auto-connect on mount (client-only)
-- [x] Controls: connect/disconnect/retry
-- [x] Tests: indicator + header wiring
-- [x] Validation: tests and build pass
+- Dashboard shows live data when realtime available; shows API data otherwise
+- Smooth UX with minimal placeholders
+- Clean tests and build
 
 ## PLAN VERIFICATION
 - Requirements documented: YES
-- Technology stack validated (on paper): YES
+- Technology stack validated: YES
 - Affected components identified: YES
 - Implementation steps detailed: YES
 - Dependencies documented: YES
@@ -101,20 +98,17 @@
 - Creative phases required: NO (Level 2)
 - tasks.md updated with plan: YES
 
+## Reflection Highlights
+- **What Went Well**: Clean separation (API helpers/hooks), smooth UX, green build/tests
+- **Challenges**: Chart dataset mapping, duplicate fetch avoidance, SSR safety
+- **Lessons Learned**: Centralized conversions, tuned staleTime, lazy Supabase client
+- **Next Steps**: Fix metadata warnings; expand tests for API fallback
+
+
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 2)
 
-
-## Reflection Highlights
-- **What Went Well**: Lazy client pattern, minimal bootstrap, green CI
-- **Challenges**: SSR side effects, safe unsubscribe when client missing
-- **Solutions**: Guarded store methods, client-only hook/provider, friendly error state
-- **Results**: Tests 2/2 PASS; Next build clean
-- **Next Steps**: ARCHIVE NOW
-- **Reflection Doc**: [memory-bank/reflection-level2-subphase4-global-realtime-ux-integration.md](reflection-level2-subphase4-global-realtime-ux-integration.md)
-
-
 ## ARCHIVE
 - Date: 2025-08-12
-- Archive Document: [docs/archive/subphase4-global-realtime-ux-integration_20250812.md](../docs/archive/subphase4-global-realtime-ux-integration_20250812.md)
+- Archive Document: [docs/archive/level2-dashboard-analytics-api-fallback_20250812.md](../docs/archive/level2-dashboard-analytics-api-fallback_20250812.md)
 - Status: COMPLETED

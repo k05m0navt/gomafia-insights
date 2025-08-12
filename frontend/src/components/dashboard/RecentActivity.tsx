@@ -2,6 +2,7 @@
 
 import { Calendar, Clock, Users, Trophy, Wifi, WifiOff, AlertCircle, Activity } from 'lucide-react';
 import { useRealtimeActivityFeed, useRealtimeConnection, useRealtimeSubscriptions } from '../../hooks/useRealtime';
+import { useRecentActivity as useRecentActivityApi } from '@/hooks/useDashboardData';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ComponentStatusIndicator } from '../realtime/ComponentStatusIndicator';
@@ -305,7 +306,20 @@ export function RecentActivity() {
       }))
     : [];
 
-  const activities = convertedActivities.length > 0 ? convertedActivities : defaultActivities;
+  const { data: activityQuery } = useRecentActivityApi(10, { enabled: !isConnected })
+  const apiActivities = activityQuery?.data?.activities?.map((a) => ({
+    id: a.id,
+    type: a.type,
+    title: a.title,
+    description: a.description,
+    time: a.time,
+    participants: a.participants,
+    status: a.status,
+  })) ?? []
+
+  const activities = convertedActivities.length > 0
+    ? convertedActivities
+    : (apiActivities.length > 0 ? apiActivities : defaultActivities);
 
   // Track activities updates for animation triggers
   useEffect(() => {

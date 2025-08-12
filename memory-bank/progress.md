@@ -376,3 +376,24 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 
 ## 2025-08-12: Archive — Level 2 Sub-phase 4 Global Realtime UX Integration
 - Archived realtime UX integration. See [archive](../docs/archive/subphase4-global-realtime-ux-integration_20250812.md).
+
+## 2025-08-12 09:35:15Z VAN Check
+- Tests: PASS
+- Build: PASS
+- Notes: Ready to PLAN next task (options prepared in tasks.md)
+
+## 2025-08-12 09:38:19Z PLAN Complete
+- Task: Level 2 — Dashboard Analytics MVP (API Wiring Fallback)
+- Status: Planning complete; ready to IMPLEMENT
+- Notes: Use React Query to fetch from /api/dashboard/* when realtime is disconnected.
+
+## 2025-08-12 09:54:09Z IMPLEMENT Complete
+- Task: Level 2 — Dashboard Analytics MVP (API Wiring Fallback)
+- Tests: PASS
+- Build: PASS
+- Notes: React Query fallbacks wired in OverviewCards, ChartGrid, RecentActivity; provider added in layout.
+
+## 2025-08-12 11:22:58Z ARCHIVE Complete
+- Archived: docs/archive/level2-dashboard-analytics-api-fallback_20250812.md
+- Reflection: memory-bank/reflection-level2-dashboard-analytics-api-fallback.md
+- Mode: Reset to VAN

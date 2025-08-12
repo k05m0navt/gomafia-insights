@@ -2,6 +2,7 @@
 
 import { Users, Trophy, Calendar, TrendingUp } from 'lucide-react';
 import { useRealtimeDashboardMetrics, useRealtimeConnection, useRealtimeSubscriptions } from '../../hooks/useRealtime';
+import { useDashboardStats } from '@/hooks/useDashboardData';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ComponentStatusIndicator } from '../realtime/ComponentStatusIndicator';
@@ -356,11 +357,19 @@ export function OverviewCards() {
   };
 
   // Use metrics data if available, otherwise fall back to default
-  const data = metrics ? {
+  const { data: statsQuery } = useDashboardStats({ enabled: !isConnected })
+  const stats = statsQuery?.data
+
+  const data = (isConnected && metrics) ? {
     totalPlayers: metrics.totalPlayers?.toString() || defaultData.totalPlayers,
     totalGames: metrics.gamesPlayed?.toString() || defaultData.totalGames,
     activeToday: metrics.activeTournaments?.toString() || defaultData.activeToday,
     winRate: `${metrics.avgEloRating || 67.3}%`
+  } : stats ? {
+    totalPlayers: (stats.totalPlayers ?? 0).toLocaleString(),
+    totalGames: (stats.totalGames ?? 0).toLocaleString(),
+    activeToday: (stats.activeTournaments ?? 0).toLocaleString(),
+    winRate: `${stats.averageElo ?? 67.3}%`
   } : defaultData;
 
   // Track data updates for animation triggers
