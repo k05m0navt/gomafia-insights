@@ -2,9 +2,9 @@
 
 ## PROJECT STATUS
 - Status: IN_PROGRESS
-- Current Mode: PLAN
+- Current Mode: VAN
 - Current Phase: Phase 4B - Dashboard Component Real-time Integration (Analytics Wiring)
-- Next Step: IMPLEMENT
+- Next Step: VAN
 
 ## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
 - Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
@@ -199,7 +199,7 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 ## ACTIVE TASK - LEVEL 1 - Framer Motion Test Mock Cleanup
 - Task: Eliminate React DOM prop warnings in tests by refining `framer-motion` mock to strip motion-only props (`whileHover`, `whileTap`, `initial`, `animate`, `exit`, `layout`, `transition`) before rendering DOM nodes.
 - Priority: LOW
-- Status: PLANNED
+- Status: COMPLETE
 
 ## DESCRIPTION
 Current unit tests pass but emit warnings like: "React does not recognize the `whileHover`/`whileTap` prop on a DOM element" due to the test mock mapping `motion.*` to plain DOM elements and spreading all props. Update the mock to omit motion-only props to keep test output clean.
@@ -213,9 +213,9 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - Library: framer-motion
 
 ## TECHNOLOGY VALIDATION CHECKPOINTS
-- [ ] Centralized mock in `src/setupTests.ts` for `framer-motion`
-- [ ] Mock strips motion-only props safely
-- [ ] All tests still pass with zero React DOM prop warnings
+- [x] Centralized mock in `src/setupTests.ts` for `framer-motion`
+- [x] Mock strips motion-only props safely
+- [x] All tests still pass with zero React DOM prop warnings
 
 ## AFFECTED FILES / LOCATIONS
 - Edit: `frontend/src/setupTests.ts` (add `framer-motion` mock that omits motion props)
@@ -231,9 +231,9 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 4) If any test defines its own `framer-motion` mock, consider removing or letting global mock override it.
 
 ## CHECKLIST
-- [ ] Global mock implemented in `setupTests.ts`
-- [ ] Test suite passes
-- [ ] No React DOM prop warnings in test output
+- [x] Global mock implemented in `setupTests.ts`
+- [x] Test suite passes
+- [x] No React DOM prop warnings in test output
 
 ## RISKS & MITIGATIONS
 - Risk: Different tests rely on specific motion behavior
@@ -242,6 +242,12 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 ## SUCCESS CRITERIA
 - Tests pass cleanly with zero React DOM prop warnings
 
+
+## REFLECTION HIGHLIGHTS
+- **What Went Well**: Global mock eliminated warnings; typings fixed; build clean.
+- **Challenges**: Competing local mock; ESLint typing rules.
+- **Lessons Learned**: Centralize mocks; add displayName; avoid `any`.
+- **Next Steps**: None.
 
 ## PLAN VERIFICATION
 - Requirements documented: YES
@@ -252,6 +258,12 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - Challenges & mitigations documented: YES
 - Creative phases required: NO (Level 1)
 - tasks.md updated with plan: YES
+
+
+## ARCHIVE — Level 1 Framer Motion Test Mock Cleanup
+- Date: 2025-08-12
+- Archive Document: [docs/archive/level1-framer-motion-test-mock-cleanup_20250812.md](../docs/archive/level1-framer-motion-test-mock-cleanup_20250812.md)
+- Status: COMPLETED
 
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 1)
