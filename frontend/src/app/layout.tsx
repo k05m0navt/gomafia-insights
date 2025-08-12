@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from 'react-hot-toast';
@@ -20,7 +20,11 @@ export const metadata: Metadata = {
   description: "Comprehensive analytics platform for competitive Mafia game performance tracking, tournament statistics, and player insights from GoMafia.pro",
   keywords: "mafia game, analytics, statistics, gomafia, tournament, player tracking, competitive gaming, insights",
   authors: [{ name: "GoMafia Insights Team" }],
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: "#0f172a",
 };
 
