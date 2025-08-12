@@ -190,3 +190,9 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 1)
+
+
+## ARCHIVE — Level 1 ESLint Ignore Migration
+- Date: 2025-08-12
+- Archive Document: [docs/archive/level1-eslint-ignore-migration_20250812.md](../docs/archive/level1-eslint-ignore-migration_20250812.md)
+- Status: COMPLETED

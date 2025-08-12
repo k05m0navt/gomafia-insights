@@ -397,3 +397,6 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 - Archived: docs/archive/level2-dashboard-analytics-api-fallback_20250812.md
 - Reflection: memory-bank/reflection-level2-dashboard-analytics-api-fallback.md
 - Mode: Reset to VAN
+
+## 2025-08-12: Archive — Level 1 ESLint Ignore Migration
+- Archived ESLint ignore migration; build clean. See [archive](../docs/archive/level1-eslint-ignore-migration_20250812.md).

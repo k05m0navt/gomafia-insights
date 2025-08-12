@@ -17,3 +17,7 @@
 
 ## Memory Bank
 - Source of Truth: `memory-bank/tasks.md` updated; next mode VAN
+
+
+## Recent Fixes
+- 2025-08-12: ESLint ignore migration completed; build clean.
