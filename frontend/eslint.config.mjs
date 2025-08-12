@@ -12,15 +12,22 @@ const compat = new FlatCompat({
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   
-  // Global ignores for generated files
+  // Global ignores for generated files and build artifacts
   {
     ignores: [
       "src/generated/**/*",
-      "prisma/generated/**/*", 
+      "prisma/generated/**/*",
+      "**/prisma/**/*",
+      "**/*.generated.*",
+      "**/wasm*.js",
       "public/workers/**/*",
+      "node_modules/**/*",
       ".next/**/*",
       "out/**/*",
-      "build/**/*"
+      "build/**/*",
+      "dist/**/*",
+      ".DS_Store",
+      "*.log"
     ]
   },
 
