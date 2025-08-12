@@ -3,16 +3,7 @@ import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { RealtimeErrorBoundary } from '../../realtime/RealtimeErrorBoundary'
 
-// Mock framer-motion minimal to avoid animation overhead
-vi.mock('framer-motion', () => ({
-  __esModule: true,
-  motion: {
-    div: (props: any) => <div {...props} />,
-    span: (props: any) => <span {...props} />,
-    button: (props: any) => <button {...props} />,
-  },
-  AnimatePresence: ({ children }: any) => <>{children}</>,
-}))
+// framer-motion is globally mocked in `src/setupTests.ts`
 
 // lucide-react icons can be mocked as simple spans
 vi.mock('lucide-react', () => ({

@@ -2,9 +2,9 @@
 
 ## PROJECT STATUS
 - Status: IN_PROGRESS
-- Current Mode: VAN
+- Current Mode: PLAN
 - Current Phase: Phase 4B - Dashboard Component Real-time Integration (Analytics Wiring)
-- Next Step: VAN
+- Next Step: IMPLEMENT
 
 ## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
 - Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
@@ -118,7 +118,6 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 - **Challenges**: Ensuring ignores don’t mask source files
 - **Lessons Learned**: Flat config requires migrating all ignore patterns; keep scopes tight
 - **Next Steps**: Monitor lint coverage on `src/**`; consider adding `npm run lint` in CI
-D
 
 ## ACTIVE TASK - LEVEL 1 - ESLint Ignore Migration to Flat Config
 - Task: Migrate legacy `.eslintignore` patterns into `eslint.config.mjs` `ignores` array and remove `.eslintignore` to eliminate deprecation warning
@@ -196,3 +195,63 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level1-eslint-ignore-migration_20250812.md](../docs/archive/level1-eslint-ignore-migration_20250812.md)
 - Status: COMPLETED
+
+## ACTIVE TASK - LEVEL 1 - Framer Motion Test Mock Cleanup
+- Task: Eliminate React DOM prop warnings in tests by refining `framer-motion` mock to strip motion-only props (`whileHover`, `whileTap`, `initial`, `animate`, `exit`, `layout`, `transition`) before rendering DOM nodes.
+- Priority: LOW
+- Status: PLANNED
+
+## DESCRIPTION
+Current unit tests pass but emit warnings like: "React does not recognize the `whileHover`/`whileTap` prop on a DOM element" due to the test mock mapping `motion.*` to plain DOM elements and spreading all props. Update the mock to omit motion-only props to keep test output clean.
+
+## COMPLEXITY
+- Level: 1 (Quick Fix)
+- Type: Test Hygiene
+
+## TECHNOLOGY STACK
+- Test Runner: Vitest 2 (jsdom)
+- Library: framer-motion
+
+## TECHNOLOGY VALIDATION CHECKPOINTS
+- [ ] Centralized mock in `src/setupTests.ts` for `framer-motion`
+- [ ] Mock strips motion-only props safely
+- [ ] All tests still pass with zero React DOM prop warnings
+
+## AFFECTED FILES / LOCATIONS
+- Edit: `frontend/src/setupTests.ts` (add `framer-motion` mock that omits motion props)
+- Optional: Remove per-test `framer-motion` mocks in `__tests__` if redundant
+
+## IMPLEMENTATION PLAN
+1) In `src/setupTests.ts`, add a `vi.mock('framer-motion', ...)` that:
+   - Exposes `AnimatePresence` passthrough
+   - Maps `motion.*` to components that forwardRefs to simple elements while omitting motion props
+   - Omits props: `whileHover`, `whileTap`, `initial`, `animate`, `exit`, `transition`, `layout`
+2) Ensure typings are lenient in tests (use `any` where needed) to avoid TS friction.
+3) Run `npm run test` and confirm no warnings; keep tests green.
+4) If any test defines its own `framer-motion` mock, consider removing or letting global mock override it.
+
+## CHECKLIST
+- [ ] Global mock implemented in `setupTests.ts`
+- [ ] Test suite passes
+- [ ] No React DOM prop warnings in test output
+
+## RISKS & MITIGATIONS
+- Risk: Different tests rely on specific motion behavior
+  - Mitigation: Keep animations disabled and only strip props; do not change layout/DOM shape
+
+## SUCCESS CRITERIA
+- Tests pass cleanly with zero React DOM prop warnings
+
+
+## PLAN VERIFICATION
+- Requirements documented: YES
+- Technology stack validated: YES
+- Affected components identified: YES
+- Implementation steps detailed: YES
+- Dependencies documented: YES
+- Challenges & mitigations documented: YES
+- Creative phases required: NO (Level 1)
+- tasks.md updated with plan: YES
+
+## MODE TRANSITION
+- Recommendation: IMPLEMENT MODE (Level 1)
