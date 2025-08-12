@@ -3,7 +3,7 @@
 import { Calendar, Clock, Users, Trophy, Wifi, WifiOff, AlertCircle, Activity } from 'lucide-react';
 import { useRealtimeActivityFeed, useRealtimeConnection, useRealtimeSubscriptions } from '../../hooks/useRealtime';
 import { useRecentActivity as useRecentActivityApi } from '@/hooks/useDashboardData';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ComponentStatusIndicator } from '../realtime/ComponentStatusIndicator';
 import toast from 'react-hot-toast';
@@ -162,7 +162,7 @@ function RealtimeActivityItem({ activity, isNew, index }: RealtimeActivityItemPr
 export function RecentActivity() {
   const [showStatusPanel, setShowStatusPanel] = useState(false);
   const [newActivityIds, setNewActivityIds] = useState<Set<string>>(new Set());
-  const [previousActivities, setPreviousActivities] = useState<ActivityItem[]>([]);
+  const previousActivitiesRef = useRef<ActivityItem[]>([]);
   const [isUpdating, setIsUpdating] = useState(false);
   const [previousConnectionStatus, setPreviousConnectionStatus] = useState<string | null>(null);
 
@@ -323,38 +323,36 @@ export function RecentActivity() {
 
   // Track activities updates for animation triggers
   useEffect(() => {
-    if (activities && previousActivities.length > 0) {
-      const hasChanges = activities.length !== previousActivities.length ||
-        activities.some((activity, index) => 
-          !previousActivities[index] || activity.id !== previousActivities[index].id
-        );
-      
+    const prev = previousActivitiesRef.current;
+    if (activities && prev.length > 0) {
+      const hasChanges = activities.length !== prev.length ||
+        activities.some((activity, index) => !prev[index] || activity.id !== prev[index].id);
       if (hasChanges) {
         setIsUpdating(true);
         const timer = setTimeout(() => setIsUpdating(false), 500);
+        previousActivitiesRef.current = activities;
         return () => clearTimeout(timer);
       }
     }
-    setPreviousActivities(activities);
-  }, [activities, previousActivities]);
+    previousActivitiesRef.current = activities;
+  }, [activities]);
 
   // Track new activities for animation
   useEffect(() => {
     if (realtimeActivities && realtimeActivities.length > 0) {
-      const currentIds = new Set(realtimeActivities.map((a: any) => a.id));
+      const currentIds = new Set(realtimeActivities.map((a: any) => String(a.id)));
       const newIds = new Set<string>();
-      
-      currentIds.forEach((id: unknown) => {
-        const idString = String(id);
-        if (!newActivityIds.has(idString)) {
-          newIds.add(idString);
-        }
+      currentIds.forEach((id) => {
+        if (!newActivityIds.has(id)) newIds.add(id);
       });
-      
       if (newIds.size > 0) {
-        const currentIdsStrings = new Set(Array.from(currentIds).map(id => String(id)));
-        setNewActivityIds(currentIdsStrings);
-        // Remove new status after animation
+        setNewActivityIds(prev => {
+          // Avoid redundant state if equal
+          if (prev.size === currentIds.size && Array.from(currentIds).every(id => prev.has(id))) {
+            return prev;
+          }
+          return new Set(currentIds);
+        });
         const timer = setTimeout(() => {
           setNewActivityIds(prev => {
             const updated = new Set(prev);

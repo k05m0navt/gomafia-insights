@@ -78,7 +78,7 @@ export function DashboardSidebar() {
           </div>
           <div>
             <h2 className="text-lg font-bold text-white">GoMafia</h2>
-            <p className="text-xs text-slate-400">Analytics</p>
+            <p className="text-xs text-slate-400">Insights</p>
           </div>
         </div>
       </div>

@@ -32,6 +32,8 @@ export function useRealtime<T extends { [key: string]: any } = { [key: string]: 
   const lastUpdatedRef = useRef<Date | null>(null)
   const errorRef = useRef<string | null>(null)
   const isLoadingRef = useRef<boolean>(false)
+  const onUpdateRef = useRef<typeof onUpdate>(onUpdate)
+  const onErrorRef = useRef<typeof onError>(onError)
 
   const {
     subscribe,
@@ -40,6 +42,15 @@ export function useRealtime<T extends { [key: string]: any } = { [key: string]: 
   } = useRealtimeStore()
 
   const isConnected = connectionHealth.status === 'connected'
+
+  // Keep latest handlers without resubscribing
+  useEffect(() => {
+    onUpdateRef.current = onUpdate
+  }, [onUpdate])
+
+  useEffect(() => {
+    onErrorRef.current = onError
+  }, [onError])
 
   // Handle subscription
   useEffect(() => {
@@ -56,16 +67,16 @@ export function useRealtime<T extends { [key: string]: any } = { [key: string]: 
         isLoadingRef.current = false
         errorRef.current = null
 
-        if (onUpdate) {
-          onUpdate(payload.new)
+        if (onUpdateRef.current) {
+          onUpdateRef.current(payload.new)
         }
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Update processing failed'
         errorRef.current = errorMessage
         isLoadingRef.current = false
         
-        if (onError) {
-          onError(errorMessage)
+        if (onErrorRef.current) {
+          onErrorRef.current(errorMessage)
         }
       }
     }
@@ -83,7 +94,7 @@ export function useRealtime<T extends { [key: string]: any } = { [key: string]: 
         unsubscribeRef.current = null
       }
     }
-  }, [table, filter, enabled, isRealTimeEnabled, isConnected, throttleMs, onUpdate, onError, subscribe])
+  }, [table, filter, enabled, isRealTimeEnabled, isConnected, throttleMs, subscribe])
 
   const refresh = useCallback(() => {
     if (unsubscribeRef.current) {

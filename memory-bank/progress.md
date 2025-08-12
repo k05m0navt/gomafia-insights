@@ -411,3 +411,31 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 - Task: Level 1 — Framer Motion Test Mock Cleanup
 - Archive: docs/archive/level1-framer-motion-test-mock-cleanup_20250812.md
 - Notes: Reflection archived and Memory Bank updated.
+
+
+## 2025-08-12 20:06:04Z VAN Check
+- Tests: PASS
+- Build: PASS
+- Notes: Selected next task — Level 2 Dashboard Charts Timeframe Controls (7/30/90). Proceed to PLAN.
+
+
+## 2025-08-12 20:09:38Z PLAN Complete
+- Task: Level 2 — Dashboard Charts Timeframe Controls (7/30/90)
+- Notes: Plan documented in tasks.md; ready to IMPLEMENT.
+
+
+## 2025-08-12 20:12:29Z IMPLEMENT Complete
+- Task: Level 2 — Dashboard Charts Timeframe Controls (7/30/90)
+- Tests: PASS
+- Build: PASS
+- Notes: Added accessible timeframe selector, wired React Query fallback with timeframe when offline, refined loading overlays.
+
+
+## 2025-08-12 20:34:23Z REFLECT Complete
+- Task: Level 2 — Dashboard Charts Timeframe Controls (7/30/90)
+- Notes: Reflection saved to memory-bank/reflection-level2-dashboard-charts-timeframe-controls.md.
+
+
+## 2025-08-12 20:35:07Z ARCHIVE Complete
+- Task: Level 2 — Dashboard Charts Timeframe Controls (7/30/90)
+- Archive: docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md

@@ -5,10 +5,10 @@
 - Focus: VAN — select next task
 
 ## Recently Completed
-- Level 2 — Sub-phase 3C Testing & Production Readiness Bootstrap (archived)
+- Level 2 — Dashboard Charts Timeframe Controls (archived)
 
 ## Next Steps
-- Archive created; Ready for VAN to select next task and execute the plan (lazy Supabase client, bootstrap provider, header controls, tests)
+- Return to VAN and select the next task
 
 ## Project State
 - Phase: Phase 4B - Dashboard Component Real-time Integration
@@ -17,13 +17,3 @@
 
 ## Memory Bank
 - Source of Truth: `memory-bank/tasks.md` updated; next mode VAN
-
-
-## Recent Fixes
-- 2025-08-12: ESLint ignore migration completed; build clean.
-
-## Recently Completed
-- 2025-08-12: Level 1 — Framer Motion Test Mock Cleanup (archived)
-
-## Next Steps
-- Return to VAN and select the next task

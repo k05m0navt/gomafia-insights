@@ -23,6 +23,15 @@ import { toast } from 'react-hot-toast'
 // PERFORMANCE OPTIMIZATION UTILITIES
 // =============================================================================
 
+// Cross-environment scheduler: rAF in browser, setTimeout in SSR/build
+const schedule = (cb: () => void) => {
+  if (typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+    window.requestAnimationFrame(cb)
+  } else {
+    setTimeout(cb, 0)
+  }
+}
+
 /**
  * Throttle function for rate limiting
  */
@@ -31,11 +40,19 @@ function throttle(
   delay: number
 ): (payload: RealtimePostgresChangesPayload<any>) => void {
   let lastCall = 0
+  let scheduled = false
+  let lastPayload: RealtimePostgresChangesPayload<any> | null = null
   return (payload: RealtimePostgresChangesPayload<any>) => {
     const now = Date.now()
-    if (now - lastCall >= delay) {
-      lastCall = now
-      return func(payload)
+    lastPayload = payload
+    if (now - lastCall >= delay && !scheduled) {
+      scheduled = true
+      schedule(() => {
+        scheduled = false
+        lastCall = Date.now()
+        if (lastPayload) func(lastPayload)
+        lastPayload = null
+      })
     }
   }
 }
@@ -281,10 +298,12 @@ export const useRealtimeStore = create<RealtimeStore>()(
             if (subscription) {
               subscription.lastUpdate = new Date()
               subscription.updateCount += 1
-              
-              set({
-                activeSubscriptions: currentSubscriptions,
-                totalUpdates: currentState.totalUpdates + 1
+              // Deduplicate rapid set calls by batching in rAF
+              schedule(() => {
+                set({
+                  activeSubscriptions: currentSubscriptions,
+                  totalUpdates: currentState.totalUpdates + 1
+                })
               })
             }
 

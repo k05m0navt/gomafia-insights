@@ -264,6 +264,7 @@ export function ChartGrid() {
   const [previousChartData, setPreviousChartData] = useState<any>(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const [previousConnectionStatus, setPreviousConnectionStatus] = useState<string | null>(null);
+  const [timeframe, setTimeframe] = useState<number>(30);
   
   // Real-time chart data integration with enhanced hooks
   const {
@@ -432,8 +433,7 @@ export function ChartGrid() {
 
   // Use real-time data if available, otherwise fall back to defaults
   const chartData = realtimeChartData || defaultChartData;
-
-  const { data: chartsQuery } = useDashboardCharts(30, { enabled: !isConnected })
+  const { data: chartsQuery, isFetching: isFetchingCharts } = useDashboardCharts(timeframe, { enabled: !isConnected })
   const charts = chartsQuery?.data
 
   // Convert real-time data to Chart.js format if needed
@@ -554,6 +554,9 @@ export function ChartGrid() {
     }
   } : defaultChartData;
 
+  // Effective updating state includes offline refetching
+  const effectiveIsUpdating = isUpdating || (!isConnected && isFetchingCharts);
+
   const handleStatusClick = (chartName: string) => {
     setActiveStatusPanel(chartName);
   };
@@ -578,6 +581,27 @@ export function ChartGrid() {
 
   return (
     <>
+      {/* Timeframe Selector */}
+      <div className="flex items-center justify-end mb-2">
+        <div role="group" aria-label="Select timeframe" className="inline-flex rounded-lg border border-slate-700 bg-slate-800 p-1">
+          {[7, 30, 90].map((tf) => (
+            <button
+              key={tf}
+              type="button"
+              onClick={() => setTimeframe(tf)}
+              className={`px-3 py-1 text-sm rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-slate-900 ${
+                timeframe === tf
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-transparent text-slate-300 hover:bg-slate-700'
+              }`}
+              aria-pressed={timeframe === tf}
+              aria-label={`${tf} day timeframe`}
+            >
+              {tf}d
+            </button>
+          ))}
+        </div>
+      </div>
       <motion.div 
         className="grid grid-cols-1 lg:grid-cols-2 gap-6"
         initial={{ opacity: 0 }}
@@ -599,7 +623,7 @@ export function ChartGrid() {
           hasRecentUpdate={hasRecentUpdate('gamesOverTime')}
           chartName="gamesOverTime"
           index={0}
-          isUpdating={isUpdating}
+          isUpdating={effectiveIsUpdating}
         >
           <Line data={convertedChartData.gamesOverTime} options={chartOptions} />
         </ChartCard>
@@ -617,7 +641,7 @@ export function ChartGrid() {
           hasRecentUpdate={hasRecentUpdate('playerRole')}
           chartName="playerRole"
           index={1}
-          isUpdating={isUpdating}
+          isUpdating={effectiveIsUpdating}
         >
           <Bar data={convertedChartData.playerRole} options={chartOptions} />
         </ChartCard>
@@ -635,7 +659,7 @@ export function ChartGrid() {
           hasRecentUpdate={hasRecentUpdate('winRateTrends')}
           chartName="winRateTrends"
           index={2}
-          isUpdating={isUpdating}
+          isUpdating={effectiveIsUpdating}
         >
           <Line data={convertedChartData.winRateTrends} options={chartOptions} />
         </ChartCard>
@@ -653,7 +677,7 @@ export function ChartGrid() {
           hasRecentUpdate={hasRecentUpdate('tournamentParticipation')}
           chartName="tournamentParticipation"
           index={3}
-          isUpdating={isUpdating}
+          isUpdating={effectiveIsUpdating}
         >
           <Bar data={convertedChartData.tournamentParticipation} options={chartOptions} />
         </ChartCard>

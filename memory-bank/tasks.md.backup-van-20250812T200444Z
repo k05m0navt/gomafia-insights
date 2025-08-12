@@ -4,7 +4,7 @@
 - Status: IN_PROGRESS
 - Current Mode: VAN
 - Current Phase: Phase 4B - Dashboard Component Real-time Integration (Analytics Wiring)
-- Next Step: REFLECT
+- Next Step: VAN
 
 ## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
 - Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
@@ -267,21 +267,3 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 1)
-
-- Status: COMPLETE
-
-## Reflection Highlights (Timeframe Controls)
-- **What Went Well**: Accessible selector; clean data wiring; green build/test; SSR-safe scheduler.
-- **Challenges**: Update depth loops; SSR rAF usage.
-- **Lessons Learned**: Use handler refs; batch store updates; guard effects with refs.
-- **Next Steps**: Optional global selector; add e2e smoke for timeframe.
-
-## Status
-- [x] Implementation complete
-- [x] Reflection complete
-- [ ] Archiving
-
-## ARCHIVE — Level 2 Dashboard Charts Timeframe Controls
-- Date: 2025-08-12
-- Archive Document: [docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md](../docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md)
-- Status: COMPLETED
