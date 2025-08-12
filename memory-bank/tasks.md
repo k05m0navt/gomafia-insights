@@ -2,9 +2,9 @@
 
 ## PROJECT STATUS
 - Status: IN_PROGRESS
-- Current Mode: VAN
+- Current Mode: PLAN
 - Current Phase: Phase 4B - Dashboard Component Real-time Integration (Analytics Wiring)
-- Next Step: VAN
+- Next Step: IMPLEMENT
 
 ## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
 - Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
@@ -112,3 +112,67 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level2-dashboard-analytics-api-fallback_20250812.md](../docs/archive/level2-dashboard-analytics-api-fallback_20250812.md)
 - Status: COMPLETED
+
+## ACTIVE TASK - LEVEL 1 - ESLint Ignore Migration to Flat Config
+- Task: Migrate legacy `.eslintignore` patterns into `eslint.config.mjs` `ignores` array and remove `.eslintignore` to eliminate deprecation warning
+- Priority: MEDIUM
+- Status: PLANNING
+
+## DESCRIPTION
+Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer supported with flat config. Consolidate all ignore patterns into `eslint.config.mjs` and remove the legacy file.
+
+## COMPLEXITY
+- Level: 1 (Quick Fix)
+- Type: Build Quality / Tooling Hygiene
+
+## TECHNOLOGY STACK
+- Framework: Next.js 15 (React 19)
+- Linting: ESLint 9 (flat config)
+- Language: TypeScript 5
+
+## TECHNOLOGY VALIDATION CHECKPOINTS
+- [ ] `.eslintignore` patterns captured and added to `eslint.config.mjs` `ignores`
+- [ ] `.eslintignore` removed from repo
+- [ ] `npm run lint` passes locally (if configured) or `next build` shows no ESLintIgnoreWarning
+- [ ] `npm run build` passes
+
+## AFFECTED FILES / LOCATIONS
+- Edit: `frontend/eslint.config.mjs` (extend `ignores`)
+- Remove: `frontend/.eslintignore`
+
+## IMPLEMENTATION PLAN
+1) Review existing `eslint.config.mjs` ignores and merge patterns from `.eslintignore`:
+   - Add: `"src/generated/**/*"` (already present), `"**/prisma/**/*"`, `"**/*.generated.*"`, `"**/wasm*.js"`, `"node_modules/**/*"`, `"dist/**/*"`, `.DS_Store`, `"*.log"`
+   - Keep existing: `"public/workers/**/*"`, `.next/**/*`, `out/**/*`, `build/**/*`
+2) Remove `frontend/.eslintignore` file from the repo
+3) Run `npm run build` to ensure the warning disappears and build remains green
+4) Commit changes with message: "chore(eslint): migrate .eslintignore patterns to flat config and remove legacy file"
+
+## CHECKLIST
+- [ ] Ignore patterns merged into flat config
+- [ ] `.eslintignore` removed
+- [ ] Build passes without ESLintIgnoreWarning
+
+## DEPENDENCIES
+- None
+
+## RISKS & MITIGATIONS
+- Risk: Over-ignoring source files (e.g., entire `prisma/` directory)
+  - Mitigation: Limit to generated or non-source paths when possible; verify lint coverage on `src/**`
+
+## SUCCESS CRITERIA
+- No ESLintIgnoreWarning during `next build`
+- Lint/build remains green
+
+## PLAN VERIFICATION
+- Requirements documented: YES
+- Technology stack validated: YES
+- Affected components identified: YES
+- Implementation steps detailed: YES
+- Dependencies documented: YES
+- Challenges & mitigations documented: YES
+- Creative phases required: NO (Level 1)
+- tasks.md updated with plan: YES
+
+## MODE TRANSITION
+- Recommendation: IMPLEMENT MODE (Level 1)
