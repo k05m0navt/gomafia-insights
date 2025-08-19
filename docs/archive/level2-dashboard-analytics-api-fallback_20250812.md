@@ -45,3 +45,7 @@ Implemented API data fallbacks using React Query for KPIs, charts, and activity 
 - Minor: Fix Next metadata viewport/themeColor warnings
 - Minor: Expand tests to cover API fallback rendering
 
+
+
+## Post-Archive Fixes
+- **RecentActivity Hydration Fix**: Resolved a server/client hydration mismatch by replacing locale-dependent formatting with a deterministic `formatTime` helper in `frontend/src/components/dashboard/RecentActivity.tsx`. Build verified.

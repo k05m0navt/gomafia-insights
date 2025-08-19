@@ -6,6 +6,7 @@
 
 ## Recently Completed
 - Level 2 — Dashboard Charts Timeframe Controls (archived)
+- Level 2 — Dashboard Analytics MVP (API Wiring Fallback) (archived)
 
 ## Next Steps
 - Return to VAN and select the next task
