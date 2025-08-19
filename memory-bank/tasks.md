@@ -2,9 +2,9 @@
 
 ## PROJECT STATUS
 - Status: COMPLETE
-- Current Mode: VAN
+- Current Mode: ARCHIVE
 - Current Phase: Phase 4B - Dashboard Component Real-time Integration (Analytics Wiring)
-- Next Step: ARCHIVE
+- Next Step: NONE
 
 ## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
 - Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
@@ -146,10 +146,10 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 - Language: TypeScript 5
 
 ## TECHNOLOGY VALIDATION CHECKPOINTS
-- [ ] `.eslintignore` patterns captured and added to `eslint.config.mjs` `ignores`
-- [ ] `.eslintignore` removed from repo
-- [ ] `npm run lint` passes locally (if configured) or `next build` shows no ESLintIgnoreWarning
-- [ ] `npm run build` passes
+- [x] `.eslintignore` patterns captured and added to `eslint.config.mjs` `ignores`
+- [x] `.eslintignore` removed from repo
+- [x] `npm run lint` passes locally (if configured) or `next build` shows no ESLintIgnoreWarning
+- [x] `npm run build` passes
 
 ## AFFECTED FILES / LOCATIONS
 - Edit: `frontend/eslint.config.mjs` (extend `ignores`)
@@ -164,9 +164,9 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 4) Commit changes with message: "chore(eslint): migrate .eslintignore patterns to flat config and remove legacy file"
 
 ## CHECKLIST
-- [ ] Ignore patterns merged into flat config
-- [ ] `.eslintignore` removed
-- [ ] Build passes without ESLintIgnoreWarning
+- [x] Ignore patterns merged into flat config
+- [x] `.eslintignore` removed
+- [x] Build passes without ESLintIgnoreWarning
 
 ## DEPENDENCIES
 - None
