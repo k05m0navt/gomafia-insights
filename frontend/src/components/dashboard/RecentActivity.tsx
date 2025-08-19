@@ -19,6 +19,13 @@ interface ActivityItem {
   timestamp?: Date;
 }
 
+// Helper to produce a deterministic time string for both server and client
+function formatTime(value?: string | number | Date) {
+  if (!value) return 'Unknown time';
+  const d = new Date(value);
+  return d.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+}
+
 function ActivityIcon({ type }: { type: 'game' | 'tournament' }) {
   if (type === 'tournament') {
     return <Trophy className="w-5 h-5 text-yellow-400" aria-hidden="true" />;
@@ -299,7 +306,7 @@ export function RecentActivity() {
         type: activity.type,
         title: activity.title,
         description: activity.description,
-        time: activity.timestamp ? new Date(activity.timestamp).toLocaleTimeString() : 'Unknown time',
+        time: activity.timestamp ? formatTime(activity.timestamp) : 'Unknown time',
         participants: activity.participants,
         status: activity.status,
         timestamp: activity.timestamp ? new Date(activity.timestamp) : undefined
@@ -616,7 +623,7 @@ export function RecentActivity() {
               >
                 <span className="text-sm text-slate-400">Last Update</span>
                 <span className="text-sm text-slate-400">
-                  {lastUpdated ? lastUpdated.toLocaleTimeString() : '2 min ago'}
+                  {lastUpdated ? formatTime(lastUpdated) : '2 min ago'}
                 </span>
               </motion.div>
             </div>
