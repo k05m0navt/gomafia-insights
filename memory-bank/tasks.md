@@ -4,7 +4,7 @@
 - Status: IN_PROGRESS
 - Current Mode: VAN
 - Current Phase: Phase 4B - Dashboard Component Real-time Integration (Analytics Wiring)
-- Next Step: REFLECT
+- Next Step: ARCHIVE
 
 ## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
 - Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
@@ -103,6 +103,8 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 - **Challenges**: Chart dataset mapping, duplicate fetch avoidance, SSR safety
 - **Lessons Learned**: Centralized conversions, tuned staleTime, lazy Supabase client
 - **Next Steps**: Fix metadata warnings; expand tests for API fallback
+
+- **RecentActivity**: Resolved hydration mismatch by using deterministic time formatting (formatTime helper)
 
 
 ## MODE TRANSITION
