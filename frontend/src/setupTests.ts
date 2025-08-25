@@ -32,6 +32,40 @@ vi.mock('react-hot-toast', () => {
   }
 })
 
+// Mock lucide-react icons globally used by components
+/* eslint-disable react/display-name, @typescript-eslint/no-explicit-any */
+vi.mock('lucide-react', () => {
+  const createIcon = (name: string) => {
+    const Comp: React.FC<Record<string, unknown>> = (props) => {
+      // Spread props as any for simplicity in tests
+      return (React.createElement('span', { 'data-icon': name, ...(props as any) }, name))
+    }
+    Comp.displayName = `Icon(${name})`
+    return Comp
+  }
+
+  return {
+    __esModule: true,
+    Users: createIcon('Users'),
+    Trophy: createIcon('Trophy'),
+    Calendar: createIcon('Calendar'),
+    Clock: createIcon('Clock'),
+    TrendingUp: createIcon('TrendingUp'),
+    Wifi: createIcon('Wifi'),
+    WifiOff: createIcon('WifiOff'),
+    AlertCircle: createIcon('AlertCircle'),
+    Activity: createIcon('Activity'),
+    BarChart3: createIcon('BarChart3'),
+    PieChart: createIcon('PieChart'),
+    RefreshCw: createIcon('RefreshCw'),
+    AlertTriangle: createIcon('AlertTriangle'),
+    Bug: createIcon('Bug'),
+    ChevronDown: createIcon('ChevronDown'),
+    ChevronUp: createIcon('ChevronUp'),
+  }
+})
+/* eslint-enable react/display-name, @typescript-eslint/no-explicit-any */
+
 // Mock framer-motion to avoid passing motion-only props to DOM elements
 // This prevents warnings like: "React does not recognize the `whileHover` prop on a DOM element"
 vi.mock('framer-motion', () => {
