@@ -4,12 +4,13 @@ import React, { Component, ReactNode, ErrorInfo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { AlertTriangle, RefreshCw, Wifi, WifiOff, Bug, Settings, ChevronDown, ChevronUp } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { reportError as telemetryReport } from '@/lib/telemetry';
 
 // Error classification types
-type ErrorCategory = 'network' | 'render' | 'data' | 'permission' | 'unknown';
-type ErrorSeverity = 'low' | 'medium' | 'high' | 'critical';
+export type ErrorCategory = 'network' | 'render' | 'data' | 'permission' | 'unknown';
+export type ErrorSeverity = 'low' | 'medium' | 'high' | 'critical';
 
-interface ErrorReport {
+export interface ErrorReport {
   message: string;
   stack?: string;
   category: ErrorCategory;
@@ -204,7 +205,16 @@ export class RealtimeErrorBoundary extends Component<Props, State> {
   }
 
   private async reportError(errorReport: ErrorReport) {
-    // Placeholder for error reporting service
+    try {
+      // Fire-and-forget telemetry (non-blocking)
+      void telemetryReport(errorReport).catch((err) => {
+        console.warn('Telemetry report failed', err);
+      });
+    } catch (e) {
+      console.warn('Telemetry invocation failed', e);
+    }
+
+    // Local debug fallback logging
     console.group('🐛 Real-time Error Report');
     console.error('Error:', errorReport.message);
     console.error('Category:', errorReport.category);
@@ -217,7 +227,7 @@ export class RealtimeErrorBoundary extends Component<Props, State> {
     }
     console.groupEnd();
 
-    // In production, this would send to monitoring service
+    // In production, telemetryReport would handle sending to a monitoring service
     // await errorReportingService.report(errorReport);
   }
 
