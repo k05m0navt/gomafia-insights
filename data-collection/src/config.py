@@ -4,7 +4,11 @@ Handles environment variables and application settings with validation.
 """
 import os
 from typing import Optional, List
-from pydantic import BaseSettings, validator
+from pydantic import validator
+try:
+    from pydantic_settings import BaseSettings
+except Exception:
+    from pydantic import BaseSettings
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -82,7 +86,20 @@ class AppConfig:
     """Main application configuration that combines all config sections."""
     
     def __init__(self):
-        self.database = DatabaseConfig()
+        try:
+            self.database = DatabaseConfig()
+        except Exception:
+            # If required DB env vars are missing, allow running in dry-run mode when SKIP_DB_TEST=1
+            if os.environ.get('SKIP_DB_TEST') == '1':
+                class _DummyDB:
+                    supabase_url = None
+                    supabase_key = None
+                    supabase_secret = None
+                    database_url = None
+                    direct_url = None
+                self.database = _DummyDB()
+            else:
+                raise
         self.scraping = ScrapingConfig()
         self.scheduling = SchedulingConfig()
         self.logging = LoggingConfig()

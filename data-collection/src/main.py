@@ -8,6 +8,7 @@ import traceback
 from datetime import datetime
 from typing import List, Dict, Any, Optional
 import logging
+import os
 
 from .config import config
 from .services import DatabaseService, setup_logging
@@ -170,8 +171,17 @@ class DataCollectionOrchestrator:
                 try:
                     player_data = PlayerData.from_scraped_data(raw_player)
                     validation_result = player_data.validate_data()
-                    
-                    if validation_result.is_valid:
+                    # Determine validation threshold (env var takes precedence)
+                    vt = None
+                    try:
+                        vt_env = os.environ.get('VALIDATION_THRESHOLD')
+                        if vt_env is not None:
+                            vt = float(vt_env)
+                    except Exception:
+                        vt = None
+
+                    accept = validation_result.is_valid or (vt is not None and validation_result.data_quality_score >= vt)
+                    if accept:
                         validated_players.append(player_data)
                     else:
                         logger.warning(f"Player validation failed: {validation_result.get_summary()}")
@@ -241,18 +251,27 @@ class DataCollectionOrchestrator:
                 try:
                     tournament_data = TournamentData.from_scraped_data(raw_tournament)
                     validation_result = tournament_data.validate_data()
-                    
-                    if validation_result.is_valid:
-                        tournament_id = self.db_service.upsert_tournament(tournament_data)
-                        if tournament_id:
-                            self.session_stats['total_inserted'] += 1
-                            self.collection_logger.log_inserted(1, "tournaments table")
-                            
-                            if include_games:
-                                # TODO: Collect games for this tournament
-                                logger.info(f"Would collect games for tournament {tournament_id}")
-                        else:
-                            self.session_stats['total_errors'] += 1
+                    # Determine validation threshold from env, if present
+                    vt = None
+                    try:
+                        vt_env = os.environ.get('VALIDATION_THRESHOLD')
+                        if vt_env is not None:
+                            vt = float(vt_env)
+                    except Exception:
+                        vt = None
+
+                    accept = validation_result.is_valid or (vt is not None and validation_result.data_quality_score >= vt)
+                    if accept:
+                        # only upsert when DB writes are allowed
+                        if os.environ.get('SKIP_DB_WRITE') != '1':
+                            tournament_id = self.db_service.upsert_tournament(tournament_data)
+                            if tournament_id:
+                                self.session_stats['total_inserted'] += 1
+                                self.collection_logger.log_inserted(1, "tournaments table")
+                                if include_games:
+                                    logger.info(f"Would collect games for tournament {tournament_id}")
+                            else:
+                                self.session_stats['total_errors'] += 1
                     else:
                         logger.warning(f"Tournament validation failed: {validation_result.get_summary()}")
                         self.session_stats['total_errors'] += 1
