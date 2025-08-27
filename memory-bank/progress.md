@@ -445,3 +445,19 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 ## 2025-08-12 20:35:07Z ARCHIVE Complete
 - Task: Level 2 — Dashboard Charts Timeframe Controls (7/30/90)
 - Archive: docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md
+
+## 2025-08-27: IMPLEMENT — Data Validation Dry-Run (Phase B+C)
+- Status: IMPLEMENTED (dry-run)
+- Summary: Implemented safe dry-run validation flow for GoMafia data collection. Added CLI flags, environment guards, and JSON report writer to capture validation results without writing to DB.
+- Key edits:
+  - `data-collection/src/main.py`: added `--dry-run`, `--validation-threshold` handling; validation/report generation; wired dry-run to set `SKIP_DB_TEST=1` and `SKIP_DB_WRITE=1`.
+  - `data-collection/src/services/database.py`: added SKIP_DB_TEST/SKIP_DB_WRITE guards and short-circuit writes; deferred/safe DB behavior in dry-run.
+  - `memory-bank/tasks.md`: appended plan for Data Validation Dry-Run and Audit Plan.
+- Actions performed (local run):
+  - Created venv and installed requirements: `.venv` (Python 3.11)
+  - Executed dry-run: `PYTHONPATH=data-collection SKIP_DB_TEST=1 SKIP_DB_WRITE=1 .venv/bin/python3.11 -m src.main players --dry-run`
+  - Validation report written to: `debug/validation_reports/players-20250827T204936.json`
+- Notes & next steps:
+  - Placeholder scrapers are used; replace with real `PlayerScraper`/`TournamentScraper` next.
+  - Consider adding unit tests for `from_scraped_data()` and `validate_data()` and integrating threshold config end-to-end.
+  - Some supabase network errors are logged during dry-run when the client is initialized; these are non-blocking due to write/test skips but can be removed by deferring client creation when `SKIP_DB_TEST`/`SKIP_DB_WRITE` are set.
