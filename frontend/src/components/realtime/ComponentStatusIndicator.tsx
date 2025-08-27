@@ -376,14 +376,28 @@ export function ComponentStatusIndicator({
   isRealtimeEnabled = true,
   className = '',
   // Phase 2 enhancements
-  connectionLatency = Math.floor(Math.random() * 100) + 50, // Mock data for demo
-  dataTransferred = Math.floor(Math.random() * 1024 * 100), // Mock data for demo
+  connectionLatency = 0,
+  dataTransferred = 0,
   errorCount = 0,
   retryCount = 0,
-  uptime = Math.floor(Math.random() * 3600) // Mock data for demo
+  uptime = 0
 }: ComponentStatusIndicatorProps) {
   const [showPanel, setShowPanel] = useState(false);
   const [previousConnectionStatus, setPreviousConnectionStatus] = useState<string | null>(null);
+
+  // Local client-only metrics to avoid SSR/client hydration mismatches
+  const [localConnectionLatency, setLocalConnectionLatency] = useState<number>(connectionLatency);
+  const [localDataTransferred, setLocalDataTransferred] = useState<number>(dataTransferred);
+  const [localUptime, setLocalUptime] = useState<number>(uptime);
+
+  useEffect(() => {
+    // Generate mock values only on client after mount when defaults are not provided
+    if (connectionLatency === 0 && dataTransferred === 0 && uptime === 0) {
+      setLocalConnectionLatency(Math.floor(Math.random() * 100) + 50);
+      setLocalDataTransferred(Math.floor(Math.random() * 1024 * 100));
+      setLocalUptime(Math.floor(Math.random() * 3600));
+    }
+  }, [connectionLatency, dataTransferred, uptime]);
 
   // Enhanced status change notifications
   useEffect(() => {
@@ -519,11 +533,11 @@ export function ComponentStatusIndicator({
         onReconnect={onReconnect}
         onToggleRealtime={onToggleRealtime}
         isRealtimeEnabled={isRealtimeEnabled}
-        connectionLatency={connectionLatency}
-        dataTransferred={dataTransferred}
+        connectionLatency={localConnectionLatency}
+        dataTransferred={localDataTransferred}
         errorCount={errorCount}
         retryCount={retryCount}
-        uptime={uptime}
+        uptime={localUptime}
         onRetryConnection={retryConnection}
       />
     </>
