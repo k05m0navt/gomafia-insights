@@ -207,7 +207,12 @@ export function RecentActivity() {
   };
 
   const mappedConnectionStatus = mapConnectionStatus(connectionHealth.status);
-  const lastUpdated = new Date(); // Placeholder - will be enhanced with real data
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  // Avoid SSR/client hydration mismatches by setting lastUpdated on mount only
+  useEffect(() => {
+    setLastUpdated(new Date());
+  }, []);
 
   // Enhanced connection status change notifications
   useEffect(() => {
