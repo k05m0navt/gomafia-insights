@@ -25,6 +25,7 @@ from bs4 import BeautifulSoup
 # Import project modules (models, config)
 from ..config import config
 from ..models import PlayerData, TournamentData, GameData, GameParticipationData
+from datetime import datetime
 
 
 DEBUG_DIR = Path("debug_html")
@@ -192,29 +193,52 @@ def extract_tournament_raw_from_html(html: str, url: str) -> Dict[str, str]:
 
 
 def run_player_verification(identifier: str, live: bool, save_html: bool, verbose: bool) -> Dict:
-    """Fetch (or load) player page, build raw_data, parse into PlayerData and validate."""
-    # Determine URL
-    if re.match(r'^https?://', identifier):
-        url = identifier
-    elif identifier.isdigit():
-        url = config.scraping.base_url.rstrip('/') + f"/stats/{identifier}"
-    else:
-        raise ValueError("Player identifier must be numeric ID or full URL")
+    """Fetch (or load) player page, build raw_data, parse into PlayerData and validate.
 
+    If `live` is False and `identifier` points to an existing file, treat it as a fixture
+    and load HTML from disk.
+    """
     html = None
-    final_url = url
-    if live:
-        html, final_url = fetch_url(url, save_html=save_html)
-        if not html:
-            return {"id": identifier, "error": "failed_fetch"}
+    final_url = None
+
+    # Fixture path case (local file) — only when not fetching live
+    p = Path(identifier)
+    if (not live) and p.exists() and p.is_file():
+        try:
+            html = p.read_text(encoding='utf-8')
+            final_url = f"file://{p.resolve()}"
+        except Exception:
+            return {"id": identifier, "error": "fixture_read_error"}
     else:
-        # Treat identifier as fixture path
-        p = Path(identifier)
-        if not p.exists():
-            return {"id": identifier, "error": "fixture_not_found"}
-        html = p.read_text(encoding='utf-8')
+        # Determine URL for live fetching or ID-based fetch
+        if re.match(r'^https?://', identifier):
+            url = identifier
+        elif identifier.isdigit():
+            url = config.scraping.base_url.rstrip('/') + f"/stats/{identifier}"
+        else:
+            return {"id": identifier, "error": "invalid_identifier"}
+
+        final_url = url
+        if live:
+            html, final_url = fetch_url(url, save_html=save_html)
+            if not html:
+                return {"id": identifier, "error": "failed_fetch"}
 
     raw = extract_player_raw_from_html(html, final_url)
+
+    # Helper: save raw HTML fixture for failing cases
+    def _save_fixture(content: str, kind: str, ident: str) -> str:
+        fixtures_dir = Path(__file__).resolve().parents[2] / 'tests' / 'fixtures'
+        fixtures_dir.mkdir(parents=True, exist_ok=True)
+        ts = datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+        safe_id = re.sub(r'[^0-9A-Za-z_.-]', '_', str(ident))
+        fname = fixtures_dir / f"{kind}_{safe_id}_{ts}.html"
+        try:
+            with open(fname, 'w', encoding='utf-8') as f:
+                f.write(content)
+            return str(fname)
+        except Exception:
+            return ''
 
     # Attempt to create model and validate
     try:
@@ -231,37 +255,69 @@ def run_player_verification(identifier: str, live: bool, save_html: bool, verbos
             }
         }
 
+        # On validation failure, save fixture for inspection
+        if not validation.is_valid:
+            if html:
+                saved = _save_fixture(html, 'player', identifier)
+                if saved:
+                    result['fixture'] = saved
+                    print(f"Saved failing player fixture: {saved}")
+
         if verbose:
             print(json.dumps(result, indent=2, ensure_ascii=False))
 
         return result
 
     except Exception as e:
-        return {"id": identifier, "error": str(e), "raw": raw}
+        # On unexpected parsing exception, save the raw HTML for diagnosis
+        out: Dict = {"id": identifier, "error": str(e), "raw": raw}
+        if html:
+            saved = _save_fixture(html, 'player_error', identifier)
+            if saved:
+                out['fixture'] = saved
+        return out
 
 
 def run_tournament_verification(identifier: str, live: bool, save_html: bool, verbose: bool) -> Dict:
-    # Determine URL similarly
-    if re.match(r'^https?://', identifier):
-        url = identifier
-    elif identifier.isdigit():
-        url = config.scraping.base_url.rstrip('/') + f"/tournaments/{identifier}"
-    else:
-        raise ValueError("Tournament identifier must be numeric ID or full URL")
-
+    # Fixture path case
     html = None
-    final_url = url
-    if live:
-        html, final_url = fetch_url(url, save_html=save_html)
-        if not html:
-            return {"id": identifier, "error": "failed_fetch"}
+    final_url = None
+    p = Path(identifier)
+    if (not live) and p.exists() and p.is_file():
+        try:
+            html = p.read_text(encoding='utf-8')
+            final_url = f"file://{p.resolve()}"
+        except Exception:
+            return {"id": identifier, "error": "fixture_read_error"}
     else:
-        p = Path(identifier)
-        if not p.exists():
-            return {"id": identifier, "error": "fixture_not_found"}
-        html = p.read_text(encoding='utf-8')
+        # Determine URL similarly
+        if re.match(r'^https?://', identifier):
+            url = identifier
+        elif identifier.isdigit():
+            url = config.scraping.base_url.rstrip('/') + f"/tournaments/{identifier}"
+        else:
+            return {"id": identifier, "error": "invalid_identifier"}
+
+        final_url = url
+        if live:
+            html, final_url = fetch_url(url, save_html=save_html)
+            if not html:
+                return {"id": identifier, "error": "failed_fetch"}
 
     raw = extract_tournament_raw_from_html(html, final_url)
+
+    def _save_fixture(content: str, kind: str, ident: str) -> str:
+        fixtures_dir = Path(__file__).resolve().parents[2] / 'tests' / 'fixtures'
+        fixtures_dir.mkdir(parents=True, exist_ok=True)
+        ts = datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+        safe_id = re.sub(r'[^0-9A-Za-z_.-]', '_', str(ident))
+        fname = fixtures_dir / f"{kind}_{safe_id}_{ts}.html"
+        try:
+            with open(fname, 'w', encoding='utf-8') as f:
+                f.write(content)
+            return str(fname)
+        except Exception:
+            return ''
 
     try:
         tournament = TournamentData.from_scraped_data(raw)
@@ -277,13 +333,25 @@ def run_tournament_verification(identifier: str, live: bool, save_html: bool, ve
             }
         }
 
+        if not validation.is_valid:
+            if html:
+                saved = _save_fixture(html, 'tournament', identifier)
+                if saved:
+                    result['fixture'] = saved
+                    print(f"Saved failing tournament fixture: {saved}")
+
         if verbose:
             print(json.dumps(result, indent=2, ensure_ascii=False))
 
         return result
 
     except Exception as e:
-        return {"id": identifier, "error": str(e), "raw": raw}
+        out: Dict = {"id": identifier, "error": str(e), "raw": raw}
+        if html:
+            saved = _save_fixture(html, 'tournament_error', identifier)
+            if saved:
+                out['fixture'] = saved
+        return out
 
 
 def print_summary(results: Dict[str, Dict]) -> None:

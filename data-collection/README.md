@@ -351,3 +351,41 @@ The service is ready for deployment with:
 ---
 
 **Phase 2 Status**: 🚀 **INFRASTRUCTURE COMPLETE** - Ready for scraper implementations and scheduling 
+
+### Running the verifier test
+
+If you have `pytest` installed you can run the CLI unit test:
+
+```bash
+# from repo root
+python3 -m pytest -q data-collection/tests/test_verify_parsing_cli.py
+```
+
+If `pytest` is not installed, use `unittest`:
+
+```bash
+python3 -m unittest data-collection/tests/test_verify_parsing_cli.py
+```
+
+Optional Make target (from repo root):
+
+```bash
+# Run the verifier CLI test
+make -C data-collection test-verify
+```
+
+Add this Make target to a project-level Makefile if you want a shortcut. 
+
+## Verifier wrapper flags
+
+The wrapper supports an optional `--no-venv` flag which skips automatic virtual environment
+creation and dependency installation. Use this when you prefer to manage dependencies yourself.
+
+```bash
+# Skip venv/bootstrap and run verifier (errors shown if deps missing)
+python3 data-collection/tools/verify_parsing.py --no-venv --players data-collection/debug_html/page_20250828T093650Z.html
+```
+
+When the verifier encounters validation errors or unexpected parsing exceptions while processing
+fixture HTML files, it will save the raw HTML under `data-collection/tests/fixtures/` with a
+timestamped filename to make inspection and test creation easier. 
