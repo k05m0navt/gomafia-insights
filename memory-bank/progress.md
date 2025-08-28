@@ -445,3 +445,9 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 ## 2025-08-12 20:35:07Z ARCHIVE Complete
 - Task: Level 2 — Dashboard Charts Timeframe Controls (7/30/90)
 - Archive: docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md
+
+
+## 2025-08-28T09:16:17.523698Z - START: Parser Verification (van/verify-gomafia-parsing-20250828T000000Z)
+- Branch: van/verify-gomafia-parsing-20250828T000000Z
+- Status: STARTED
+- Notes: Creative phase doc added `memory-bank/creative/creative-parsing-verification.md`.

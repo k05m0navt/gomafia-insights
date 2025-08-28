@@ -373,3 +373,20 @@ Type: Testing & Production Readiness
 - [ ] NA (Level 2)
 
 → NEXT RECOMMENDED MODE: IMPLEMENT MODE
+
+
+## ACTIVE TASK - LEVEL 2 - Parser Verification for GoMafia
+- Task: Create a non-destructive verification script to validate parsers (`from_scraped_data`) for Player, Tournament, Game, and GameParticipation models.
+- Branch: `van/verify-gomafia-parsing-20250828T000000Z`
+- Priority: HIGH
+- Status: IN_PROGRESS
+
+### Description
+Add `data-collection/tools/verify_parsing.py` to fetch live pages or use fixtures, build minimal raw payloads, call model parsers, run `validate_data()`, and print summaries. Must not perform any DB writes.
+
+### Checklist
+- [ ] Create `data-collection/tools/verify_parsing.py` (non-destructive)
+- [ ] Support flags: `--players`, `--tournaments`, `--fixtures`, `--live`, `--save-html`, `--fail-on-error`
+- [ ] Run against sample IDs / fixtures
+- [ ] Collect failing HTMLs into `data-collection/tests/fixtures/`
+- [ ] Add fixture-based unit tests for edge cases

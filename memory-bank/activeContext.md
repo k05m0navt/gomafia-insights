@@ -18,3 +18,11 @@
 
 ## Memory Bank
 - Source of Truth: `memory-bank/tasks.md` updated; next mode VAN
+
+
+## Current Status
+- Status: ACTIVE
+- Focus: CREATIVE - Parser Verification
+
+## Active Task
+- Parser Verification for GoMafia on branch `van/verify-gomafia-parsing-20250828T000000Z`
