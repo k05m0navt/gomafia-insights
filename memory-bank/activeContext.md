@@ -2,7 +2,7 @@
 
 ## Current Status
 - Status: ACTIVE — ARCHIVE complete
-- Focus: ARCHIVE — VAN work completed
+- Focus: VAN - Ready for next task
 
 ## Recently Completed
 - Level 2 — Dashboard Charts Timeframe Controls (archived)
@@ -22,7 +22,7 @@
 
 ## Current Status
 - Status: ACTIVE
-- Focus: CREATIVE - Parser Verification
+- Focus: VAN - Ready for next task
 
 ## Active Task
 - Parser Verification for GoMafia on branch `van/verify-gomafia-parsing-20250828T000000Z`

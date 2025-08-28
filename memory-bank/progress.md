@@ -454,3 +454,4 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 
 
 2025-08-28T10:00:05Z - REFLECT: Parser Verification completed on branch van/verify-gomafia-parsing-20250828T000000Z
+\n\n2025-08-28T11:58:50Z - ARCHIVE: Parser Verification archived -> docs/archive/parsing-verification_20250828T115850Z.md
