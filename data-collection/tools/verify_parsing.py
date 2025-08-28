@@ -145,6 +145,12 @@ def _main_cli(argv: list[str] | None = None) -> None:
             sys.exit(3)
 
         print('Missing dependencies detected while importing verifier:', exc, file=sys.stderr)
+        # Helpful suggestion for installing dependencies (tests look for this phrase)
+        if req_file.exists():
+            print(f"Install required packages: python3 -m pip install -r {req_file}", file=sys.stderr)
+        else:
+            print("Install required packages, e.g.: python3 -m pip install requests beautifulsoup4 lxml pydantic pydantic-settings", file=sys.stderr)
+
         # If user requested no venv, skip bootstrap and show instructions
         if no_venv:
             if req_file.exists():

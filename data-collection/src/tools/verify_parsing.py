@@ -85,18 +85,67 @@ def extract_player_raw_from_html(html: str, url: str) -> Dict[str, str]:
     page_text = soup.get_text(separator=' ', strip=True)
 
     raw: Dict[str, str] = {}
-    raw['profile_url'] = url
 
-    # ID from URL
-    m = re.search(r'/stats/(\d+)', url)
-    if m:
-        raw['go_mafia_id'] = int(m.group(1))
+    # Try to extract structured data from Next.js __NEXT_DATA__ if available
+    try:
+        script = soup.find('script', id='__NEXT_DATA__', type='application/json')
+        if script and script.string:
+            try:
+                data = json.loads(script.string)
+                user = data.get('props', {}).get('pageProps', {}).get('serverData', {}).get('user')
+                if isinstance(user, dict):
+                    # ID
+                    if user.get('id'):
+                        try:
+                            uid = int(user.get('id'))
+                        except Exception:
+                            uid = None
+                        if uid:
+                            raw['go_mafia_id'] = uid
+                            raw['profile_url'] = f"https://gomafia.pro/stats/{uid}"
+                    # Prefer login as nickname if present
+                    if user.get('login'):
+                        raw['current_nickname'] = user.get('login')
+                    # Fallback: combine first/last name
+                    elif user.get('first_name') and user.get('last_name'):
+                        raw['current_nickname'] = f"{user.get('first_name')} {user.get('last_name')}"
+            except Exception:
+                # Non-fatal: fall back to heuristics below
+                pass
+    except Exception:
+        pass
 
-    # Nickname: try h1, og:title, title
-    nickname = None
-    h1 = soup.find('h1')
-    if h1:
-        nickname = h1.get_text(strip=True)
+    # If profile_url wasn't set by structured data, use provided URL
+    if 'profile_url' not in raw:
+        raw['profile_url'] = url
+
+    # ID from URL (fallback)
+    if 'go_mafia_id' not in raw:
+        m = re.search(r'/stats/(\d+)', url)
+        if m:
+            try:
+                raw['go_mafia_id'] = int(m.group(1))
+            except Exception:
+                pass
+
+    # Nickname: try structured data (done above), then h1, then profile-specific DOM elements, then og:title/title
+    nickname = raw.get('current_nickname')
+    if not nickname:
+        h1 = soup.find('h1')
+        if h1:
+            nickname = h1.get_text(strip=True)
+
+    if not nickname:
+        # Look for elements commonly used for profile name containers
+        try:
+            candidate = soup.find(class_=re.compile(r'profile[-_ ]?user|ProfileUserInfo|profile-user|profile_user', re.I))
+            if candidate:
+                # Some containers include other text; prefer a direct child with name-like styling
+                text = candidate.get_text(separator=' ', strip=True)
+                if text:
+                    nickname = text.split('\n')[0].strip()
+        except Exception:
+            pass
 
     if not nickname:
         og = soup.find('meta', property='og:title')

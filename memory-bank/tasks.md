@@ -381,9 +381,9 @@ COMPLETED
 Add `data-collection/tools/verify_parsing.py` to fetch live pages or use fixtures, build minimal raw payloads, call model parsers, run `validate_data()`, and print summaries. Must not perform any DB writes.
 
 ### Checklist
-- [ ] Create `data-collection/tools/verify_parsing.py` (non-destructive)
-- [ ] Support flags: `--players`, `--tournaments`, `--fixtures`, `--live`, `--save-html`, `--fail-on-error`
-- [ ] Run against sample IDs / fixtures
+- [x] Create `data-collection/tools/verify_parsing.py` (non-destructive)
+- [x] Support flags: `--players`, `--tournaments`, `--fixtures`, `--live`, `--save-html`, `--fail-on-error`
+- [x] Run against sample IDs / fixtures
 - [ ] Collect failing HTMLs into `data-collection/tests/fixtures/`
 - [ ] Add fixture-based unit tests for edge cases
 
