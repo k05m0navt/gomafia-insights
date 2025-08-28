@@ -4,7 +4,12 @@ Handles environment variables and application settings with validation.
 """
 import os
 from typing import Optional, List
-from pydantic import BaseSettings, validator
+try:
+    from pydantic import BaseSettings, validator
+except Exception:
+    # pydantic v2 moved BaseSettings to pydantic-settings package
+    from pydantic_settings import BaseSettings
+    from pydantic import validator
 from dotenv import load_dotenv
 
 # Load environment variables from .env file

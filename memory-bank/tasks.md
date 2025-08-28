@@ -390,3 +390,9 @@ Add `data-collection/tools/verify_parsing.py` to fetch live pages or use fixture
 - [ ] Run against sample IDs / fixtures
 - [ ] Collect failing HTMLs into `data-collection/tests/fixtures/`
 - [ ] Add fixture-based unit tests for edge cases
+
+
+### REFLECTION: Parser Verification
+- Status: REFLECTION COMPLETE (creative->reflect)
+- Branch: van/verify-gomafia-parsing-20250828T000000Z
+- Notes: Player parsing OK; participant lists require API discovery or JS-rendering.
