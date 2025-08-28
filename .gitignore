@@ -112,3 +112,6 @@ data-collection/.venv/
 # Exclude macOS Finder folders
 Icon
 
+
+# venv for verifier wrapper
+data-collection/.venv_verify_parsing/
