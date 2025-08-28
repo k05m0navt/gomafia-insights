@@ -101,6 +101,9 @@ coverage.report
 
 # debug and generated HTML from verifier
 data-collection/debug_html/
+data-collection/tests/fixtures/
+**/debug_html/*.html
+**/tests/fixtures/*.html
 
 # local virtualenvs in subprojects
 data-collection/.venv/
