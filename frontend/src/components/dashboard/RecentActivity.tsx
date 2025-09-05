@@ -207,7 +207,7 @@ export function RecentActivity() {
   };
 
   const mappedConnectionStatus = mapConnectionStatus(connectionHealth.status);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date | undefined>(undefined);
 
   // Avoid SSR/client hydration mismatches by setting lastUpdated on mount only
   useEffect(() => {
