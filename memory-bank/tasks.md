@@ -1,10 +1,133 @@
 # TASKS.MD - SOURCE OF TRUTH
 
 ## PROJECT STATUS
-- Status: ARCHIVED
-- Current Mode: ARCHIVE → VAN
-- Current Phase: Phase 4B - Dashboard Component Real-time Integration
-- Next Step: VAN Mode for next development priority
+- Status: ACTIVE
+- Current Mode: VAN → PLAN
+- Current Phase: Data Collection Enhancement
+- Next Step: PLAN MODE for parsing script improvements
+
+## ACTIVE TASK - LEVEL 2 - GoMafia Parsing Script Enhancement
+- Task: Improve HTML parsing heuristics in `verify_parsing.py` to extract player data more accurately and robustly from GoMafia.pro pages
+- Priority: MEDIUM
+- Status: PLANNING COMPLETE
+
+## DESCRIPTION
+Enhance the existing `data-collection/src/tools/verify_parsing.py` script to improve data extraction accuracy from GoMafia.pro player pages. Current parsing uses basic regex patterns and limited JSON extraction, missing data fields and failing on pages with different layouts or languages. Improve the `extract_player_raw_from_html` function to be more robust with comprehensive JSON extraction, flexible regex patterns, and better whitespace handling.
+
+## COMPLEXITY
+- Level: 2 (Simple Enhancement)
+- Type: Enhancement (parsing logic improvements)
+
+## TECHNOLOGY STACK
+- Language: Python 3.8+
+- Libraries: BeautifulSoup4, requests, lxml, json, re
+- Framework: Existing data-collection infrastructure
+- Models: PlayerData, TournamentData (Pydantic)
+
+## TECHNOLOGY VALIDATION CHECKPOINTS
+- [x] Python environment available with required dependencies
+- [x] BeautifulSoup4 and lxml parsers functional
+- [x] Existing verify_parsing.py script operational
+- [x] HTML fixtures available for testing (`data-collection/debug_html/`)
+- [x] PlayerData model validation working
+- [x] No external dependencies required (existing stack sufficient)
+
+## REQUIREMENTS
+- **JSON Extraction**: Support multiple JSON sources (Next.js __NEXT_DATA__, window.__INITIAL_DATA__, LD+JSON)
+- **Whitespace Normalization**: Handle NBSP (\u00A0) and thin spaces (\u2009) in parsing
+- **ELO Parsing**: Support thousands separators and multiple keywords (Эло, ELO, Рейтинг, Rating)
+- **Multilingual Support**: Parse both Russian and English field labels
+- **Number Formatting**: Handle various numeric formats (1,250 vs 1250 vs 1 250)
+- **Win Rate Parsing**: Support both percentage (65%) and decimal (0.65) formats
+- **Fallback Gracefully**: Maintain existing functionality while adding robustness
+- **Non-Destructive**: Preserve all current CLI flags and behavior
+
+## AFFECTED FILES / LOCATIONS
+- Edit: `data-collection/src/tools/verify_parsing.py`
+  - Function: `extract_player_raw_from_html()` (lines 80-196)
+  - Add: Enhanced JSON extraction logic
+  - Add: Improved regex patterns for ELO, games, win rates
+  - Add: Whitespace normalization utilities
+- Test: Use existing fixtures in `data-collection/debug_html/` for validation
+- No changes to: CLI interface, model classes, database operations
+
+## IMPLEMENTATION PLAN
+1. **JSON Extraction Enhancement** (15-20 min)
+   - Add recursive object search for player data in JSON scripts
+   - Support multiple script types: application/json, LD+JSON, embedded JS assignments
+   - Extract from: __NEXT_DATA__, __INITIAL_DATA__, window.* patterns
+   - Fallback gracefully to existing DOM parsing
+
+2. **Whitespace & Text Normalization** (10 min)
+   - Normalize NBSP (\u00A0) and thin spaces (\u2009) to regular spaces
+   - Apply normalization before regex matching
+   - Preserve original text for debugging
+
+3. **Enhanced Regex Patterns** (20-25 min)
+   - ELO: Support thousands separators, multiple keywords
+   - Games: Accept both Russian/English labels
+   - Win Rate: Handle percentage and decimal formats
+   - Numbers: Strip spaces/separators before conversion
+
+4. **Testing & Validation** (15-20 min)
+   - Test against existing HTML fixtures
+   - Run verification script on sample player IDs
+   - Ensure no regressions in existing functionality
+   - Validate improved field extraction accuracy
+
+## CHECKLIST
+- [ ] Add recursive JSON object search function
+- [ ] Implement whitespace normalization helper
+- [ ] Enhance ELO parsing with thousands separators
+- [ ] Add multilingual games/wins patterns
+- [ ] Improve win rate parsing (% and decimal)
+- [ ] Test against existing HTML fixtures
+- [ ] Run script with `--players` flag on sample IDs
+- [ ] Verify no CLI behavior regressions
+- [ ] Confirm PlayerData model validation passes
+- [ ] Document improved parsing capabilities
+
+## DEPENDENCIES
+- Existing: Python 3.8+, BeautifulSoup4, lxml, requests
+- Existing: PlayerData model and validation logic
+- Existing: HTML fixtures for testing
+- No new external dependencies required
+
+## CHALLENGES & MITIGATIONS
+- **Complex JSON structures**: Mitigation - Use recursive search with fallback to DOM parsing
+- **Regex pattern conflicts**: Mitigation - Order patterns by specificity, test incrementally
+- **Different page layouts**: Mitigation - Multiple extraction strategies with graceful fallback
+- **Performance impact**: Mitigation - Optimize regex compilation, limit JSON search depth
+- **Backward compatibility**: Mitigation - Additive changes only, preserve existing behavior
+
+## SUCCESS CRITERIA
+- Enhanced JSON extraction from multiple script sources
+- Improved ELO/games/win-rate parsing accuracy on test fixtures
+- Support for thousands separators and multiple languages
+- No regressions in existing CLI functionality
+- Clean verification runs on sample player IDs
+- Maintained compatibility with PlayerData model validation
+
+## IMPLEMENTATION TIME ESTIMATE
+- **Total**: 60-80 minutes
+- **Breakdown**: 25-30 min core improvements + 15-20 min testing + 20-30 min validation
+
+## PLAN VERIFICATION
+- Requirements documented: YES
+- Technology stack validated: YES  
+- Affected components identified: YES
+- Implementation steps detailed: YES
+- Dependencies documented: YES
+- Challenges & mitigations documented: YES
+- Creative phases required: NO (Level 2)
+- tasks.md updated with plan: YES
+
+## MODE TRANSITION
+**Recommendation**: IMPLEMENT MODE (Level 2) - No creative phases required
+
+---
+
+## ARCHIVED TASKS
 
 ## ACTIVE TASK - LEVEL 1 - TypeScript Build Fix (Critical)
 - Task: Fix TypeScript compilation error and ESLint cleanup to restore production build capability
@@ -82,6 +205,23 @@ Critical build failure blocking production deployment. TypeScript error in Recen
 3. **Build Quality Gates**: TypeScript strict mode catches type mismatches effectively
 4. **React Conventions**: `useState<T | undefined>(undefined)` aligns with optional prop patterns
 
+## ARCHIVE - Level 1 TypeScript Build Fix
+- **Date**: 2025-09-03
+- **Archive Document**: [docs/archive/level1-typescript-build-fix_20250903.md](../docs/archive/level1-typescript-build-fix_20250903.md)
+- **Reflection Document**: [memory-bank/reflection/reflection-level1-typescript-build-fix.md](reflection/reflection-level1-typescript-build-fix.md)
+- **Status**: ✅ COMPLETED & ARCHIVED
+- **Grade**: A+ (Exceptional - Template for future Level 1 critical fixes)
+- **Production Status**: ✅ DEPLOYMENT READY - All blockers resolved
+
+## FINAL METRICS
+- **Duration**: 12 minutes (100% accurate estimation)
+- **Files Modified**: 2 (RecentActivity.tsx, setupTests.ts)
+- **Build Status**: ✅ Zero errors, zero warnings
+- **Test Coverage**: ✅ 100% passing (5/5 test files)
+- **Implementation Fidelity**: 100% plan-to-execution accuracy
+- **Business Value**: Production deployment capability fully restored
+
+## TASK COMPLETION STATUS: ✅ ARCHIVED
 
 ## ACTIVE TASK - LEVEL 2 - Dashboard Analytics MVP (API Wiring Fallback)
 - Task: Wire dashboard KPIs, charts, and activity feed to existing Next API routes using React Query when realtime is disconnected or unavailable
@@ -183,7 +323,6 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 
 - **RecentActivity**: Resolved hydration mismatch by using deterministic time formatting (formatTime helper)
 
-
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 2)
 
@@ -194,7 +333,7 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 
 ## Reflection Highlights
 - **What Went Well**: Warning removed; clean flat config; build remains green
-- **Challenges**: Ensuring ignores don’t mask source files
+- **Challenges**: Ensuring ignores don't mask source files
 - **Lessons Learned**: Flat config requires migrating all ignore patterns; keep scopes tight
 - **Next Steps**: Monitor lint coverage on `src/**`; consider adding `npm run lint` in CI
 
@@ -205,10 +344,9 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 
 ## Reflection Highlights
 - **What Went Well**: Warning removed; clean flat config; build remains green
-- **Challenges**: Ensuring ignores don’t mask source files
+- **Challenges**: Ensuring ignores don't mask source files
 - **Lessons Learned**: Flat config requires migrating all ignore patterns; keep scopes tight
 - **Next Steps**: Monitor lint coverage on `src/**`; consider adding `npm run lint` in CI
-
 
 ## DESCRIPTION
 Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer supported with flat config. Consolidate all ignore patterns into `eslint.config.mjs` and remove the legacy file.
@@ -269,7 +407,6 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 1)
 
-
 ## ARCHIVE — Level 1 ESLint Ignore Migration
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level1-eslint-ignore-migration_20250812.md](../docs/archive/level1-eslint-ignore-migration_20250812.md)
@@ -321,7 +458,6 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 ## SUCCESS CRITERIA
 - Tests pass cleanly with zero React DOM prop warnings
 
-
 ## REFLECTION HIGHLIGHTS
 - **What Went Well**: Global mock eliminated warnings; typings fixed; build clean.
 - **Challenges**: Competing local mock; ESLint typing rules.
@@ -337,7 +473,6 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - Challenges & mitigations documented: YES
 - Creative phases required: NO (Level 1)
 - tasks.md updated with plan: YES
-
 
 ## ARCHIVE — Level 1 Framer Motion Test Mock Cleanup
 - Date: 2025-08-12
@@ -364,6 +499,7 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md](../docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md)
 - Status: COMPLETED
+
 ## Sub-phase 3C — Testing & Production Readiness Bootstrap
 
 ## Description
@@ -451,7 +587,6 @@ Type: Testing & Production Readiness
 
 → NEXT RECOMMENDED MODE: IMPLEMENT MODE
 
-
 COMPLETED
 
 ### Description
@@ -464,42 +599,7 @@ Add `data-collection/tools/verify_parsing.py` to fetch live pages or use fixture
 - [ ] Collect failing HTMLs into `data-collection/tests/fixtures/`
 - [ ] Add fixture-based unit tests for edge cases
 
-
 ### REFLECTION: Parser Verification
 - Status: REFLECTION COMPLETE (creative->reflect)
 - Branch: van/verify-gomafia-parsing-20250828T000000Z
 - Notes: Player parsing OK; participant lists require API discovery or JS-rendering.
-
-## REFLECTION HIGHLIGHTS
-- **What Went Well**: Perfect plan-to-execution fidelity; surgical precision with maximum impact; comprehensive build quality restoration
-- **Challenges**: Paired ESLint directives required additional cleanup step; TypeScript strict mode type compatibility requirements
-- **Lessons Learned**: Use `undefined` over `null` for optional React props; ESLint disable/enable directives must be maintained as pairs; VAN mode diagnostic capability prevents deployment failures
-- **Next Steps**: Consider automated build health checks in VAN mode; standardize on `undefined` for optional state values across codebase
-
-## REFLECTION STATUS
-- **Document**: memory-bank/reflection/reflection-level1-typescript-build-fix.md
-- **Status**: ✅ REFLECTION COMPLETE
-- **Grade**: A+ (Exceptional - 100% plan fidelity, zero regressions)
-- **Ready for Archive**: YES
-
-## MODE TRANSITION
-- **Current**: REFLECT → ARCHIVE (awaiting ARCHIVE NOW command)
-- **Recommendation**: ARCHIVE MODE - Document ready for final archival
-
-## ARCHIVE - Level 1 TypeScript Build Fix
-- **Date**: 2025-09-03
-- **Archive Document**: [docs/archive/level1-typescript-build-fix_20250903.md](../docs/archive/level1-typescript-build-fix_20250903.md)
-- **Reflection Document**: [memory-bank/reflection/reflection-level1-typescript-build-fix.md](reflection/reflection-level1-typescript-build-fix.md)
-- **Status**: ✅ COMPLETED & ARCHIVED
-- **Grade**: A+ (Exceptional - Template for future Level 1 critical fixes)
-- **Production Status**: ✅ DEPLOYMENT READY - All blockers resolved
-
-## FINAL METRICS
-- **Duration**: 12 minutes (100% accurate estimation)
-- **Files Modified**: 2 (RecentActivity.tsx, setupTests.ts)
-- **Build Status**: ✅ Zero errors, zero warnings
-- **Test Coverage**: ✅ 100% passing (5/5 test files)
-- **Implementation Fidelity**: 100% plan-to-execution accuracy
-- **Business Value**: Production deployment capability fully restored
-
-## TASK COMPLETION STATUS: ✅ ARCHIVED

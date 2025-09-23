@@ -22,6 +22,17 @@ from typing import Dict, Optional, Tuple
 import requests
 from bs4 import BeautifulSoup
 
+# Module-level numeric cleaner used by fallback heuristics
+def _clean_numeric_text(s: str) -> Optional[str]:
+    if s is None:
+        return None
+    t = str(s)
+    t = t.replace('\u00A0', '').replace('\u2009', '').replace('\u202F', '').replace(' ', '')
+    t = re.sub(r'[^0-9,\.-]', '', t)
+    if not t:
+        return None
+    return t
+
 # Import project modules (models, config)
 from ..config import config
 from ..models import PlayerData, TournamentData, GameData, GameParticipationData
@@ -165,28 +176,35 @@ def extract_player_raw_from_html(html: str, url: str) -> Dict[str, str]:
     if reg_match:
         raw['registration_text'] = f"на сайте с {reg_match.group(1)} года"
 
-    # ELO heuristics: look for nearby keywords
-    elo_match = None
-    for keyword in [r'Эло', r'ELO', r'Рейтинг', r'Рейтинг:']:
-        m = re.search(rf'{keyword}[\s:\u00A0]*(\d{{3,4}})', page_text, re.IGNORECASE)
+    # Normalized text for numeric regexes (collapse NBSP/thin/narrow spaces)
+    normalized_text = page_text.replace('\u00A0', ' ').replace('\u2009', ' ').replace('\u202F', ' ')
+
+    # ELO heuristics: collect and normalize numeric candidates near rating keywords
+    for keyword in [r'Эло', r'ELO', r'Рейтинг', r'Rating']:
+        pat = rf"{keyword}\s*(?:\([^)]*\))?\s*[:\-]?\s*([0-9\s,\.]+)"
+        m = re.search(pat, normalized_text, re.IGNORECASE)
         if m:
-            elo_match = m.group(1)
-            break
+            raw_val = m.group(1)
+            cleaned = _clean_numeric_text(raw_val)
+            if cleaned:
+                raw['current_elo'] = cleaned.replace(',', '').replace('.', '')
+                break
 
-    if elo_match:
-        raw['current_elo'] = elo_match
-
-    # Games played / won
-    gp_match = re.search(r'игр[а-яА-Я]*[\s:\u00A0]*(\d+)', page_text)
+    # Games played / won (use normalized_text to handle unicode spaces)
+    gp_match = re.search(r'(?:игр[а-яА-Я]*|games(?: played)?|games)\s*[:\-]?\s*([0-9\s,\.]+)', normalized_text, re.IGNORECASE)
     if gp_match:
-        raw['games_played'] = gp_match.group(1)
+        val = _clean_numeric_text(gp_match.group(1))
+        if val:
+            raw['games_played'] = val.replace(',', '')
 
-    gw_match = re.search(r'выигра(л|но|ли)[\s:\u00A0]*(\d+)', page_text)
+    gw_match = re.search(r'(?:выигра(?:л|но|ли)|wins?|won)\s*[:\-]?\s*([0-9\s,\.]+)', normalized_text, re.IGNORECASE)
     if gw_match:
-        raw['games_won'] = gw_match.group(2)
+        val = _clean_numeric_text(gw_match.group(1))
+        if val:
+            raw['games_won'] = val.replace(',', '')
 
     # Win rate percent
-    wr_match = re.search(r'(\d{1,3}[.,]?\d?)\s*%\s*(?:выигр|win|win rate)?', page_text, re.IGNORECASE)
+    wr_match = re.search(r'(\d{1,3}[.,]?\d?)\s*%\s*(?:выигр|win|win rate)?', normalized_text, re.IGNORECASE)
     if wr_match:
         raw['win_rate'] = wr_match.group(1)
 
