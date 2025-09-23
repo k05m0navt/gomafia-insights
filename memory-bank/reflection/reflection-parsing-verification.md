@@ -43,3 +43,31 @@ Verification Checklist
 - `verify_parsing.py` created: YES
 - tasks.md updated with reflection status: YES
 
+
+
+Update — 2025-09-23
+- Continued work on this branch to harden parsing and migrate models to Pydantic v2.
+- Changes made:
+  - Migrated model validators from `@validator` to `@field_validator` and replaced class `Config` with
+    `model_config = ConfigDict(...)` where appropriate to remove deprecation warnings.
+  - Improved numeric whitespace normalization and added `_clean_numeric_text` to handle NBSP and thin
+    spaces (\u00A0, \u2009, \u202F) and various thousands separators.
+  - Enhanced JSON extraction in `verify_parsing.py` to search `application/ld+json`, `application/json`,
+    `__NEXT_DATA__`, and inline JS-assigned objects (e.g., `window.__INITIAL_TOURNAMENT__`).
+  - Added fixtures and unit tests for exotic number formats, thin-space separators, and English labels
+    (`data-collection/tests/*` and fixtures), and ensured the test suite passes locally (7 passed).
+  - Added a headless fetch note and `data-collection/HEADLESS.md` describing optional Playwright usage.
+
+Key verification results:
+- Test suite: 7 passed, local lint/format fixes applied.
+- Warnings: Removed earlier validator-related NameErrors; remaining Pydantic deprecation
+  warnings were addressed by migrating `Config` to `ConfigDict` and validators to `field_validator`.
+
+Next recommended steps (actionable):
+1. Implement API discovery for tournament participants (preferred over headless rendering).
+2. If API discovery fails, add an optional Playwright headless fetch mode (documented in HEADLESS.md) and
+   wire it into `verify_parsing.py` behind a flag (e.g., `--render`).
+3. Harvest any remaining failing pages into `data-collection/tests/fixtures/` and add corresponding
+   unit tests to lock parsing behavior.
+
+Reflection status: REFLECTION UPDATED — ready for user review and then `ARCHIVE NOW` when satisfied.
