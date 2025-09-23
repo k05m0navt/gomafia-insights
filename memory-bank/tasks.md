@@ -9,7 +9,14 @@
 ## ACTIVE TASK - LEVEL 2 - GoMafia Parsing Script Enhancement
 - Task: Improve HTML parsing heuristics in `verify_parsing.py` to extract player data more accurately and robustly from GoMafia.pro pages
 - Priority: MEDIUM
-- Status: PLANNING COMPLETE
+- Status: COMPLETED & ARCHIVED
+
+
+## ARCHIVE
+- Date: 2025-09-23
+- Archive Document: docs/archive/parsing-verification_20250923.md
+- Reflection Document: memory-bank/reflection/reflection-parsing-verification.md
+- Status: ✅ COMPLETED & ARCHIVED
 
 ## DESCRIPTION
 Enhance the existing `data-collection/src/tools/verify_parsing.py` script to improve data extraction accuracy from GoMafia.pro player pages. Current parsing uses basic regex patterns and limited JSON extraction, missing data fields and failing on pages with different layouts or languages. Improve the `extract_player_raw_from_html` function to be more robust with comprehensive JSON extraction, flexible regex patterns, and better whitespace handling.

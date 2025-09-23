@@ -503,3 +503,11 @@ Error Recovery           ↔         ↔         ↔          ✅        ✅
 
 2025-08-28T10:00:05Z - REFLECT: Parser Verification completed on branch van/verify-gomafia-parsing-20250828T000000Z
 \n\n2025-08-28T11:58:50Z - ARCHIVE: Parser Verification archived -> docs/archive/parsing-verification_20250828T115850Z.md
+
+## 2025-09-23T000000Z: ARCHIVE Complete - Parser Verification
+- Task: Improve HTML parsing heuristics and migrate models to Pydantic v2
+- Archive: docs/archive/parsing-verification_20250923.md
+- Reflection: memory-bank/reflection/reflection-parsing-verification.md
+- Result: Parser verification hardened, fixtures/tests added, optional headless mode documented
+- Files: verify_parsing.py, models/*, config.py, tests/fixtures
+- Mode: ARCHIVE → VAN
