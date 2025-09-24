@@ -17,13 +17,13 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix frontend ci
       - name: Lint
-        run: npm run lint
+        run: npm --prefix frontend run lint
       - name: Unit tests (vitest)
-        run: npm run test:ci
+        run: npm --prefix frontend run test:ci
       - name: Build
-        run: npm run build
+        run: npm --prefix frontend run build
       - name: Publish Vercel preview
         id: publish_preview
         env:
@@ -45,7 +45,7 @@ jobs:
         with:
           node-version: '20'
       - name: Install dependencies
-        run: npm ci
+        run: npm --prefix frontend ci
       - name: Canary healthcheck (preview)
         env:
           PREVIEW_URL: ${{ needs.build-and-test.outputs.preview_url }}
