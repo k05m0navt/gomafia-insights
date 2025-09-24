@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.publish_preview.outputs.preview_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Unit tests (vitest)
+        run: npm run test:ci
+      - name: Build
+        run: npm run build
+      - name: Publish preview (placeholder)
+        id: publish_preview
+        run: |
+          # In your deployment platform this step should publish a preview and echo the URL
+          # For now we set a placeholder environment variable for subsequent jobs
+          echo "preview_url=http://localhost:3000" >> $GITHUB_OUTPUT
+
+  playwright-e2e:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
+      - name: Canary healthcheck (preview)
+        env:
+          PREVIEW_URL: ${{ needs.build-and-test.outputs.preview_url }}
+        run: |
+          echo "Running canary healthcheck against $PREVIEW_URL"
+          bash ./scripts/canary-healthcheck.sh "$PREVIEW_URL"
+      - name: Run Playwright tests against preview
+        env:
+          PREVIEW_URL: ${{ needs.build-and-test.outputs.preview_url }}
+        run: |
+          npm run test:e2e
