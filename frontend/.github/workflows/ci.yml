@@ -18,8 +18,12 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm --prefix frontend ci
-      - name: Prisma generate
-        run: npm --prefix frontend exec prisma generate -- --schema=prisma/schema.prisma
+      - name: Prisma generate (root)
+        run: npx prisma generate --schema=prisma/schema.prisma
+      - name: Copy generated Prisma client to frontend
+        run: |
+          mkdir -p frontend/src/generated/prisma
+          cp -R ./src/generated/prisma/* frontend/src/generated/prisma/ || true
       - name: Lint
         run: npm --prefix frontend run lint
       - name: Unit tests (vitest)
