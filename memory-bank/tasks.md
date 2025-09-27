@@ -509,6 +509,8 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 
 ## Sub-phase 3C — Testing & Production Readiness Bootstrap
 
+**Archived**: docs/archive/subphase3c-testing-readiness_20250927T233757Z.md
+
 ## Description
 Bootstrap testing and production-readiness for Phase 4B dashboard components (OverviewCards, ChartGrid, RecentActivity, RealtimeErrorBoundary). Ensure build & tests are robust, lint issues resolved, and production config / monitoring basics are in place.
 
