@@ -33,7 +33,7 @@ vi.mock('react-hot-toast', () => {
 })
 
 // Mock lucide-react icons globally used by components
-/* eslint-disable react/display-name, @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 vi.mock('lucide-react', () => {
   const createIcon = (name: string) => {
     const Comp: React.FC<Record<string, unknown>> = (props) => {
@@ -64,7 +64,7 @@ vi.mock('lucide-react', () => {
     ChevronUp: createIcon('ChevronUp'),
   }
 })
-/* eslint-enable react/display-name, @typescript-eslint/no-explicit-any */
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 // Mock framer-motion to avoid passing motion-only props to DOM elements
 // This prevents warnings like: "React does not recognize the `whileHover` prop on a DOM element"

@@ -1,0 +1,22 @@
+{
+  "activities": [
+    {
+      "id": "1",
+      "type": "game",
+      "title": "Ranked Game #15432",
+      "description": "Mafia victory - 7 players",
+      "time": "2 minutes ago",
+      "participants": 7,
+      "status": "completed"
+    },
+    {
+      "id": "2",
+      "type": "tournament",
+      "title": "Winter Championship 2024",
+      "description": "Quarter Finals - Round 2",
+      "time": "15 minutes ago",
+      "participants": 64,
+      "status": "ongoing"
+    }
+  ]
+}

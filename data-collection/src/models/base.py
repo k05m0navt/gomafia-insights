@@ -4,29 +4,26 @@ Provides common functionality for data validation and database operations.
 """
 from typing import Any, Dict, Optional, List
 from datetime import datetime
-from pydantic import BaseModel as PydanticBaseModel, validator
+from pydantic import BaseModel, field_validator, ConfigDict
 import logging
 
 logger = logging.getLogger(__name__)
 
 
-class BaseModel(PydanticBaseModel):
+class BaseModel(BaseModel):
     """Base model with common functionality for all data models."""
     
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
-    
-    class Config:
-        # Allow extra fields for flexibility
-        extra = "allow"
-        # Use enum values instead of enum objects for serialization
-        use_enum_values = True
-        # Validate assignment to catch errors early
-        validate_assignment = True
-        # Allow arbitrary types for complex fields
-        arbitrary_types_allowed = True
-    
-    @validator('created_at', 'updated_at', pre=True)
+    # Pydantic v2 config
+    model_config = ConfigDict(
+        extra='allow',
+        use_enum_values=True,
+        validate_assignment=True,
+        arbitrary_types_allowed=True,
+    )
+
+    @field_validator('created_at', 'updated_at', mode='before')
     def parse_datetime(cls, v):
         """Parse datetime from various formats."""
         if v is None:

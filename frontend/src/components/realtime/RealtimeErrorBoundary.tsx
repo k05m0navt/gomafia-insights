@@ -207,9 +207,12 @@ export class RealtimeErrorBoundary extends Component<Props, State> {
   private async reportError(errorReport: ErrorReport) {
     try {
       // Fire-and-forget telemetry (non-blocking)
-      void telemetryReport(errorReport).catch((err) => {
-        console.warn('Telemetry report failed', err);
-      });
+      // Respect environment flag to avoid sending telemetry during tests/local
+      if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_TELEMETRY === 'true') {
+        void telemetryReport(errorReport).catch((err) => {
+          console.warn('Telemetry report failed', err);
+        });
+      }
     } catch (e) {
       console.warn('Telemetry invocation failed', e);
     }
