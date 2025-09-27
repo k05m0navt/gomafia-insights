@@ -6,6 +6,7 @@ import logging
 from typing import List, Dict, Any, Optional, Tuple
 from datetime import datetime
 import traceback
+import os
 
 from supabase import create_client, Client
 from postgrest.exceptions import APIError
@@ -38,6 +39,10 @@ class DatabaseService:
     async def test_connection(self) -> bool:
         """Test database connection."""
         try:
+            # Allow skipping DB test for dry-run/dev via env var
+            if os.environ.get('SKIP_DB_TEST') == '1':
+                logger.info("Skipping database connection test (SKIP_DB_TEST=1)")
+                return True
             # Simple query to test connection
             response = self.client.table('players').select('id').limit(1).execute()
             logger.info("Database connection test successful")

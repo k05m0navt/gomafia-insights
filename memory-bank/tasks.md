@@ -373,3 +373,40 @@ Type: Testing & Production Readiness
 - [ ] NA (Level 2)
 
 → NEXT RECOMMENDED MODE: IMPLEMENT MODE
+
+## ACTIVE TASK - LEVEL 2 - Data Validation Dry-Run and Audit Plan
+- Task: Implement dry-run validation for data collection
+- Status: REFLECTION COMPLETE
+- Goal: Parse all GoMafia data, validate before DB insert, produce reports, configurable thresholds, optional audit logging.
+- Assumptions: work in data-collection/src; default acceptance strict (validation.is_valid == True)
+- Phases:
+  - Phase A 6 Design & Config (0.5h)
+    - A1 Decide acceptance policy (default strict)
+    - A2 Add config options: development.data_validation_threshold, development.enable_validation_audit
+  - Phase B 6 CLI + Orchestrator (1-1.5h)
+    - B1 Add CLI flags --dry-run --validation-threshold= --write-report
+    - B2 Extend DataCollectionOrchestrator method signatures to accept dry_run and validation_threshold
+    - B3 Standardize return structure with scraped validated inserted errors validation_report
+  - Phase C 6 Validation & Reporting (2-3h)
+    - C1 Implement dry-run flow: from_scraped_data, validate_data, collect summaries
+    - C2 Produce JSON report debug/validation_reports/<collection>-<timestamp>.json
+    - C3 Logging via collection_logger
+  - Phase D 6 Insertion Policy & Audit (1-2h)
+    - D1 Insert only items that meet acceptance policy
+    - D2 Optional DB audit: DatabaseService.log_collection_validation and collection_validations table
+  - Phase E 6 Tests & CI (1-2h)
+    - E1 Unit tests for parsing and validation
+    - E2 Integration dry-run smoke test
+    - E3 CI step
+  - Phase F 6 Docs & Runbook (0.5h)
+    - F1 Update README
+    - F2 Operational runbook
+- Acceptance Criteria:
+  - Running main with --dry-run produces JSON report and no DB writes
+  - Default inserts only accepted items
+  - Configurable threshold via config or CLI
+  - Tests for valid and invalid scenarios
+- Next action: Implement Phase B and Phase C (CLI dry-run and report)
+- Owner: Automated task entry by assistant for user confirmation
+- Estimated total dev time 6-10 hours
+
