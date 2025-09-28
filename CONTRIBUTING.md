@@ -40,3 +40,6 @@ git push
 
 ## Contacts & maintenance
 - Repository maintainers: replace with your team contacts in `.github/CODEOWNERS`
+
+## Editor automation note
+Editors and automation tools (including Cursor) should consult `memory-bank/style-guide.md` before making edits that affect branching, PRs, or repository workflow. See `memory-bank/style-guide.md` > "Cursor directives" for guidance on how to behave when proposing or applying changes.
