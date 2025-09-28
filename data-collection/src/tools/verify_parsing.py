@@ -358,7 +358,63 @@ def extract_player_raw_from_html(html: str, url: str) -> Dict[str, str]:
     # Win rate percent
     wr_match = re.search(r'(\d{1,3}[.,]?\d?)\s*%\s*(?:выигр|win|win rate)?', normalized_text, re.IGNORECASE)
     if wr_match:
-        raw['win_rate'] = wr_match.group(1)
+        parsed_wr = parse_float_like(wr_match.group(1))
+        if parsed_wr is not None:
+            raw['win_rate'] = str(parsed_wr)
+
+    # JSON script extraction (LD+JSON or other script payloads) as additional fallback
+    try:
+        candidates = extract_json_candidates(html)
+        for c in candidates:
+            loaded = safe_load_json(c)
+            if not loaded:
+                continue
+            # If payload wraps player under a top-level key, unwrap
+            if isinstance(loaded, dict) and len(loaded) == 1:
+                first_key = next(iter(loaded.keys()))
+                if first_key.lower() in ('player', 'user') and isinstance(loaded[first_key], dict):
+                    loaded = loaded[first_key]
+
+            if isinstance(loaded, dict):
+                # map common keys
+                if 'current_nickname' not in raw:
+                    for nkey in ('login', 'nick', 'nickname', 'name'):
+                        if loaded.get(nkey):
+                            raw['current_nickname'] = normalize_text(loaded.get(nkey))
+                            break
+                if 'current_elo' not in raw:
+                    for rkey in ('rating', 'elo', 'r'):
+                        if loaded.get(rkey):
+                            v = parse_int_like(loaded.get(rkey))
+                            if v is not None:
+                                raw['current_elo'] = str(v)
+                                break
+                if 'games_played' not in raw:
+                    for gkey in ('games', 'games_played', 'gamesCount', 'played'):
+                        if loaded.get(gkey):
+                            v = parse_int_like(loaded.get(gkey))
+                            if v is not None:
+                                raw['games_played'] = str(v)
+                                break
+                if 'games_won' not in raw:
+                    for wkey in ('wins', 'wins_count', 'won'):
+                        if loaded.get(wkey):
+                            v = parse_int_like(loaded.get(wkey))
+                            if v is not None:
+                                raw['games_won'] = str(v)
+                                break
+                if 'win_rate' not in raw:
+                    for wrk in ('win_rate', 'winRate', 'winrate', 'wr'):
+                        if loaded.get(wrk):
+                            v = parse_float_like(loaded.get(wrk))
+                            if v is not None:
+                                raw['win_rate'] = str(v)
+                                break
+            # stop early if we have core fields
+            if raw.get('current_nickname') and raw.get('current_elo'):
+                break
+    except Exception:
+        pass
 
     # Fallback: include page_text for manual inspection by model parsers (not used directly)
     raw['full_text_snippet'] = page_text[:200]
