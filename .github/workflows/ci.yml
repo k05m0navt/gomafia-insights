@@ -55,7 +55,7 @@ jobs:
           echo "Running canary healthcheck against $PREVIEW_URL"
           bash ./scripts/canary-healthcheck.sh "$PREVIEW_URL"
       - name: Run Playwright tests against preview
+        working-directory: frontend
         env:
           PREVIEW_URL: ${{ needs.build-and-test.outputs.preview_url }}
-        run: |
-          npm run test:e2e
+        run: npm run test:e2e
