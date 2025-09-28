@@ -19,6 +19,9 @@
 - **Implementation Excellence**: 100% plan-to-execution fidelity
 
 ## Next Steps
+## Next Steps
+:- VAN Mode: Project assessment and task selection — ready to pick the next task
+:- Next Mode Recommendation: VAN - Ready for next task
 - IMPLEMENT Mode: Execute PLAN, add tests and fixtures, run verification locally, then transition to REFLECT
 - Next Mode Recommendation: VAN - Ready for next task
 

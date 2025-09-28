@@ -15,9 +15,9 @@
 
 
 ## ARCHIVE
-- Date: ${TS}
-- Archive Document: ${ARCHIVE}
-- Reflection Document: ${REF}
+- Date: 2025-09-23
+- Archive Document: docs/archive/parsing-verification_20250923.md
+- Reflection Document: memory-bank/reflection/reflection-parsing-verification.md
 - Status: ✅ COMPLETED & ARCHIVED
 - Date: 2025-09-23
 - Archive Document: docs/archive/parsing-verification_20250923.md
@@ -700,3 +700,9 @@ Add `data-collection/tools/verify_parsing.py` to fetch live pages or use fixture
 - Status: REFLECTION COMPLETE (creative->reflect)
 - Branch: van/verify-gomafia-parsing-20250828T000000Z
 - Notes: Player parsing OK; participant lists require API discovery or JS-rendering.
+
+## ARCHIVE
+- Date: 2025-09-23
+- Archive Document: memory-bank/archive/parsing-verification_20250923.md
+- Reflection Document: memory-bank/reflection/reflection-parsing-verification.md
+- Status: ✅ COMPLETED & ARCHIVED
