@@ -238,6 +238,40 @@ def extract_player_raw_from_html(html: str, url: str) -> Dict[str, str]:
                     # Fallback: combine first/last name
                     elif user.get('first_name') and user.get('last_name'):
                         raw['current_nickname'] = f"{user.get('first_name')} {user.get('last_name')}"
+                    # Extract rating/games/wins/winRate when present in JSON
+                    try:
+                        if user.get('rating'):
+                            try:
+                                raw['current_elo'] = str(int(user.get('rating')))
+                            except Exception:
+                                pass
+                        if user.get('elo') and 'current_elo' not in raw:
+                            try:
+                                raw['current_elo'] = str(int(user.get('elo')))
+                            except Exception:
+                                pass
+                        if user.get('games'):
+                            try:
+                                raw['games_played'] = str(int(user.get('games')))
+                            except Exception:
+                                pass
+                        if user.get('wins'):
+                            try:
+                                raw['games_won'] = str(int(user.get('wins')))
+                            except Exception:
+                                pass
+                        if user.get('winRate') and 'win_rate' not in raw:
+                            try:
+                                # winRate may be percent (65) or decimal (0.65)
+                                wr = float(user.get('winRate'))
+                                if wr > 1:
+                                    raw['win_rate'] = str(wr/100.0)
+                                else:
+                                    raw['win_rate'] = str(wr)
+                            except Exception:
+                                pass
+                    except Exception:
+                        pass
             except Exception:
                 # Non-fatal: fall back to heuristics below
                 pass
