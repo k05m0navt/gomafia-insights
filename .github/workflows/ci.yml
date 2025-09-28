@@ -48,6 +48,8 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm --prefix frontend ci
+      - name: Install Playwright browsers
+        run: npx --prefix frontend playwright install --with-deps
       - name: Canary healthcheck (preview)
         env:
           PREVIEW_URL: ${{ needs.build-and-test.outputs.preview_url }}
