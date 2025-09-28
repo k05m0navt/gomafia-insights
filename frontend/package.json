@@ -4,6 +4,7 @@
   "description": "Professional analytics platform for competitive Mafia game performance tracking and insights",
   "private": true,
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
