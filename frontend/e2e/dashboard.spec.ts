@@ -40,7 +40,8 @@ test('dashboard preview smoke - OverviewCards and RecentActivity present', async
   await expect(page.locator('text=Overview')).toBeVisible()
 
   // Verify Quick Stats 'Total players' derived from stats fixture
-  await expect(page.locator(`text=${stats.totalPlayers}`)).toBeVisible()
+  const formattedTotalPlayers = new Intl.NumberFormat('en-US').format(stats.totalPlayers)
+  await expect(page.locator(`text=${formattedTotalPlayers}`)).toBeVisible()
 
   // Verify Recent Activity header is visible
   await expect(page.locator('text=Recent Activity')).toBeVisible()

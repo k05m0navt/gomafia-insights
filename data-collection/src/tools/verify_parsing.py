@@ -22,16 +22,134 @@ from typing import Dict, Optional, Tuple
 import requests
 from bs4 import BeautifulSoup
 
-# Module-level numeric cleaner used by fallback heuristics
-def _clean_numeric_text(s: str) -> Optional[str]:
+# Module-level helpers for normalization and JSON extraction
+import html as _html
+
+
+def normalize_text(s: Optional[str]) -> str:
+    """Normalize whitespace and common unicode spacing characters to regular spaces and collapse them.
+    Returns empty string for None inputs.
+    """
+    if s is None:
+        return ''
+    t = str(s)
+    # Replace common non-breaking/thin/narrow spaces and non-breaking hyphen
+    t = t.replace('\u00A0', ' ').replace('\u2009', ' ').replace('\u202F', ' ').replace('\u2011', '-')
+    # Unescape HTML entities
+    t = _html.unescape(t)
+    # Collapse multiple whitespace into single space
+    t = re.sub(r"\s+", ' ', t)
+    return t.strip()
+
+
+def safe_load_json(text: str) -> Optional[dict]:
+    """Attempt to load JSON from a string. If the string contains a JS assignment
+    like `window.__NEXT_DATA__ = {...};` extract the first top-level object braces and parse.
+    Returns a dict on success or None on failure.
+    """
+    if not text:
+        return None
+    try:
+        return json.loads(text)
+    except Exception:
+        # Try to extract first balanced {...} block heuristically
+        start = text.find('{')
+        end = text.rfind('}')
+        if start != -1 and end != -1 and end > start:
+            candidate = text[start:end+1]
+            try:
+                return json.loads(candidate)
+            except Exception:
+                return None
+        return None
+
+
+def extract_json_candidates(html: str) -> list:
+    """Collect potential JSON payloads from <script> tags in the HTML.
+    Returns list of raw script strings to attempt parsing.
+    """
+    soup = BeautifulSoup(html, 'lxml')
+    candidates = []
+    # Typed JSON scripts (application/json, application/ld+json) and Next's __NEXT_DATA__
+    for script in soup.find_all('script'):
+        ttype = (script.get('type') or '').lower()
+        sid = script.get('id') or ''
+        text = script.string or script.get_text() or ''
+        if not text:
+            continue
+        if 'application/json' in ttype or 'ld+json' in ttype:
+            candidates.append(text)
+            continue
+        if sid == '__NEXT_DATA__' or '__NEXT_DATA__' in text or 'window.__INITIAL_DATA__' in text or 'window.__NEXT_DATA__' in text:
+            candidates.append(text)
+            continue
+        # Generic inline scripts that look like assignments
+        if re.search(r'\b(window|var|let|const)\b.*=\s*\{', text):
+            candidates.append(text)
+    return candidates
+
+
+def find_objects_with_keys(obj, key_set, max_depth=6, _depth=0):
+    """Recursively search dict/list for objects that contain any of the keys in key_set.
+    Returns a list of dict candidates.
+    """
+    results = []
+    if _depth > max_depth:
+        return results
+    if isinstance(obj, dict):
+        lower_keys = {k.lower() for k in obj.keys()}
+        if lower_keys & key_set:
+            results.append(obj)
+        for v in obj.values():
+            results.extend(find_objects_with_keys(v, key_set, max_depth, _depth+1))
+    elif isinstance(obj, list):
+        for item in obj:
+            results.extend(find_objects_with_keys(item, key_set, max_depth, _depth+1))
+    return results
+
+
+def parse_int_like(s: Optional[str]) -> Optional[int]:
     if s is None:
         return None
-    t = str(s)
-    t = t.replace('\u00A0', '').replace('\u2009', '').replace('\u202F', '').replace(' ', '')
-    t = re.sub(r'[^0-9,\.-]', '', t)
+    t = normalize_text(str(s))
+    # Remove percent sign if present (we don't want percent in ints)
+    t = t.replace('%', '')
+    # Remove common thousands separators and non-digit characters
+    t = t.replace('\u00A0', '').replace('\u2009', '').replace('\u202F', '')
+    t = re.sub(r'[^0-9\-]', '', t)
     if not t:
         return None
-    return t
+    try:
+        return int(t)
+    except Exception:
+        try:
+            return int(float(t))
+        except Exception:
+            return None
+
+
+def parse_float_like(s: Optional[str]) -> Optional[float]:
+    if s is None:
+        return None
+    t = normalize_text(str(s))
+    is_percent = '%' in t
+    t = t.replace('%', '')
+    # Replace non-breaking spaces
+    t = t.replace('\u00A0', '').replace('\u2009', '').replace('\u202F', '')
+    # If comma used as decimal and dot not present, convert comma to dot
+    if ',' in t and '.' not in t:
+        t = t.replace(',', '.')
+    # Remove any character that isn't digit, dot, or minus
+    t = re.sub(r'[^0-9\.\-]', '', t)
+    if not t:
+        return None
+    try:
+        val = float(t)
+        if is_percent and val > 1:
+            return val / 100.0
+        return val
+    except Exception:
+        return None
 
 # Import project modules (models, config)
 from ..config import config
@@ -120,6 +238,40 @@ def extract_player_raw_from_html(html: str, url: str) -> Dict[str, str]:
                     # Fallback: combine first/last name
                     elif user.get('first_name') and user.get('last_name'):
                         raw['current_nickname'] = f"{user.get('first_name')} {user.get('last_name')}"
+                    # Extract rating/games/wins/winRate when present in JSON
+                    try:
+                        if user.get('rating'):
+                            try:
+                                raw['current_elo'] = str(int(user.get('rating')))
+                            except Exception:
+                                pass
+                        if user.get('elo') and 'current_elo' not in raw:
+                            try:
+                                raw['current_elo'] = str(int(user.get('elo')))
+                            except Exception:
+                                pass
+                        if user.get('games'):
+                            try:
+                                raw['games_played'] = str(int(user.get('games')))
+                            except Exception:
+                                pass
+                        if user.get('wins'):
+                            try:
+                                raw['games_won'] = str(int(user.get('wins')))
+                            except Exception:
+                                pass
+                        if user.get('winRate') and 'win_rate' not in raw:
+                            try:
+                                # winRate may be percent (65) or decimal (0.65)
+                                wr = float(user.get('winRate'))
+                                if wr > 1:
+                                    raw['win_rate'] = str(wr/100.0)
+                                else:
+                                    raw['win_rate'] = str(wr)
+                            except Exception:
+                                pass
+                    except Exception:
+                        pass
             except Exception:
                 # Non-fatal: fall back to heuristics below
                 pass
@@ -185,28 +337,84 @@ def extract_player_raw_from_html(html: str, url: str) -> Dict[str, str]:
         m = re.search(pat, normalized_text, re.IGNORECASE)
         if m:
             raw_val = m.group(1)
-            cleaned = _clean_numeric_text(raw_val)
+            cleaned = parse_int_like(raw_val)
             if cleaned:
-                raw['current_elo'] = cleaned.replace(',', '').replace('.', '')
+                raw['current_elo'] = str(cleaned)
                 break
 
     # Games played / won (use normalized_text to handle unicode spaces)
     gp_match = re.search(r'(?:игр[а-яА-Я]*|games(?: played)?|games)\s*[:\-]?\s*([0-9\s,\.]+)', normalized_text, re.IGNORECASE)
     if gp_match:
-        val = _clean_numeric_text(gp_match.group(1))
+        val = parse_int_like(gp_match.group(1))
         if val:
-            raw['games_played'] = val.replace(',', '')
+            raw['games_played'] = str(val)
 
     gw_match = re.search(r'(?:выигра(?:л|но|ли)|wins?|won)\s*[:\-]?\s*([0-9\s,\.]+)', normalized_text, re.IGNORECASE)
     if gw_match:
-        val = _clean_numeric_text(gw_match.group(1))
+        val = parse_int_like(gw_match.group(1))
         if val:
-            raw['games_won'] = val.replace(',', '')
+            raw['games_won'] = str(val)
 
     # Win rate percent
     wr_match = re.search(r'(\d{1,3}[.,]?\d?)\s*%\s*(?:выигр|win|win rate)?', normalized_text, re.IGNORECASE)
     if wr_match:
-        raw['win_rate'] = wr_match.group(1)
+        parsed_wr = parse_float_like(wr_match.group(1))
+        if parsed_wr is not None:
+            raw['win_rate'] = str(parsed_wr)
+
+    # JSON script extraction (LD+JSON or other script payloads) as additional fallback
+    try:
+        candidates = extract_json_candidates(html)
+        for c in candidates:
+            loaded = safe_load_json(c)
+            if not loaded:
+                continue
+            # If payload wraps player under a top-level key, unwrap
+            if isinstance(loaded, dict) and len(loaded) == 1:
+                first_key = next(iter(loaded.keys()))
+                if first_key.lower() in ('player', 'user') and isinstance(loaded[first_key], dict):
+                    loaded = loaded[first_key]
+
+            if isinstance(loaded, dict):
+                # map common keys
+                if 'current_nickname' not in raw:
+                    for nkey in ('login', 'nick', 'nickname', 'name'):
+                        if loaded.get(nkey):
+                            raw['current_nickname'] = normalize_text(loaded.get(nkey))
+                            break
+                if 'current_elo' not in raw:
+                    for rkey in ('rating', 'elo', 'r'):
+                        if loaded.get(rkey):
+                            v = parse_int_like(loaded.get(rkey))
+                            if v is not None:
+                                raw['current_elo'] = str(v)
+                                break
+                if 'games_played' not in raw:
+                    for gkey in ('games', 'games_played', 'gamesCount', 'played'):
+                        if loaded.get(gkey):
+                            v = parse_int_like(loaded.get(gkey))
+                            if v is not None:
+                                raw['games_played'] = str(v)
+                                break
+                if 'games_won' not in raw:
+                    for wkey in ('wins', 'wins_count', 'won'):
+                        if loaded.get(wkey):
+                            v = parse_int_like(loaded.get(wkey))
+                            if v is not None:
+                                raw['games_won'] = str(v)
+                                break
+                if 'win_rate' not in raw:
+                    for wrk in ('win_rate', 'winRate', 'winrate', 'wr'):
+                        if loaded.get(wrk):
+                            v = parse_float_like(loaded.get(wrk))
+                            if v is not None:
+                                raw['win_rate'] = str(v)
+                                break
+            # stop early if we have core fields
+            if raw.get('current_nickname') and raw.get('current_elo'):
+                break
+    except Exception:
+        pass
 
     # Fallback: include page_text for manual inspection by model parsers (not used directly)
     raw['full_text_snippet'] = page_text[:200]

@@ -7,12 +7,18 @@
 - Next Step: PLAN MODE for parsing script improvements
 
 ## ACTIVE TASK - LEVEL 2 - GoMafia Parsing Script Enhancement
-- Task: Improve HTML parsing heuristics in `verify_parsing.py` to extract player data more accurately and robustly from GoMafia.pro pages
+- Task: Improve HTML parsing heuristics in `data-collection/src/tools/verify_parsing.py` to extract player data more accurately and robustly from GoMafia.pro pages
 - Priority: MEDIUM
-- Status: COMPLETED & ARCHIVED
+- Status: ✅ COMPLETED & ARCHIVED
+- Current Mode: REFLECT
+- Next Step: Type `ARCHIVE NOW` to proceed with archiving
 
 
 ## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED
 - Date: 2025-09-23
 - Archive Document: docs/archive/parsing-verification_20250923.md
 - Reflection Document: memory-bank/reflection/reflection-parsing-verification.md
@@ -58,41 +64,99 @@ Enhance the existing `data-collection/src/tools/verify_parsing.py` script to imp
 - Test: Use existing fixtures in `data-collection/debug_html/` for validation
 - No changes to: CLI interface, model classes, database operations
 
-## IMPLEMENTATION PLAN
-1. **JSON Extraction Enhancement** (15-20 min)
-   - Add recursive object search for player data in JSON scripts
-   - Support multiple script types: application/json, LD+JSON, embedded JS assignments
-   - Extract from: __NEXT_DATA__, __INITIAL_DATA__, window.* patterns
-   - Fallback gracefully to existing DOM parsing
+## IMPLEMENTATION PLAN (Stored PLAN for PLAN mode)
+Overview:
+- Goal: Harden `data-collection/src/tools/verify_parsing.py` to reliably extract player data from GoMafia.pro pages.
+- Complexity: Level 2 (Simple Enhancement)
+- Estimated Total Time: 60–80 minutes
 
-2. **Whitespace & Text Normalization** (10 min)
-   - Normalize NBSP (\u00A0) and thin spaces (\u2009) to regular spaces
-   - Apply normalization before regex matching
-   - Preserve original text for debugging
+Files to modify:
+- Edit: `data-collection/src/tools/verify_parsing.py`
+  - Function: `extract_player_raw_from_html()` — add JSON-first extraction, normalization, enhanced regexes
+- Optional (helper module): `data-collection/src/tools/parse_utils.py` for `extract_json_candidates()`, `normalize_text()`, `parse_int_like()`, `parse_float_like()` (or keep helpers local)
+- Tests: extend `data-collection/tests/` and use fixtures in `data-collection/debug_html/`
 
-3. **Enhanced Regex Patterns** (20-25 min)
-   - ELO: Support thousands separators, multiple keywords
-   - Games: Accept both Russian/English labels
-   - Win Rate: Handle percentage and decimal formats
-   - Numbers: Strip spaces/separators before conversion
+Implementation steps (priority + estimates):
+1) JSON extraction enhancement — 15–20 min
+   - Collect `<script>` tags; handle `application/json`, `application/ld+json`, and inline JS assignments (`window.__NEXT_DATA__ = {...}`, `__NEXT_DATA__ = {...}`, `window.__INITIAL_DATA__ = {...}`)
+   - Attempt `json.loads()`, else strip JS assignment prefix/suffix and parse
+   - Use recursive search to find objects containing player-like keys
+   - Return first strong candidate; accumulate candidates for fallback
 
-4. **Testing & Validation** (15-20 min)
-   - Test against existing HTML fixtures
-   - Run verification script on sample player IDs
-   - Ensure no regressions in existing functionality
-   - Validate improved field extraction accuracy
+2) Recursive JSON search helper — 5–10 min
+   - Implement `find_objects_with_keys(obj, key_set)` to walk dict/list recursively and return dicts with any target keys
+   - Target key set: `{'player','profile','rating','elo','Рейтинг','Эло','wins','games','winRate','win_rate','win'}`
+
+3) Whitespace & text normalization — 8–12 min
+   - Implement `normalize_text(s)`:
+     - Replace NBSP (` `), thin space (` `), non-breaking hyphen, and other Unicode spacing with regular space
+     - Collapse repeated whitespace and trim
+   - Apply normalization before regex/number parsing; preserve original text for debug logs
+
+4) Number parsing utilities — 8–12 min
+   - Implement `parse_int_like(s)` and `parse_float_like(s)`:
+     - Remove spaces and non-breaking spaces, strip thousands separators (`,`, non-breaking space)
+     - Handle decimal comma vs dot conservatively (if `,` present and `.` also present, prefer treating `.` as thousands)
+     - Percent handling: strip `%` and convert; if value > 1 and no decimal point, divide by 100 for percentage
+
+5) Enhanced regex patterns — 15–25 min
+   - ELO: case-insensitive keywords (Эло|ELO|Рейтинг|Rating) and numbers with separators
+   - Games/Wins: multilingual labels (`Игры`, `Games`, `Победы`, `Wins`)
+   - Win rate: match `65%`, `0.65`, `0,65`, `65.0 %`, and textual labels
+   - Compile regexes once at module level; order by specificity
+
+6) Integrate JSON-first + DOM-fallback strategy — 5–10 min
+   - Try structured JSON extraction first, then DOM queries (BeautifulSoup) as fallback, then preserve prior fallback behavior
+
+7) Tests & validation — 15–20 min
+   - Run existing extraction tests in `data-collection/tests/`
+   - Add fixtures covering:
+     - `__NEXT_DATA__` and `window.__INITIAL_DATA__` embedded JSON
+     - `ld+json` script
+     - NBSP/thin spaces in numeric strings
+     - Multilingual labels and percent/decimal win rates
+   - Run `pytest` and `python data-collection/tools/verify_parsing.py --fixtures`
+
+Testing & validation checklist:
+- [ ] JSON extraction finds player object in `__NEXT_DATA__`, `__INITIAL_DATA__`, LD+JSON
+- [ ] `normalize_text()` removes NBSP and thin spaces
+- [ ] `parse_int_like()` & `parse_float_like()` parse `1,250`, `1 250`, `1250`, `1.250`, `0,65`, `65%`
+- [ ] Enhanced regexes extract ELO/games/wins on fixtures
+- [ ] CLI flags and behavior preserved (`--players`, `--fixtures`, `--live`, `--save-html`, `--fail-on-error`)
+- [ ] Unit tests added/updated and all tests pass
+
+Potential challenges & mitigations:
+- Deep/complex JSON: limit recursion depth, prefer strong-key matches (require at least two expected keys)
+- Ambiguous separators (`.`): use conservative heuristics favoring comma as decimal if present; log ambiguous cases
+- Performance: compile regexes once, limit JSON search breadth, short-circuit on strong matches
+- False positives: require multiple expected fields before accepting candidate object
+
+Deliverables:
+- Edited `data-collection/src/tools/verify_parsing.py` with:
+  - `extract_player_raw_from_html()` JSON-first approach
+  - helpers: `extract_json_candidates()`, `find_objects_with_keys()`, `normalize_text()`, `parse_int_like()`, `parse_float_like()`
+  - compiled regex patterns
+- Tests/fixtures updated in `data-collection/tests/` and `data-collection/debug_html/`
+- Updated `memory-bank/tasks.md` entry (this PLAN persisted)
+- Next mode recommendation: IMPLEMENT (Level 2)
+
+Time estimate:
+- Core changes: 25–30 min
+- Regex tuning + integration: 20–25 min
+- Tests & validation: 15–20 min
+- Total: 60–80 min
 
 ## CHECKLIST
-- [ ] Add recursive JSON object search function
-- [ ] Implement whitespace normalization helper
-- [ ] Enhance ELO parsing with thousands separators
-- [ ] Add multilingual games/wins patterns
-- [ ] Improve win rate parsing (% and decimal)
-- [ ] Test against existing HTML fixtures
-- [ ] Run script with `--players` flag on sample IDs
-- [ ] Verify no CLI behavior regressions
-- [ ] Confirm PlayerData model validation passes
-- [ ] Document improved parsing capabilities
+- [x] Add recursive JSON object search function
+- [x] Implement whitespace normalization helper
+- [x] Enhance ELO parsing with thousands separators
+- [x] Add multilingual games/wins patterns
+- [x] Improve win rate parsing (% and decimal)
+- [x] Test against existing HTML fixtures
+- [x] Run script with `--players` flag on sample IDs
+- [x] Verify no CLI behavior regressions
+- [x] Confirm PlayerData model validation passes
+- [x] Document improved parsing capabilities
 
 ## DEPENDENCIES
 - Existing: Python 3.8+, BeautifulSoup4, lxml, requests
@@ -134,7 +198,11 @@ Enhance the existing `data-collection/src/tools/verify_parsing.py` script to imp
 
 ---
 
-## ARCHIVED TASKS
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVEDD TASKS
 
 ## ACTIVE TASK - LEVEL 1 - TypeScript Build Fix (Critical)
 - Task: Fix TypeScript compilation error and ESLint cleanup to restore production build capability
@@ -212,7 +280,11 @@ Critical build failure blocking production deployment. TypeScript error in Recen
 3. **Build Quality Gates**: TypeScript strict mode catches type mismatches effectively
 4. **React Conventions**: `useState<T | undefined>(undefined)` aligns with optional prop patterns
 
-## ARCHIVE - Level 1 TypeScript Build Fix
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED - Level 1 TypeScript Build Fix
 - **Date**: 2025-09-03
 - **Archive Document**: [docs/archive/level1-typescript-build-fix_20250903.md](../docs/archive/level1-typescript-build-fix_20250903.md)
 - **Reflection Document**: [memory-bank/reflection/reflection-level1-typescript-build-fix.md](reflection/reflection-level1-typescript-build-fix.md)
@@ -334,6 +406,10 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 - Recommendation: IMPLEMENT MODE (Level 2)
 
 ## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level2-dashboard-analytics-api-fallback_20250812.md](../docs/archive/level2-dashboard-analytics-api-fallback_20250812.md)
 - Status: COMPLETE
@@ -414,7 +490,11 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 1)
 
-## ARCHIVE — Level 1 ESLint Ignore Migration
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED — Level 1 ESLint Ignore Migration
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level1-eslint-ignore-migration_20250812.md](../docs/archive/level1-eslint-ignore-migration_20250812.md)
 - Status: COMPLETED
@@ -481,7 +561,11 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - Creative phases required: NO (Level 1)
 - tasks.md updated with plan: YES
 
-## ARCHIVE — Level 1 Framer Motion Test Mock Cleanup
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED — Level 1 Framer Motion Test Mock Cleanup
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level1-framer-motion-test-mock-cleanup_20250812.md](../docs/archive/level1-framer-motion-test-mock-cleanup_20250812.md)
 - Status: COMPLETED
@@ -502,7 +586,11 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - [x] Reflection complete
 - [x] Archiving
 
-## ARCHIVE — Level 2 Dashboard Charts Timeframe Controls
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED — Level 2 Dashboard Charts Timeframe Controls
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md](../docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md)
 - Status: COMPLETED
