@@ -1,13 +1,17 @@
-# Branch protection setup (GitHub)
+# Branch protection (applied to `main`)
 
-Recommended protection for `main`:
-- Require pull requests before merging
-- Require 1+ approving review
-- Require status checks (CI) to pass
-- Enforce for admins
-- Optional: restrict who can merge (maintainers or specific teams)
+This file documents the exact, applied branch-protection settings for the `main` branch.
 
-Example `gh` (GitHub CLI) commands — replace {owner} and {repo}:
-gh api --method PUT /repos/{owner}/{repo}/branches/main/protection -f required_status_checks='{"strict":true,"contexts":["ci/github-actions"]}' -f enforce_admins=true -f required_pull_request_reviews='{"required_approving_review_count":1}' -f restrictions='{"users":[],"teams":["your-team"]}'
+Rules applied to `main` (as of now):
+- Require pull request reviews before merging
+  - Required approving review count: 1
+- Require status checks to pass before merging
+  - Required checks (exact names):
+    - `build-and-test`
+    - `playwright-e2e`
+- Include administrators: enabled
+- Restrictions on who can push: none (personal repo — no user/team restrictions)
 
-Or use the web UI: Settings → Branches → Add rule → Pattern: `main` → select required checks and reviewers.
+Notes:
+- If you change CI job names, update this file to reflect the new check names.
+- To tighten rules in an organization: add `restrictions` with teams/users and set `require_code_owner_reviews`.
