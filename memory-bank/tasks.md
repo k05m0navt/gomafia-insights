@@ -9,12 +9,16 @@
 ## ACTIVE TASK - LEVEL 2 - GoMafia Parsing Script Enhancement
 - Task: Improve HTML parsing heuristics in `data-collection/src/tools/verify_parsing.py` to extract player data more accurately and robustly from GoMafia.pro pages
 - Priority: MEDIUM
-- Status: IMPLEMENTATION COMPLETE
+- Status: ✅ COMPLETED & ARCHIVED
 - Current Mode: REFLECT
 - Next Step: Type `ARCHIVE NOW` to proceed with archiving
 
 
 ## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED
 - Date: 2025-09-23
 - Archive Document: docs/archive/parsing-verification_20250923.md
 - Reflection Document: memory-bank/reflection/reflection-parsing-verification.md
@@ -194,7 +198,11 @@ Time estimate:
 
 ---
 
-## ARCHIVED TASKS
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVEDD TASKS
 
 ## ACTIVE TASK - LEVEL 1 - TypeScript Build Fix (Critical)
 - Task: Fix TypeScript compilation error and ESLint cleanup to restore production build capability
@@ -272,7 +280,11 @@ Critical build failure blocking production deployment. TypeScript error in Recen
 3. **Build Quality Gates**: TypeScript strict mode catches type mismatches effectively
 4. **React Conventions**: `useState<T | undefined>(undefined)` aligns with optional prop patterns
 
-## ARCHIVE - Level 1 TypeScript Build Fix
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED - Level 1 TypeScript Build Fix
 - **Date**: 2025-09-03
 - **Archive Document**: [docs/archive/level1-typescript-build-fix_20250903.md](../docs/archive/level1-typescript-build-fix_20250903.md)
 - **Reflection Document**: [memory-bank/reflection/reflection-level1-typescript-build-fix.md](reflection/reflection-level1-typescript-build-fix.md)
@@ -394,6 +406,10 @@ Provide reliable data to the dashboard by fetching from `/api/dashboard/*` when 
 - Recommendation: IMPLEMENT MODE (Level 2)
 
 ## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level2-dashboard-analytics-api-fallback_20250812.md](../docs/archive/level2-dashboard-analytics-api-fallback_20250812.md)
 - Status: COMPLETE
@@ -474,7 +490,11 @@ Next.js build logs an ESLintIgnoreWarning because `.eslintignore` is no longer s
 ## MODE TRANSITION
 - Recommendation: IMPLEMENT MODE (Level 1)
 
-## ARCHIVE — Level 1 ESLint Ignore Migration
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED — Level 1 ESLint Ignore Migration
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level1-eslint-ignore-migration_20250812.md](../docs/archive/level1-eslint-ignore-migration_20250812.md)
 - Status: COMPLETED
@@ -541,7 +561,11 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - Creative phases required: NO (Level 1)
 - tasks.md updated with plan: YES
 
-## ARCHIVE — Level 1 Framer Motion Test Mock Cleanup
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED — Level 1 Framer Motion Test Mock Cleanup
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level1-framer-motion-test-mock-cleanup_20250812.md](../docs/archive/level1-framer-motion-test-mock-cleanup_20250812.md)
 - Status: COMPLETED
@@ -562,7 +586,11 @@ Current unit tests pass but emit warnings like: "React does not recognize the `w
 - [x] Reflection complete
 - [x] Archiving
 
-## ARCHIVE — Level 2 Dashboard Charts Timeframe Controls
+## ARCHIVE
+- Date: ${TS}
+- Archive Document: ${ARCHIVE}
+- Reflection Document: ${REF}
+- Status: ✅ COMPLETED & ARCHIVED — Level 2 Dashboard Charts Timeframe Controls
 - Date: 2025-08-12
 - Archive Document: [docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md](../docs/archive/level2-dashboard-charts-timeframe-controls_20250812.md)
 - Status: COMPLETED
