@@ -1,0 +1,520 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// =============================================================================
+// CORE PLAYER MODEL - Stable Identity with Nickname History
+// =============================================================================
+
+model Player {
+  id              String   @id @default(cuid())
+  goMafiaId       Int      @unique // Stable ID from gomafia.pro (e.g., 3170)
+  
+  // Current identity information  
+  currentNickname String
+  profileUrl      String   @unique // e.g., "https://gomafia.pro/stats/3170"
+  registeredYear  Int?     // "на сайте с 2022 года"
+  
+  // Current ELO and rankings (computed by database triggers)
+  currentElo      Int      @default(1200)
+  tableElo        Int      @default(1200)  // Different ELO system
+  maxElo          Int      @default(1200)  // Highest ELO ever achieved
+  
+  // Overall statistics (computed by triggers)
+  gamesPlayed     Int      @default(0)
+  gamesWon        Int      @default(0)
+  winRate         Float    @default(0.0)
+  averagePoints   Float    @default(0.0)
+  
+  // Role-specific statistics (computed by triggers)
+  civilianGames   Int      @default(0)
+  mafiaGames      Int      @default(0)
+  donGames        Int      @default(0)
+  sheriffGames    Int      @default(0)
+  
+  civilianWinRate Float    @default(0.0)
+  mafiaWinRate    Float    @default(0.0)
+  donWinRate      Float    @default(0.0)
+  sheriffWinRate  Float    @default(0.0)
+  
+  // Performance metrics
+  bestWinStreak   Int      @default(0)
+  currentStreak   Int      @default(0)
+  totalPoints     Float    @default(0.0)
+  awardsCount     Int      @default(0)
+  
+  // Activity tracking
+  lastGameAt      DateTime?
+  lastTournamentAt DateTime?
+  isActive        Boolean  @default(true)
+  
+  // Timestamps
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  
+  // Relations
+  gameParticipations    GameParticipation[]
+  clubMemberships       ClubMembership[]
+  nicknameHistory       NicknameHistory[]
+  tournamentStats       TournamentPlayerStats[]
+  
+  @@index([goMafiaId])        // Primary lookup index
+  @@index([currentNickname])  // Search by current nickname
+  @@index([currentElo])       // Leaderboard queries
+  @@index([winRate])
+  @@map("players")
+}
+
+// =============================================================================
+// NICKNAME HISTORY - Track all nickname changes
+// =============================================================================
+
+model NicknameHistory {
+  id          String   @id @default(cuid())
+  playerId    String
+  nickname    String
+  startDate   DateTime @default(now())
+  endDate     DateTime?
+  isActive    Boolean  @default(true)
+  detectedAt  DateTime @default(now())
+  
+  // Relations
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  
+  @@unique([playerId, nickname])
+  @@index([nickname])
+  @@index([playerId, startDate])
+  @@map("nickname_history")
+}
+
+// =============================================================================
+// GAME MODELS - Tournament games with detailed player performance
+// =============================================================================
+
+model Game {
+  id              String   @id @default(cuid())
+  goMafiaGameId   String?  @unique  // Stable ID from gomafia.pro if available
+  
+  // Game identification
+  tableNumber     Int?     // Table number in tournament (e.g., 1, 2, 3...)
+  tableName       String?  // Table name (e.g., "44", "Дари", "Статистика")
+  moderatorName   String?  // Table moderator
+  
+  // Game timing
+  startTime       DateTime
+  endTime         DateTime?
+  duration        Int?     // Duration in minutes
+  
+  // Game configuration
+  gameType        GameType
+  gameFormat      GameFormat
+  status          GameStatus @default(COMPLETED)
+  
+  // Game outcome - TEAM-based
+  winningTeam     TeamSide // TOWN or MAFIA
+  winCondition    WinCondition? // How the game was won
+  
+  // Tournament context
+  tournamentId    String?
+  tournamentRound Int?     // Tournament round number
+  tournamentStage String?  // "Qualification", "Semifinal", "Final"
+  
+  // Game configuration
+  playerCount     Int      @default(10)  // Always 10 in classic mafia
+  mafiaCount      Int      @default(0)
+  civilianCount   Int      @default(0)
+  specialRoles    String[] // Array of special roles present
+  
+  // Game venue/context
+  venue           String?  // Club name, online platform, etc.
+  
+  // Relations
+  participants GameParticipation[]
+  tournament   Tournament? @relation(fields: [tournamentId], references: [id])
+  
+  @@index([startTime])
+  @@index([tournamentId, tournamentRound])
+  @@index([gameType, gameFormat])
+  @@index([status])
+  @@map("games")
+}
+
+// =============================================================================
+// GAME PARTICIPATION - Detailed player performance in each game
+// =============================================================================
+
+model GameParticipation {
+  id                String @id @default(cuid())
+  playerId          String
+  gameId            String
+  
+  // Player position and identity
+  seatPosition      Int     // 1-10 seating position at table
+  nicknameAtTime    String  // Exact nickname used in this game
+  
+  // Role assignment
+  role              PlayerRole
+  teamSide          TeamSide // TOWN or MAFIA
+  
+  // Game outcome
+  gameOutcome       TeamOutcome // TOWN_WIN, MAFIA_WIN
+  personalOutcome   GameOutcome // WON, LOST based on team outcome
+  
+  // Performance scoring
+  basePoints        Float   @default(0.0)  // Base points for role performance
+  bonusPoints       Float   @default(0.0)  // Bonus points for exceptional play
+  penaltyPoints     Float   @default(0.0)  // Penalty points for poor play
+  totalPoints       Float   @default(0.0)  // Total points for the game
+  
+  // ELO tracking
+  eloBefore         Int
+  eloAfter          Int
+  eloChange         Int     // Exact ELO change for this game
+  
+  // Game performance metrics
+  votingAccuracy    Float?  // Accuracy of votes (if trackable)
+  nightActions      Int?    // Number of night actions performed
+  speechQuality     Float?  // Speech/argument quality score
+  
+  // Game context
+  gameStartTime     DateTime
+  gameEndTime       DateTime?
+  gameDuration      Int?    // Duration in minutes
+  
+  // Tournament context
+  tournamentId      String?
+  tournamentRound   Int?
+  tournamentStage   String? // "Qualification", "Semifinal", "Final"
+  
+  // Metadata
+  dataSource        String  @default("gomafia_tournament") // Where data came from
+  
+  // Relations
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  game   Game   @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  
+  @@unique([playerId, gameId])
+  @@unique([gameId, seatPosition]) // Each seat position unique per game
+  @@index([playerId, gameStartTime])
+  @@index([role, personalOutcome])
+  @@index([tournamentId, tournamentRound])
+  @@map("game_participations")
+}
+
+// =============================================================================
+// TOURNAMENT MODELS - Tournament management and player performance
+// =============================================================================
+
+model Tournament {
+  id                    String   @id @default(cuid())
+  goMafiaTournamentId   String?  @unique // e.g., "1858"
+  
+  // Tournament details
+  name                  String   // "Клубный Чемпионат Мира 2025"
+  shortName             String?  
+  description           String?
+  
+  // Tournament dates
+  startDate             DateTime // "24.05.2025"
+  endDate               DateTime // "25.05.2025"
+  registrationEnd       DateTime?
+  
+  // Tournament format
+  tournamentType        TournamentType // TEAM based on "Командный"
+  format                TournamentFormat
+  status                TournamentStatus
+  
+  // Location
+  location              String?  // "Россия, Москва"
+  venue                 String?
+  
+  // Participation
+  maxParticipants       Int?     // 230
+  currentParticipants   Int?     // 230 из 230
+  
+  // Organization
+  chiefJudge            String?  // "Николай Ардыльян" (ГС турнира)
+  organizer             String?  // "Марк Мирзоян" (Организатор)
+  
+  // Tournament progress
+  currentRound          Int      @default(1)
+  totalRounds           Int?
+  totalTables           Int?     // Number of simultaneous tables
+  
+  // Prize information
+  entryFee              Float?
+  prizePool             Float?
+  
+  // External links
+  vkCommunity           String?  // VK community link
+  broadcastLink         String?  // "Смотреть трансляцию"
+  
+  // Relations
+  games                 Game[]
+  playerStats           TournamentPlayerStats[]
+  
+  @@index([startDate])
+  @@index([status])
+  @@index([tournamentType])
+  @@map("tournaments")
+}
+
+// =============================================================================
+// TOURNAMENT PLAYER STATS - Aggregated performance per tournament
+// =============================================================================
+
+model TournamentPlayerStats {
+  id              String @id @default(cuid())
+  tournamentId    String
+  playerId        String
+  
+  // Tournament performance
+  gamesPlayed     Int    @default(0)
+  gamesWon        Int    @default(0)
+  winRate         Float  @default(0.0)
+  
+  // ELO changes during tournament
+  eloStart        Int
+  eloEnd          Int
+  eloChange       Int
+  maxElo          Int    // Highest ELO reached during tournament
+  minElo          Int    // Lowest ELO during tournament
+  
+  // Points and scoring
+  totalPoints     Float  @default(0.0)
+  averagePoints   Float  @default(0.0)
+  bestGamePoints  Float  @default(0.0)
+  
+  // Tournament placement
+  finalPosition   Int?   // Final tournament ranking
+  advancedToRound Int?   // Furthest round reached
+  eliminated      Boolean @default(false)
+  eliminationRound Int?
+  
+  // Role performance in tournament
+  gamesAsCivilian Int    @default(0)
+  gamesAsMafia    Int    @default(0)
+  gamesAsDon      Int    @default(0)
+  gamesAsSheriff  Int    @default(0)
+  
+  civilianWinRate Float  @default(0.0)
+  mafiaWinRate    Float  @default(0.0)
+  donWinRate      Float  @default(0.0)
+  sheriffWinRate  Float  @default(0.0)
+  
+  // Relations
+  tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  player     Player     @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  
+  @@unique([tournamentId, playerId])
+  @@index([finalPosition])
+  @@index([totalPoints])
+  @@map("tournament_player_stats")
+}
+
+// =============================================================================
+// CLUB MODELS - Club membership and statistics
+// =============================================================================
+
+model Club {
+  id              String   @id @default(cuid())
+  name            String   @unique
+  description     String?
+  createdAt       DateTime @default(now())
+  
+  // Computed stats (maintained by triggers)
+  memberCount     Int      @default(0)
+  averageElo      Float    @default(1200.0)
+  totalGames      Int      @default(0)
+  
+  // Relations
+  memberships ClubMembership[]
+  
+  @@index([averageElo])
+  @@index([memberCount])
+  @@map("clubs")
+}
+
+model ClubMembership {
+  id       String @id @default(cuid())
+  playerId String
+  clubId   String
+  joinedAt DateTime @default(now())
+  role     ClubRole @default(MEMBER)
+  isActive Boolean  @default(true)
+  
+  // Relations
+  player Player @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  club   Club   @relation(fields: [clubId], references: [id], onDelete: Cascade)
+  
+  @@unique([playerId, clubId])
+  @@map("club_memberships")
+}
+
+// =============================================================================
+// IDENTITY RESOLUTION - Manual review for edge cases
+// =============================================================================
+
+model IdentityResolution {
+  id              String   @id @default(cuid())
+  primaryPlayerId String   // The player we kept
+  mergedPlayerId  String?  // The duplicate player we merged (if any)
+  oldNickname     String
+  newNickname     String
+  resolutionType  ResolutionType
+  confidence      Float    // 0.0 to 1.0 confidence in the match
+  resolvedAt      DateTime @default(now())
+  
+  @@index([primaryPlayerId])
+  @@index([resolutionType])
+  @@map("identity_resolutions")
+}
+
+model ManualReviewQueue {
+  id              String   @id @default(cuid())
+  playerId        String
+  reason          String
+  similarPlayerIds String[] // Array of similar player IDs
+  status          ReviewStatus @default(PENDING)
+  createdAt       DateTime @default(now())
+  resolvedAt      DateTime?
+  
+  @@map("manual_review_queue")
+}
+
+// =============================================================================
+// DATA COLLECTION TRACKING
+// =============================================================================
+
+model CollectionLog {
+  id              String   @id @default(cuid())
+  collectionTime  DateTime @default(now())
+  dataType        String   // "leaderboard", "tournament", "player"
+  totalScraped    Int      @default(0)
+  totalValidated  Int      @default(0)
+  totalInserted   Int      @default(0)
+  durationMinutes Float    @default(0.0)
+  success         Boolean  @default(true)
+  errorMessage    String?
+  
+  @@index([collectionTime])
+  @@index([dataType])
+  @@map("collection_logs")
+}
+
+// =============================================================================
+// ENUMS - All enumerated types
+// =============================================================================
+
+enum PlayerRole {
+  CIVILIAN    // Мирный
+  MAFIA       // Мафия  
+  DON         // Дон
+  SHERIFF     // Шериф
+  DOCTOR      // Доктор (if available)
+  MODERATOR   // Ведущий
+}
+
+enum TeamSide {
+  TOWN        // Town/Civilian team
+  MAFIA       // Mafia team
+  NEUTRAL     // Neutral roles if any
+}
+
+enum GameOutcome {
+  WON
+  LOST
+  DRAW
+  ELIMINATED  // Eliminated before game end
+}
+
+enum TeamOutcome {
+  TOWN_WIN    // "Победа мирных"
+  MAFIA_WIN   // "Победа мафии"
+  DRAW        // Ничья
+}
+
+enum GameType {
+  CLASSIC
+  BLITZ
+  TOURNAMENT
+  TRAINING
+  CHAMPIONSHIP
+}
+
+enum GameFormat {
+  CLASSIC
+  SPEED
+  BLITZ
+  TOURNAMENT
+  TRAINING
+  CHAMPIONSHIP
+}
+
+enum GameStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum WinCondition {
+  ELIMINATION     // All mafia eliminated
+  VOTING         // Mafia voted out
+  MAFIA_MAJORITY // Mafia achieved majority
+  TIMEOUT        // Time limit reached
+  FORFEIT        // Team forfeited
+}
+
+enum TournamentType {
+  INDIVIDUAL  // Личный турнир
+  TEAM        // Командный турнир (like the example)
+  MIXED       // Смешанный
+}
+
+enum TournamentFormat {
+  SINGLE_ELIMINATION
+  DOUBLE_ELIMINATION
+  ROUND_ROBIN
+  SWISS
+  LADDER
+}
+
+enum TournamentStatus {
+  UPCOMING
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum ClubRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+enum ResolutionType {
+  NICKNAME_CHANGE
+  DUPLICATE_MERGE
+  NEW_PLAYER
+  MANUAL_CORRECTION
+}
+
+enum ReviewStatus {
+  PENDING
+  RESOLVED
+  DISMISSED
+}

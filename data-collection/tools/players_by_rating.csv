@@ -1,0 +1,697 @@
+id,name,club,year,page,region_for_year,points,elo,tournaments,regions_seen,region_by_year_full,last_seen_region,last_seen_year,last_seen_page
+,,,2022,1,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,,,,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,"{""2022"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2023"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2024"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2025"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""]}",volga_region,2025,1
+,,,2023,1,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,,,,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,"{""2022"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2023"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2024"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2025"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""]}",volga_region,2025,1
+,,,2024,1,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,,,,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,"{""2022"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2023"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2024"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2025"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""]}",volga_region,2025,1
+,,,2025,1,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,,,,all|central|chernozem_region|north|siberia_and_ural|far_east|volga_region,"{""2022"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2023"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2024"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""], ""2025"": [""all"", ""central"", ""chernozem_region"", ""north"", ""siberia_and_ural"", ""far_east"", ""volga_region""]}",volga_region,2025,1
+697,kors,,2022,1,all|siberia_and_ural,24,1886,0,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2022,1
+697,kors,,2023,1,,,,,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2022,1
+697,kors,,2024,1,,,,,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2022,1
+697,kors,,2025,1,,,,,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2022,1
+19,МонЕ,,2022,1,all|central,22,1919,0,all|central,"{""2022"": [""all"", ""central""]}",central,2022,1
+19,МонЕ,,2023,1,,,,,all|central,"{""2022"": [""all"", ""central""]}",central,2022,1
+19,МонЕ,,2024,1,,,,,all|central,"{""2022"": [""all"", ""central""]}",central,2022,1
+19,МонЕ,,2025,1,,,,,all|central,"{""2022"": [""all"", ""central""]}",central,2022,1
+162,Водопад,,2022,1,all,20,1956,0,all,"{""2022"": ""all""}",all,2022,1
+162,Водопад,,2023,1,,,,,all,"{""2022"": ""all""}",all,2022,1
+162,Водопад,,2024,1,,,,,all,"{""2022"": ""all""}",all,2022,1
+162,Водопад,,2025,1,,,,,all,"{""2022"": ""all""}",all,2022,1
+438,Монарх,,2022,1,all|siberia_and_ural,18,2385,0,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""], ""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+438,Монарх,,2023,1,,,,,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""], ""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+438,Монарх,,2024,1,siberia_and_ural,185,2385,20,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""], ""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+438,Монарх,,2025,1,siberia_and_ural,103,2385,8,all|siberia_and_ural,"{""2022"": [""all"", ""siberia_and_ural""], ""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+461,Saint-P,,2022,1,all|north,16,2218,0,all|north,"{""2022"": [""all"", ""north""]}",north,2022,1
+461,Saint-P,,2023,1,,,,,all|north,"{""2022"": [""all"", ""north""]}",north,2022,1
+461,Saint-P,,2024,1,,,,,all|north,"{""2022"": [""all"", ""north""]}",north,2022,1
+461,Saint-P,,2025,1,,,,,all|north,"{""2022"": [""all"", ""north""]}",north,2022,1
+70,Гендальф,,2022,1,all|volga_region,14,2501,0,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2025"": ""volga_region""}",volga_region,2025,1
+70,Гендальф,,2023,1,,,,,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2025"": ""volga_region""}",volga_region,2025,1
+70,Гендальф,,2024,1,,,,,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2025"": ""volga_region""}",volga_region,2025,1
+70,Гендальф,,2025,1,volga_region,128,2501,9,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2025"": ""volga_region""}",volga_region,2025,1
+1700,ReviZor,,2022,1,all,14,1967,0,all,"{""2022"": ""all""}",all,2022,1
+1700,ReviZor,,2023,1,,,,,all,"{""2022"": ""all""}",all,2022,1
+1700,ReviZor,,2024,1,,,,,all,"{""2022"": ""all""}",all,2022,1
+1700,ReviZor,,2025,1,,,,,all,"{""2022"": ""all""}",all,2022,1
+338,Сова,,2022,1,all|volga_region,12,2483,0,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+338,Сова,,2023,1,volga_region,160,2483,13,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+338,Сова,,2024,1,,,,,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+338,Сова,,2025,1,,,,,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+575,Ferrari,,2022,1,all|volga_region,12,2945,0,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2024"": [""all"", ""volga_region""], ""2025"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2025,1
+575,Ferrari,,2023,1,volga_region,237,2945,19,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2024"": [""all"", ""volga_region""], ""2025"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2025,1
+575,Ferrari,,2024,1,all|volga_region,416,2945,27,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2024"": [""all"", ""volga_region""], ""2025"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2025,1
+575,Ferrari,,2025,1,all|volga_region,438,2945,17,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2024"": [""all"", ""volga_region""], ""2025"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2025,1
+225,Сурочек,,2022,1,all|volga_region,10,2438,0,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+225,Сурочек,,2023,1,volga_region,247,2438,17,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+225,Сурочек,,2024,1,,,,,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+225,Сурочек,,2025,1,,,,,all|volga_region,"{""2022"": [""all"", ""volga_region""], ""2023"": ""volga_region""}",volga_region,2023,1
+1115,РФ,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+1115,РФ,,2023,1,all|central,391,3326,29,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+1115,РФ,,2024,1,all|central,408,3326,31,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+1115,РФ,,2025,1,all|central,288,3326,16,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+159,Градиент,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+159,Градиент,,2023,1,all|central,381,3247,34,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+159,Градиент,,2024,1,all|central,372,3247,24,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+159,Градиент,,2025,1,all|central,387,3247,17,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""], ""2025"": [""all"", ""central""]}",central,2025,1
+993,Арривидерчи,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+993,Арривидерчи,,2023,1,all|central,375,2700,26,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+993,Арривидерчи,,2024,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+993,Арривидерчи,,2025,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+266,BWDMoscow,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+266,BWDMoscow,,2023,1,all|central,368,2874,28,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+266,BWDMoscow,,2024,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+266,BWDMoscow,,2025,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+867,Фреско,,2022,1,,,,,all|siberia_and_ural,"{""2023"": [""all"", ""siberia_and_ural""], ""2024"": [""all"", ""siberia_and_ural""], ""2025"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2025,1
+867,Фреско,,2023,1,all|siberia_and_ural,348,3158,14,all|siberia_and_ural,"{""2023"": [""all"", ""siberia_and_ural""], ""2024"": [""all"", ""siberia_and_ural""], ""2025"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2025,1
+867,Фреско,,2024,1,all|siberia_and_ural,343,3158,16,all|siberia_and_ural,"{""2023"": [""all"", ""siberia_and_ural""], ""2024"": [""all"", ""siberia_and_ural""], ""2025"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2025,1
+867,Фреско,,2025,1,all|siberia_and_ural,371,3158,13,all|siberia_and_ural,"{""2023"": [""all"", ""siberia_and_ural""], ""2024"": [""all"", ""siberia_and_ural""], ""2025"": [""all"", ""siberia_and_ural""]}",siberia_and_ural,2025,1
+1544,Кэтти,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""]}",central,2024,1
+1544,Кэтти,,2023,1,all|central,330,2882,20,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""]}",central,2024,1
+1544,Кэтти,,2024,1,all|central,395,2882,21,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""]}",central,2024,1
+1544,Кэтти,,2025,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": [""all"", ""central""]}",central,2024,1
+1041,Loki,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+1041,Loki,,2023,1,all|central,320,2724,32,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+1041,Loki,,2024,1,central,290,2724,27,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+1041,Loki,,2025,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+279,007,,2022,1,central,5,2847,0,all|central,"{""2023"": [""all"", ""central""], ""2025"": [""all"", ""central""], ""2022"": ""central""}",central,2025,1
+279,007,,2023,1,all|central,318,2847,38,all|central,"{""2023"": [""all"", ""central""], ""2025"": [""all"", ""central""], ""2022"": ""central""}",central,2025,1
+279,007,,2024,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2025"": [""all"", ""central""], ""2022"": ""central""}",central,2025,1
+279,007,,2025,1,all|central,310,2847,23,all|central,"{""2023"": [""all"", ""central""], ""2025"": [""all"", ""central""], ""2022"": ""central""}",central,2025,1
+789,Растишка,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+789,Растишка,,2023,1,all|central,318,2822,41,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+789,Растишка,,2024,1,central,298,2822,38,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+789,Растишка,,2025,1,,,,,all|central,"{""2023"": [""all"", ""central""], ""2024"": ""central""}",central,2024,1
+333,Тихий Закат,,2022,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+333,Тихий Закат,,2023,1,all|central,318,2630,33,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+333,Тихий Закат,,2024,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+333,Тихий Закат,,2025,1,,,,,all|central,"{""2023"": [""all"", ""central""]}",central,2023,1
+820,Шпагат,,2022,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+820,Шпагат,,2023,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+820,Шпагат,,2024,1,all|central,369,2741,32,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+820,Шпагат,,2025,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+999,Unicef,,2022,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+999,Unicef,,2023,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+999,Unicef,,2024,1,all|central,366,2867,29,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+999,Unicef,,2025,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+250,BackInBlack,,2022,1,,,,,all,"{""2024"": ""all"", ""2025"": ""all""}",all,2025,1
+250,BackInBlack,,2023,1,,,,,all,"{""2024"": ""all"", ""2025"": ""all""}",all,2025,1
+250,BackInBlack,,2024,1,all,354,2816,19,all,"{""2024"": ""all"", ""2025"": ""all""}",all,2025,1
+250,BackInBlack,,2025,1,all,244,2816,9,all,"{""2024"": ""all"", ""2025"": ""all""}",all,2025,1
+1125,Игрок 9,,2022,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+1125,Игрок 9,,2023,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+1125,Игрок 9,,2024,1,all|central,354,2648,28,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+1125,Игрок 9,,2025,1,,,,,all|central,"{""2024"": [""all"", ""central""]}",central,2024,1
+218,Гордон,,2022,1,,,,,all|chernozem_region,"{""2024"": [""all"", ""chernozem_region""], ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+218,Гордон,,2023,1,chernozem_region,255,2841,17,all|chernozem_region,"{""2024"": [""all"", ""chernozem_region""], ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+218,Гордон,,2024,1,all|chernozem_region,343,2841,28,all|chernozem_region,"{""2024"": [""all"", ""chernozem_region""], ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+218,Гордон,,2025,1,chernozem_region,101,2841,10,all|chernozem_region,"{""2024"": [""all"", ""chernozem_region""], ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+264,ДаФомин,,2022,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+264,ДаФомин,,2023,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+264,ДаФомин,,2024,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+264,ДаФомин,,2025,1,all|central,336,2835,32,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+721,Insight,,2022,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+721,Insight,,2023,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+721,Insight,,2024,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+721,Insight,,2025,1,all|central,300,2910,18,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+1681,Просто Толя,,2022,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+1681,Просто Толя,,2023,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+1681,Просто Толя,,2024,1,,,,,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+1681,Просто Толя,,2025,1,all|central,241,2687,24,all|central,"{""2025"": [""all"", ""central""]}",central,2025,1
+259,Варик,,2022,1,,,,,all,"{""2025"": ""all""}",all,2025,1
+259,Варик,,2023,1,,,,,all,"{""2025"": ""all""}",all,2025,1
+259,Варик,,2024,1,,,,,all,"{""2025"": ""all""}",all,2025,1
+259,Варик,,2025,1,all,237,2798,14,all,"{""2025"": ""all""}",all,2025,1
+1361,Natumba,,2022,1,central,5,2282,0,central,"{""2022"": ""central""}",central,2022,1
+1361,Natumba,,2023,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+1361,Natumba,,2024,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+1361,Natumba,,2025,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+10,Mavl,,2022,1,central,0,1000,0,central,"{""2022"": ""central""}",central,2022,1
+10,Mavl,,2023,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+10,Mavl,,2024,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+10,Mavl,,2025,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+15,Ардыльян,,2022,1,central,0,2620,0,central,"{""2022"": ""central""}",central,2022,1
+15,Ардыльян,,2023,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+15,Ардыльян,,2024,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+15,Ардыльян,,2025,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+17,Крёстный Отец,,2022,1,central,0,2748,0,central,"{""2022"": ""central"", ""2024"": ""central""}",central,2024,1
+17,Крёстный Отец,,2023,1,,,,,central,"{""2022"": ""central"", ""2024"": ""central""}",central,2024,1
+17,Крёстный Отец,,2024,1,central,303,2748,27,central,"{""2022"": ""central"", ""2024"": ""central""}",central,2024,1
+17,Крёстный Отец,,2025,1,,,,,central,"{""2022"": ""central"", ""2024"": ""central""}",central,2024,1
+18,M. Bellucci,,2022,1,central,0,1590,0,central,"{""2022"": ""central""}",central,2022,1
+18,M. Bellucci,,2023,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+18,M. Bellucci,,2024,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+18,M. Bellucci,,2025,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+20,Адвокат,,2022,1,central,0,2520,0,central,"{""2022"": ""central""}",central,2022,1
+20,Адвокат,,2023,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+20,Адвокат,,2024,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+20,Адвокат,,2025,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+24,Декстер,,2022,1,central,0,1473,0,central,"{""2022"": ""central""}",central,2022,1
+24,Декстер,,2023,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+24,Декстер,,2024,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+24,Декстер,,2025,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+26,sluggy,,2022,1,central,0,1000,0,central,"{""2022"": ""central""}",central,2022,1
+26,sluggy,,2023,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+26,sluggy,,2024,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+26,sluggy,,2025,1,,,,,central,"{""2022"": ""central""}",central,2022,1
+1072,Берлускони,,2022,1,,,,,central,"{""2023"": ""central""}",central,2023,1
+1072,Берлускони,,2023,1,central,309,2727,29,central,"{""2023"": ""central""}",central,2023,1
+1072,Берлускони,,2024,1,,,,,central,"{""2023"": ""central""}",central,2023,1
+1072,Берлускони,,2025,1,,,,,central,"{""2023"": ""central""}",central,2023,1
+258,Флай,,2022,1,,,,,central,"{""2024"": ""central""}",central,2024,1
+258,Флай,,2023,1,,,,,central,"{""2024"": ""central""}",central,2024,1
+258,Флай,,2024,1,central,299,2789,34,central,"{""2024"": ""central""}",central,2024,1
+258,Флай,,2025,1,,,,,central,"{""2024"": ""central""}",central,2024,1
+1401,Неон,,2022,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1401,Неон,,2023,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1401,Неон,,2024,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1401,Неон,,2025,1,central,223,2800,16,central,"{""2025"": ""central""}",central,2025,1
+1373,ZHIREKTOR,,2022,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1373,ZHIREKTOR,,2023,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1373,ZHIREKTOR,,2024,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1373,ZHIREKTOR,,2025,1,central,217,2708,16,central,"{""2025"": ""central""}",central,2025,1
+1435,MSR,,2022,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1435,MSR,,2023,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1435,MSR,,2024,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+1435,MSR,,2025,1,central,197,2739,18,central,"{""2025"": ""central""}",central,2025,1
+67,Стоников,,2022,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+67,Стоников,,2023,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+67,Стоников,,2024,1,,,,,central,"{""2025"": ""central""}",central,2025,1
+67,Стоников,,2025,1,central,180,2804,16,central,"{""2025"": ""central""}",central,2025,1
+1,fx,,2022,1,chernozem_region,0,2327,0,chernozem_region,"{""2022"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+1,fx,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+1,fx,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+1,fx,,2025,1,chernozem_region,74,2327,6,chernozem_region,"{""2022"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2,Malinka,,2022,1,chernozem_region,0,2291,0,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2,Malinka,,2023,1,chernozem_region,127,2291,20,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2,Malinka,,2024,1,chernozem_region,55,2291,5,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2,Malinka,,2025,1,chernozem_region,81,2291,5,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+3,Ols,,2022,1,chernozem_region,0,1810,0,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+3,Ols,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+3,Ols,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+3,Ols,,2025,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+4,Rob,,2022,1,chernozem_region,0,1537,0,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+4,Rob,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+4,Rob,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+4,Rob,,2025,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+5,Элишка,,2022,1,chernozem_region,0,1668,0,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+5,Элишка,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+5,Элишка,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+5,Элишка,,2025,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+6,Малина,,2022,1,chernozem_region,0,1820,0,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+6,Малина,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+6,Малина,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+6,Малина,,2025,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+7,QoodrooQ,,2022,1,chernozem_region,0,1738,0,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+7,QoodrooQ,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+7,QoodrooQ,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+7,QoodrooQ,,2025,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+16,Барс,,2022,1,chernozem_region,0,1190,0,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+16,Барс,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+16,Барс,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+16,Барс,,2025,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+21,Венера,,2022,1,chernozem_region,0,1210,0,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+21,Венера,,2023,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+21,Венера,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+21,Венера,,2025,1,,,,,chernozem_region,"{""2022"": ""chernozem_region""}",chernozem_region,2022,1
+23,Гаечка,,2022,1,chernozem_region,0,2272,0,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+23,Гаечка,,2023,1,chernozem_region,127,2272,26,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+23,Гаечка,,2024,1,,,,,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+23,Гаечка,,2025,1,chernozem_region,91,2272,11,chernozem_region,"{""2022"": ""chernozem_region"", ""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+146,Йогурт,,2022,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+146,Йогурт,,2023,1,chernozem_region,267,2346,25,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+146,Йогурт,,2024,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+146,Йогурт,,2025,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+1350,LeBron,,2022,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+1350,LeBron,,2023,1,chernozem_region,182,1964,9,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+1350,LeBron,,2024,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+1350,LeBron,,2025,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+2008,Ривер,,2022,1,,,,,chernozem_region,"{""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2008,Ривер,,2023,1,chernozem_region,157,2548,13,chernozem_region,"{""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2008,Ривер,,2024,1,chernozem_region,89,2548,24,chernozem_region,"{""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2008,Ривер,,2025,1,chernozem_region,76,2548,9,chernozem_region,"{""2023"": ""chernozem_region"", ""2024"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+959,Link,,2022,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+959,Link,,2023,1,chernozem_region,130,2231,16,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+959,Link,,2024,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+959,Link,,2025,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+957,Француз,,2022,1,,,,,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+957,Француз,,2023,1,chernozem_region,100,2263,15,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+957,Француз,,2024,1,,,,,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+957,Француз,,2025,1,chernozem_region,93,2263,9,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+2566,Мерлен,,2022,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+2566,Мерлен,,2023,1,chernozem_region,70,2198,9,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+2566,Мерлен,,2024,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+2566,Мерлен,,2025,1,,,,,chernozem_region,"{""2023"": ""chernozem_region""}",chernozem_region,2023,1
+142,БВ,,2022,1,,,,,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+142,БВ,,2023,1,chernozem_region,69,2221,4,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+142,БВ,,2024,1,,,,,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+142,БВ,,2025,1,chernozem_region,109,2221,5,chernozem_region,"{""2023"": ""chernozem_region"", ""2025"": ""chernozem_region""}",chernozem_region,2025,1
+1825,Infini,,2022,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1825,Infini,,2023,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1825,Infini,,2024,1,chernozem_region,109,2126,9,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1825,Infini,,2025,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1349,ARES,,2022,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1349,ARES,,2023,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1349,ARES,,2024,1,chernozem_region,103,2215,16,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1349,ARES,,2025,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+4143,ODNALIZA,,2022,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+4143,ODNALIZA,,2023,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+4143,ODNALIZA,,2024,1,chernozem_region,89,2016,17,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+4143,ODNALIZA,,2025,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1835,Gaben,,2022,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1835,Gaben,,2023,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1835,Gaben,,2024,1,chernozem_region,80,2160,6,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1835,Gaben,,2025,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1086,RUS,,2022,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1086,RUS,,2023,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1086,RUS,,2024,1,chernozem_region,56,2193,4,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1086,RUS,,2025,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1074,Грецкий,,2022,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1074,Грецкий,,2023,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1074,Грецкий,,2024,1,chernozem_region,51,2058,3,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+1074,Грецкий,,2025,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+123,Престиж,,2022,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+123,Престиж,,2023,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+123,Престиж,,2024,1,chernozem_region,47,2149,7,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+123,Престиж,,2025,1,,,,,chernozem_region,"{""2024"": ""chernozem_region""}",chernozem_region,2024,1
+135,Монтэг,,2022,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+135,Монтэг,,2023,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+135,Монтэг,,2024,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+135,Монтэг,,2025,1,chernozem_region,149,2342,9,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+4595,Господин Марго,,2022,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+4595,Господин Марго,,2023,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+4595,Господин Марго,,2024,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+4595,Господин Марго,,2025,1,chernozem_region,118,2302,7,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+39,Винчик,,2022,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+39,Винчик,,2023,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+39,Винчик,,2024,1,,,,,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+39,Винчик,,2025,1,chernozem_region,84,2374,6,chernozem_region,"{""2025"": ""chernozem_region""}",chernozem_region,2025,1
+11,A.,,2022,1,north,0,1733,0,north,"{""2022"": ""north""}",north,2022,1
+11,A.,,2023,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+11,A.,,2024,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+11,A.,,2025,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+45,pevoon,,2022,1,north,0,2440,0,north,"{""2022"": ""north"", ""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+45,pevoon,,2023,1,north,145,2440,19,north,"{""2022"": ""north"", ""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+45,pevoon,,2024,1,north,237,2440,20,north,"{""2022"": ""north"", ""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+45,pevoon,,2025,1,,,,,north,"{""2022"": ""north"", ""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+61,Sema,,2022,1,north,0,2023,0,north,"{""2022"": ""north""}",north,2022,1
+61,Sema,,2023,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+61,Sema,,2024,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+61,Sema,,2025,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+62,ФДМ,,2022,1,north,0,2414,0,north,"{""2022"": ""north"", ""2025"": ""north""}",north,2025,1
+62,ФДМ,,2023,1,,,,,north,"{""2022"": ""north"", ""2025"": ""north""}",north,2025,1
+62,ФДМ,,2024,1,,,,,north,"{""2022"": ""north"", ""2025"": ""north""}",north,2025,1
+62,ФДМ,,2025,1,north,117,2414,9,north,"{""2022"": ""north"", ""2025"": ""north""}",north,2025,1
+63,Вальхалла,,2022,1,north,0,2170,0,north,"{""2022"": ""north""}",north,2022,1
+63,Вальхалла,,2023,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+63,Вальхалла,,2024,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+63,Вальхалла,,2025,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+64,КАЕ,,2022,1,north,0,2045,0,north,"{""2022"": ""north""}",north,2022,1
+64,КАЕ,,2023,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+64,КАЕ,,2024,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+64,КАЕ,,2025,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+68,Инна,,2022,1,north,0,1000,0,north,"{""2022"": ""north""}",north,2022,1
+68,Инна,,2023,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+68,Инна,,2024,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+68,Инна,,2025,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+74,Волчица,,2022,1,north,0,1830,0,north,"{""2022"": ""north""}",north,2022,1
+74,Волчица,,2023,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+74,Волчица,,2024,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+74,Волчица,,2025,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+75,Шлюба,,2022,1,north,0,1895,0,north,"{""2022"": ""north""}",north,2022,1
+75,Шлюба,,2023,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+75,Шлюба,,2024,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+75,Шлюба,,2025,1,,,,,north,"{""2022"": ""north""}",north,2022,1
+91,Воробушек,,2022,1,,,,,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+91,Воробушек,,2023,1,north,185,2744,22,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+91,Воробушек,,2024,1,north,282,2744,17,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+91,Воробушек,,2025,1,north,201,2744,13,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+276,Bellissima,,2022,1,,,,,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+276,Bellissima,,2023,1,north,115,2343,11,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+276,Bellissima,,2024,1,north,145,2343,13,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+276,Bellissima,,2025,1,,,,,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+84,Лукас,,2022,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+84,Лукас,,2023,1,north,115,1976,8,north,"{""2023"": ""north""}",north,2023,1
+84,Лукас,,2024,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+84,Лукас,,2025,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+892,Ментик,,2022,1,,,,,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+892,Ментик,,2023,1,north,104,2454,9,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+892,Ментик,,2024,1,north,165,2454,14,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+892,Ментик,,2025,1,north,66,2454,9,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+102,Размен,,2022,1,,,,,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+102,Размен,,2023,1,north,102,2508,10,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+102,Размен,,2024,1,north,80,2508,12,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+102,Размен,,2025,1,north,93,2508,12,north,"{""2023"": ""north"", ""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+2838,Lu,,2022,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+2838,Lu,,2023,1,north,79,1953,14,north,"{""2023"": ""north""}",north,2023,1
+2838,Lu,,2024,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+2838,Lu,,2025,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+2896,Ластхиро,,2022,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+2896,Ластхиро,,2023,1,north,75,2063,8,north,"{""2023"": ""north""}",north,2023,1
+2896,Ластхиро,,2024,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+2896,Ластхиро,,2025,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+1502,Леброн,,2022,1,,,,,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+1502,Леброн,,2023,1,north,68,2447,5,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+1502,Леброн,,2024,1,north,211,2447,11,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+1502,Леброн,,2025,1,,,,,north,"{""2023"": ""north"", ""2024"": ""north""}",north,2024,1
+85,Читер,,2022,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+85,Читер,,2023,1,north,67,1947,8,north,"{""2023"": ""north""}",north,2023,1
+85,Читер,,2024,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+85,Читер,,2025,1,,,,,north,"{""2023"": ""north""}",north,2023,1
+2304,Vibe,,2022,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+2304,Vibe,,2023,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+2304,Vibe,,2024,1,north,237,2518,13,north,"{""2024"": ""north""}",north,2024,1
+2304,Vibe,,2025,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+2075,Сандра,,2022,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+2075,Сандра,,2023,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+2075,Сандра,,2024,1,north,106,2437,9,north,"{""2024"": ""north""}",north,2024,1
+2075,Сандра,,2025,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+2029,YungBull,,2022,1,,,,,north,"{""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+2029,YungBull,,2023,1,,,,,north,"{""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+2029,YungBull,,2024,1,north,86,2387,5,north,"{""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+2029,YungBull,,2025,1,north,107,2387,4,north,"{""2024"": ""north"", ""2025"": ""north""}",north,2025,1
+768,Кэт,,2022,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+768,Кэт,,2023,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+768,Кэт,,2024,1,north,84,2198,14,north,"{""2024"": ""north""}",north,2024,1
+768,Кэт,,2025,1,,,,,north,"{""2024"": ""north""}",north,2024,1
+1019,Cowboy,,2022,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1019,Cowboy,,2023,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1019,Cowboy,,2024,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1019,Cowboy,,2025,1,north,147,2342,9,north,"{""2025"": ""north""}",north,2025,1
+6787,механика,,2022,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+6787,механика,,2023,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+6787,механика,,2024,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+6787,механика,,2025,1,north,107,2292,9,north,"{""2025"": ""north""}",north,2025,1
+893,Айра,,2022,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+893,Айра,,2023,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+893,Айра,,2024,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+893,Айра,,2025,1,north,75,2348,8,north,"{""2025"": ""north""}",north,2025,1
+1505,Malkav,,2022,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1505,Malkav,,2023,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1505,Malkav,,2024,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1505,Malkav,,2025,1,north,68,2096,8,north,"{""2025"": ""north""}",north,2025,1
+1582,Антимаг,,2022,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1582,Антимаг,,2023,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1582,Антимаг,,2024,1,,,,,north,"{""2025"": ""north""}",north,2025,1
+1582,Антимаг,,2025,1,north,66,2353,12,north,"{""2025"": ""north""}",north,2025,1
+49,Оракул,,2022,1,siberia_and_ural,0,1060,0,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+49,Оракул,,2023,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+49,Оракул,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+49,Оракул,,2025,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+69,Мими,,2022,1,siberia_and_ural,0,2043,0,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+69,Мими,,2023,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+69,Мими,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+69,Мими,,2025,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+168,Белка,,2022,1,siberia_and_ural,0,1962,0,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+168,Белка,,2023,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+168,Белка,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+168,Белка,,2025,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+221,Arsenal,,2022,1,siberia_and_ural,0,1000,0,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+221,Arsenal,,2023,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+221,Arsenal,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+221,Arsenal,,2025,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+223,Ананас,,2022,1,siberia_and_ural,0,2433,0,siberia_and_ural,"{""2022"": ""siberia_and_ural"", ""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+223,Ананас,,2023,1,siberia_and_ural,176,2433,8,siberia_and_ural,"{""2022"": ""siberia_and_ural"", ""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+223,Ананас,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural"", ""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+223,Ананас,,2025,1,siberia_and_ural,162,2433,10,siberia_and_ural,"{""2022"": ""siberia_and_ural"", ""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+231,Фокс,,2022,1,siberia_and_ural,0,2119,0,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+231,Фокс,,2023,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+231,Фокс,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+231,Фокс,,2025,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+238,OS,,2022,1,siberia_and_ural,0,1805,0,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+238,OS,,2023,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+238,OS,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+238,OS,,2025,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+242,Сахара,,2022,1,siberia_and_ural,0,1522,0,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+242,Сахара,,2023,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+242,Сахара,,2024,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+242,Сахара,,2025,1,,,,,siberia_and_ural,"{""2022"": ""siberia_and_ural""}",siberia_and_ural,2022,1
+868,Sub Zero,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+868,Sub Zero,,2023,1,siberia_and_ural,291,2564,16,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+868,Sub Zero,,2024,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+868,Sub Zero,,2025,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+659,Штиль,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+659,Штиль,,2023,1,siberia_and_ural,232,2404,17,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+659,Штиль,,2024,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+659,Штиль,,2025,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+969,Ник.,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+969,Ник.,,2023,1,siberia_and_ural,225,2506,16,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+969,Ник.,,2024,1,siberia_and_ural,196,2506,18,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+969,Ник.,,2025,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+758,Fl0x,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+758,Fl0x,,2023,1,siberia_and_ural,189,2120,9,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+758,Fl0x,,2024,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+758,Fl0x,,2025,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+589,Призрак,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+589,Призрак,,2023,1,siberia_and_ural,186,2246,21,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+589,Призрак,,2024,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+589,Призрак,,2025,1,siberia_and_ural,113,2246,11,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+661,Strelas,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+661,Strelas,,2023,1,siberia_and_ural,183,2334,21,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+661,Strelas,,2024,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+661,Strelas,,2025,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+671,Кристофер,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+671,Кристофер,,2023,1,siberia_and_ural,139,2023,12,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+671,Кристофер,,2024,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+671,Кристофер,,2025,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural""}",siberia_and_ural,2023,1
+665,Амика,,2022,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+665,Амика,,2023,1,siberia_and_ural,136,2252,13,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+665,Амика,,2024,1,siberia_and_ural,174,2252,14,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+665,Амика,,2025,1,,,,,siberia_and_ural,"{""2023"": ""siberia_and_ural"", ""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+3717,Дед Митяй,,2022,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+3717,Дед Митяй,,2023,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+3717,Дед Митяй,,2024,1,siberia_and_ural,256,2414,16,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+3717,Дед Митяй,,2025,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+1420,Кудрявый,,2022,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1420,Кудрявый,,2023,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1420,Кудрявый,,2024,1,siberia_and_ural,219,2454,14,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1420,Кудрявый,,2025,1,siberia_and_ural,108,2454,11,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+2067,OBollj,,2022,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+2067,OBollj,,2023,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+2067,OBollj,,2024,1,siberia_and_ural,192,2385,14,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+2067,OBollj,,2025,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+650,Воробей,,2022,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+650,Воробей,,2023,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+650,Воробей,,2024,1,siberia_and_ural,183,2439,18,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+650,Воробей,,2025,1,siberia_and_ural,141,2439,11,siberia_and_ural,"{""2024"": ""siberia_and_ural"", ""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1033,Mickey,,2022,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+1033,Mickey,,2023,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+1033,Mickey,,2024,1,siberia_and_ural,178,2336,19,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+1033,Mickey,,2025,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+2788,Kapusta,,2022,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+2788,Kapusta,,2023,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+2788,Kapusta,,2024,1,siberia_and_ural,174,2071,12,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+2788,Kapusta,,2025,1,,,,,siberia_and_ural,"{""2024"": ""siberia_and_ural""}",siberia_and_ural,2024,1
+1307,Disconnect,,2022,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1307,Disconnect,,2023,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1307,Disconnect,,2024,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1307,Disconnect,,2025,1,siberia_and_ural,217,2439,11,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+760,Vendetta,,2022,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+760,Vendetta,,2023,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+760,Vendetta,,2024,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+760,Vendetta,,2025,1,siberia_and_ural,207,2594,13,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1219,Отец Русской Дем,,2022,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1219,Отец Русской Дем,,2023,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1219,Отец Русской Дем,,2024,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+1219,Отец Русской Дем,,2025,1,siberia_and_ural,165,2322,14,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+493,Лирик,,2022,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+493,Лирик,,2023,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+493,Лирик,,2024,1,,,,,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+493,Лирик,,2025,1,siberia_and_ural,108,2095,9,siberia_and_ural,"{""2025"": ""siberia_and_ural""}",siberia_and_ural,2025,1
+93,RaptoR,,2022,1,far_east,0,1000,0,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+93,RaptoR,,2023,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+93,RaptoR,,2024,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+93,RaptoR,,2025,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+205,LIN,,2022,1,far_east,0,1391,0,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+205,LIN,,2023,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+205,LIN,,2024,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+205,LIN,,2025,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+307,Cobb,,2022,1,far_east,0,1241,0,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+307,Cobb,,2023,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+307,Cobb,,2024,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+307,Cobb,,2025,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+308,Tops,,2022,1,far_east,0,2271,0,far_east,"{""2022"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+308,Tops,,2023,1,,,,,far_east,"{""2022"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+308,Tops,,2024,1,,,,,far_east,"{""2022"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+308,Tops,,2025,1,far_east,56,2271,4,far_east,"{""2022"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+452,Wake up,,2022,1,far_east,0,2122,0,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+452,Wake up,,2023,1,far_east,66,2122,5,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+452,Wake up,,2024,1,far_east,107,2122,6,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+452,Wake up,,2025,1,,,,,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+466,ALT,,2022,1,far_east,0,1000,0,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+466,ALT,,2023,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+466,ALT,,2024,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+466,ALT,,2025,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+483,Tokami,,2022,1,far_east,0,1729,0,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+483,Tokami,,2023,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+483,Tokami,,2024,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+483,Tokami,,2025,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+485,Газ Новичок,,2022,1,far_east,0,1048,0,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+485,Газ Новичок,,2023,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+485,Газ Новичок,,2024,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+485,Газ Новичок,,2025,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+486,Verner,,2022,1,far_east,0,1264,0,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+486,Verner,,2023,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+486,Verner,,2024,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+486,Verner,,2025,1,,,,,far_east,"{""2022"": ""far_east""}",far_east,2022,1
+487,Bandos,,2022,1,far_east,0,2238,0,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+487,Bandos,,2023,1,far_east,83,2238,8,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+487,Bandos,,2024,1,far_east,146,2238,13,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+487,Bandos,,2025,1,far_east,66,2238,5,far_east,"{""2022"": ""far_east"", ""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+2011,АПОКАЛИПСИС,,2022,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2011,АПОКАЛИПСИС,,2023,1,far_east,109,1939,6,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2011,АПОКАЛИПСИС,,2024,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2011,АПОКАЛИПСИС,,2025,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+491,Солёный,,2022,1,,,,,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+491,Солёный,,2023,1,far_east,107,2116,6,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+491,Солёный,,2024,1,far_east,132,2116,8,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+491,Солёный,,2025,1,,,,,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+521,Сюрприз,,2022,1,,,,,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+521,Сюрприз,,2023,1,far_east,87,2246,8,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+521,Сюрприз,,2024,1,far_east,107,2246,11,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+521,Сюрприз,,2025,1,,,,,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+3537,Лeгeндa,,2022,1,,,,,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+3537,Лeгeндa,,2023,1,far_east,80,2440,9,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+3537,Лeгeндa,,2024,1,far_east,159,2440,15,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+3537,Лeгeндa,,2025,1,far_east,176,2440,9,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+1459,Mileena,,2022,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+1459,Mileena,,2023,1,far_east,65,1642,5,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+1459,Mileena,,2024,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+1459,Mileena,,2025,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2012,КарЛеоне,,2022,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2012,КарЛеоне,,2023,1,far_east,64,1976,5,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2012,КарЛеоне,,2024,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2012,КарЛеоне,,2025,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+490,Герман,,2022,1,,,,,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+490,Герман,,2023,1,far_east,54,1995,4,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+490,Герман,,2024,1,far_east,90,1995,12,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+490,Герман,,2025,1,,,,,far_east,"{""2023"": ""far_east"", ""2024"": ""far_east""}",far_east,2024,1
+2637,xten,,2022,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2637,xten,,2023,1,far_east,53,2010,6,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2637,xten,,2024,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2637,xten,,2025,1,,,,,far_east,"{""2023"": ""far_east""}",far_east,2023,1
+2002,Dr. Pruss,,2022,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+2002,Dr. Pruss,,2023,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+2002,Dr. Pruss,,2024,1,far_east,213,2275,14,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+2002,Dr. Pruss,,2025,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+5754,Anny,,2022,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+5754,Anny,,2023,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+5754,Anny,,2024,1,far_east,124,1999,11,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+5754,Anny,,2025,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+553,Gron,,2022,1,,,,,far_east,"{""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+553,Gron,,2023,1,,,,,far_east,"{""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+553,Gron,,2024,1,far_east,98,2057,8,far_east,"{""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+553,Gron,,2025,1,far_east,47,2057,2,far_east,"{""2024"": ""far_east"", ""2025"": ""far_east""}",far_east,2025,1
+2506,Present,,2022,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+2506,Present,,2023,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+2506,Present,,2024,1,far_east,91,2049,7,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+2506,Present,,2025,1,,,,,far_east,"{""2024"": ""far_east""}",far_east,2024,1
+7122,Новичок1992,,2022,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+7122,Новичок1992,,2023,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+7122,Новичок1992,,2024,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+7122,Новичок1992,,2025,1,far_east,82,1956,5,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6811,Госпожа Моя,,2022,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6811,Госпожа Моя,,2023,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6811,Госпожа Моя,,2024,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6811,Госпожа Моя,,2025,1,far_east,60,2051,3,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6616,ya.kittana,,2022,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6616,ya.kittana,,2023,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6616,ya.kittana,,2024,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+6616,ya.kittana,,2025,1,far_east,55,1921,5,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+7160,Winter,,2022,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+7160,Winter,,2023,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+7160,Winter,,2024,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+7160,Winter,,2025,1,far_east,44,1831,3,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+4752,Roxy,,2022,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+4752,Roxy,,2023,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+4752,Roxy,,2024,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+4752,Roxy,,2025,1,far_east,42,1934,3,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+5501,MAMBA,,2022,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+5501,MAMBA,,2023,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+5501,MAMBA,,2024,1,,,,,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+5501,MAMBA,,2025,1,far_east,41,1725,4,far_east,"{""2025"": ""far_east""}",far_east,2025,1
+1382,Харви,,2022,1,volga_region,10,2351,0,volga_region,"{""2022"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+1382,Харви,,2023,1,,,,,volga_region,"{""2022"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+1382,Харви,,2024,1,volga_region,185,2351,14,volga_region,"{""2022"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+1382,Харви,,2025,1,,,,,volga_region,"{""2022"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+367,Соколова,,2022,1,volga_region,8,1976,0,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+367,Соколова,,2023,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+367,Соколова,,2024,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+367,Соколова,,2025,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+403,Радуга,,2022,1,volga_region,6,1903,0,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+403,Радуга,,2023,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+403,Радуга,,2024,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+403,Радуга,,2025,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+366,Sin3d,,2022,1,volga_region,4,2538,0,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+366,Sin3d,,2023,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+366,Sin3d,,2024,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+366,Sin3d,,2025,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+60,Mr. Vampire,,2022,1,volga_region,0,2320,0,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+60,Mr. Vampire,,2023,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+60,Mr. Vampire,,2024,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+60,Mr. Vampire,,2025,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+108,POISON,,2022,1,volga_region,0,1710,0,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+108,POISON,,2023,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+108,POISON,,2024,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+108,POISON,,2025,1,,,,,volga_region,"{""2022"": ""volga_region""}",volga_region,2022,1
+334,Альпач,,2022,1,,,,,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+334,Альпач,,2023,1,volga_region,286,2849,18,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+334,Альпач,,2024,1,volga_region,285,2849,24,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+334,Альпач,,2025,1,volga_region,216,2849,13,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+1013,Фрукт,,2022,1,,,,,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+1013,Фрукт,,2023,1,volga_region,253,2643,24,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+1013,Фрукт,,2024,1,volga_region,261,2643,31,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+1013,Фрукт,,2025,1,,,,,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region""}",volga_region,2024,1
+392,Neit,,2022,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+392,Neit,,2023,1,volga_region,177,2313,14,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+392,Neit,,2024,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+392,Neit,,2025,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+719,Аристократ,,2022,1,,,,,volga_region,"{""2023"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+719,Аристократ,,2023,1,volga_region,171,2513,10,volga_region,"{""2023"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+719,Аристократ,,2024,1,,,,,volga_region,"{""2023"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+719,Аристократ,,2025,1,volga_region,118,2513,7,volga_region,"{""2023"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+418,Истина,,2022,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+418,Истина,,2023,1,volga_region,165,2387,13,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+418,Истина,,2024,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+418,Истина,,2025,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+424,Морти,,2022,1,,,,,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+424,Морти,,2023,1,volga_region,160,2552,13,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+424,Морти,,2024,1,volga_region,205,2552,17,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+424,Морти,,2025,1,volga_region,110,2552,11,volga_region,"{""2023"": ""volga_region"", ""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+2872,Бес,,2022,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+2872,Бес,,2023,1,volga_region,155,2112,18,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+2872,Бес,,2024,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+2872,Бес,,2025,1,,,,,volga_region,"{""2023"": ""volga_region""}",volga_region,2023,1
+5567,Paradise,,2022,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+5567,Paradise,,2023,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+5567,Paradise,,2024,1,volga_region,281,2573,21,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+5567,Paradise,,2025,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+2589,Йөгерешкин,,2022,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+2589,Йөгерешкин,,2023,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+2589,Йөгерешкин,,2024,1,volga_region,245,2446,18,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+2589,Йөгерешкин,,2025,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+346,Ведьмочка,,2022,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+346,Ведьмочка,,2023,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+346,Ведьмочка,,2024,1,volga_region,229,2447,28,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+346,Ведьмочка,,2025,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+1368,Тори,,2022,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+1368,Тори,,2023,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+1368,Тори,,2024,1,volga_region,223,2311,11,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+1368,Тори,,2025,1,,,,,volga_region,"{""2024"": ""volga_region""}",volga_region,2024,1
+318,Franchesco,,2022,1,,,,,volga_region,"{""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+318,Franchesco,,2023,1,,,,,volga_region,"{""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+318,Franchesco,,2024,1,volga_region,203,2655,7,volga_region,"{""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+318,Franchesco,,2025,1,volga_region,117,2655,6,volga_region,"{""2024"": ""volga_region"", ""2025"": ""volga_region""}",volga_region,2025,1
+561,Дорадо,,2022,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+561,Дорадо,,2023,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+561,Дорадо,,2024,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+561,Дорадо,,2025,1,volga_region,157,2462,11,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+3787,Mizantrop,,2022,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+3787,Mizantrop,,2023,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+3787,Mizantrop,,2024,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+3787,Mizantrop,,2025,1,volga_region,152,2452,12,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+4961,Интeграл,,2022,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+4961,Интeграл,,2023,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+4961,Интeграл,,2024,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+4961,Интeграл,,2025,1,volga_region,139,2394,8,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+2781,Слюнявый Джон,,2022,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+2781,Слюнявый Джон,,2023,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+2781,Слюнявый Джон,,2024,1,,,,,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1
+2781,Слюнявый Джон,,2025,1,volga_region,138,2461,8,volga_region,"{""2025"": ""volga_region""}",volga_region,2025,1

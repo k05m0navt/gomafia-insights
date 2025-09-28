@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    outputs:
+      preview_url: ${{ steps.publish_preview.outputs.preview_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm --prefix frontend ci
+      - name: Prisma generate (frontend schema)
+        run: npm --prefix frontend exec prisma generate -- --schema=frontend/prisma/schema.prisma
+      - name: Lint
+        run: npm --prefix frontend run lint
+      - name: Unit tests (vitest)
+        run: npm --prefix frontend run test:ci
+      - name: Build
+        run: npm --prefix frontend run build
+      - name: Publish Vercel preview
+        id: publish_preview
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -euo pipefail
+          # Deploy current ref to Vercel (repo must be linked). Requires VERCEL_TOKEN secret.
+          npx vercel --confirm --token "$VERCEL_TOKEN" --prod=false | tee vercel-deploy.out
+          PREVIEW_URL=$(grep -oE 'https://[a-zA-Z0-9.-]+' vercel-deploy.out | head -n1 || true)
+          echo "preview_url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+
+  playwright-e2e:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm --prefix frontend ci
+      - name: Canary healthcheck (preview)
+        env:
+          PREVIEW_URL: ${{ needs.build-and-test.outputs.preview_url }}
+        run: |
+          echo "Running canary healthcheck against $PREVIEW_URL"
+          bash ./scripts/canary-healthcheck.sh "$PREVIEW_URL"
+      - name: Run Playwright tests against preview
+        env:
+          PREVIEW_URL: ${{ needs.build-and-test.outputs.preview_url }}
+        run: |
+          npm run test:e2e

@@ -1,0 +1,250 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - complementary [ref=e3]:
+      - generic [ref=e5]:
+        - img [ref=e7]
+        - generic [ref=e13]:
+          - heading "GoMafia" [level=2] [ref=e14]
+          - paragraph [ref=e15]: Insights
+      - navigation [ref=e16]:
+        - link "Overview" [ref=e17] [cursor=pointer]:
+          - /url: /
+          - img [ref=e18] [cursor=pointer]
+          - generic [ref=e21] [cursor=pointer]: Overview
+        - link "Players" [ref=e22] [cursor=pointer]:
+          - /url: /players
+          - img [ref=e23] [cursor=pointer]
+          - generic [ref=e28] [cursor=pointer]: Players
+        - link "Tournaments" [ref=e29] [cursor=pointer]:
+          - /url: /tournaments
+          - img [ref=e30] [cursor=pointer]
+          - generic [ref=e36] [cursor=pointer]: Tournaments
+        - link "Games" [ref=e37] [cursor=pointer]:
+          - /url: /games
+          - img [ref=e38] [cursor=pointer]
+          - generic [ref=e40] [cursor=pointer]: Games
+        - link "Analytics" [ref=e41] [cursor=pointer]:
+          - /url: /analytics
+          - img [ref=e42] [cursor=pointer]
+          - generic [ref=e44] [cursor=pointer]: Analytics
+        - link "Trends" [ref=e45] [cursor=pointer]:
+          - /url: /trends
+          - img [ref=e46] [cursor=pointer]
+          - generic [ref=e49] [cursor=pointer]: Trends
+        - link "Clubs" [ref=e50] [cursor=pointer]:
+          - /url: /clubs
+          - img [ref=e51] [cursor=pointer]
+          - generic [ref=e53] [cursor=pointer]: Clubs
+        - link "Data Collection" [ref=e54] [cursor=pointer]:
+          - /url: /data-collection
+          - img [ref=e55] [cursor=pointer]
+          - generic [ref=e59] [cursor=pointer]: Data Collection
+        - link "System Status" [ref=e60] [cursor=pointer]:
+          - /url: /status
+          - img [ref=e61] [cursor=pointer]
+          - generic [ref=e63] [cursor=pointer]: System Status
+      - generic [ref=e65]:
+        - paragraph [ref=e66]: Version 1.0.0
+        - paragraph [ref=e67]: "Data updated: Live"
+    - generic [ref=e68]:
+      - banner [ref=e69]:
+        - generic [ref=e70]:
+          - generic [ref=e71]:
+            - heading "GoMafia Insights" [level=1] [ref=e72]
+            - generic [ref=e73]:
+              - generic [ref=e74]: /
+              - generic [ref=e75]: Dashboard
+          - generic [ref=e76]:
+            - generic [ref=e77]:
+              - img [ref=e78]
+              - textbox "Search players, tournaments..." [ref=e81]
+            - generic [ref=e83] [cursor=pointer]:
+              - img [ref=e85] [cursor=pointer]
+              - generic [ref=e90] [cursor=pointer]: Connected
+              - img [ref=e92] [cursor=pointer]
+            - button [ref=e95]:
+              - img [ref=e96]
+            - button [ref=e100]:
+              - img [ref=e101]
+            - button "Admin" [ref=e104]:
+              - img [ref=e105]
+              - generic [ref=e108]: Admin
+      - main [ref=e109]:
+        - generic [ref=e110]:
+          - generic [ref=e111]:
+            - 'button "Total Players Metrics real-time status: Connected. Click to view details." [ref=e113]'
+            - generic [ref=e116]:
+              - generic [ref=e117]:
+                - paragraph [ref=e118]: Total Players
+                - paragraph [ref=e119]: "0"
+                - paragraph [ref=e120]: +12% from last month
+              - img [ref=e122]
+          - generic [ref=e127]:
+            - 'button "Total Games Metrics real-time status: Connected. Click to view details." [ref=e129]'
+            - generic [ref=e132]:
+              - generic [ref=e133]:
+                - paragraph [ref=e134]: Total Games
+                - paragraph [ref=e135]: "0"
+                - paragraph [ref=e136]: +8% from last month
+              - img [ref=e138]
+          - generic [ref=e144]:
+            - 'button "Active Today Metrics real-time status: Connected. Click to view details." [ref=e146]'
+            - generic [ref=e149]:
+              - generic [ref=e150]:
+                - paragraph [ref=e151]: Active Today
+                - paragraph [ref=e152]: "0"
+                - paragraph [ref=e153]: +3% from yesterday
+              - img [ref=e155]
+          - generic [ref=e157]:
+            - 'button "Win Rate Metrics real-time status: Connected. Click to view details." [ref=e159]'
+            - generic [ref=e162]:
+              - generic [ref=e163]:
+                - paragraph [ref=e164]: Win Rate
+                - paragraph [ref=e165]: 67.3%
+                - paragraph [ref=e166]: "-2.1% from last month"
+              - img [ref=e168]
+        - group "Select timeframe" [ref=e172]:
+          - button "7 day timeframe" [ref=e173]: 7d
+          - button "30 day timeframe" [pressed] [ref=e174]: 30d
+          - button "90 day timeframe" [ref=e175]: 90d
+        - region "Real-time analytics charts" [ref=e176]:
+          - generic [ref=e177]:
+            - 'button "Games Over Time Chart real-time status: Connected. Click to view details." [ref=e179]'
+            - heading "Games Over Time" [level=3] [ref=e182]:
+              - img [ref=e183]
+              - generic [ref=e186]: Games Over Time
+            - img "Games Over Time data visualization" [ref=e187]:
+              - img [ref=e188]
+          - generic [ref=e189]:
+            - 'button "Role Distribution Chart real-time status: Connected. Click to view details." [ref=e191]'
+            - heading "Role Distribution" [level=3] [ref=e194]:
+              - img [ref=e195]
+              - generic [ref=e198]: Role Distribution
+            - img "Role Distribution data visualization" [ref=e199]:
+              - img [ref=e200]
+          - generic [ref=e201]:
+            - 'button "Win Rate Trends Chart real-time status: Connected. Click to view details." [ref=e203]'
+            - heading "Win Rate Trends" [level=3] [ref=e206]:
+              - img [ref=e207]
+              - generic [ref=e210]: Win Rate Trends
+            - img "Win Rate Trends data visualization" [ref=e211]:
+              - img [ref=e212]
+          - generic [ref=e213]:
+            - 'button "Tournament Participation Chart real-time status: Connected. Click to view details." [ref=e215]'
+            - heading "Tournament Participation" [level=3] [ref=e218]:
+              - img [ref=e219]
+              - generic [ref=e221]: Tournament Participation
+            - img "Tournament Participation data visualization" [ref=e222]:
+              - img [ref=e223]
+        - generic [ref=e224]:
+          - generic [ref=e225]:
+            - 'button "Activity Feed real-time status: Connected. Click to view details." [ref=e227]'
+            - heading "Recent Activity" [level=3] [ref=e231]:
+              - img [ref=e232]
+              - generic [ref=e234]: Recent Activity
+            - feed "Recent game and tournament activities" [ref=e236]:
+              - generic [ref=e237]:
+                - img [ref=e239]
+                - generic [ref=e241]:
+                  - generic [ref=e242]:
+                    - 'heading "Ranked Game #15432" [level=4] [ref=e243]'
+                    - generic [ref=e244]: Completed
+                  - paragraph [ref=e245]: Mafia victory - 7 players
+                  - generic [ref=e246]:
+                    - generic [ref=e247]:
+                      - img [ref=e248]
+                      - generic [ref=e251]: 2 minutes ago
+                    - generic [ref=e252]:
+                      - img [ref=e253]
+                      - generic [ref=e258]: 7 players
+              - generic [ref=e259]:
+                - img [ref=e261]
+                - generic [ref=e267]:
+                  - generic [ref=e268]:
+                    - heading "Winter Championship 2024" [level=4] [ref=e269]
+                    - generic [ref=e270]: Ongoing
+                  - paragraph [ref=e271]: Quarter Finals - Round 2
+                  - generic [ref=e272]:
+                    - generic [ref=e273]:
+                      - img [ref=e274]
+                      - generic [ref=e277]: 15 minutes ago
+                    - generic [ref=e278]:
+                      - img [ref=e279]
+                      - generic [ref=e284]: 64 players
+              - generic [ref=e285]:
+                - img [ref=e287]
+                - generic [ref=e289]:
+                  - generic [ref=e290]:
+                    - 'heading "Training Match #15431" [level=4] [ref=e291]'
+                    - generic [ref=e292]: Completed
+                  - paragraph [ref=e293]: Town victory - 10 players
+                  - generic [ref=e294]:
+                    - generic [ref=e295]:
+                      - img [ref=e296]
+                      - generic [ref=e299]: 28 minutes ago
+                    - generic [ref=e300]:
+                      - img [ref=e301]
+                      - generic [ref=e306]: 10 players
+              - generic [ref=e307]:
+                - img [ref=e309]
+                - generic [ref=e315]:
+                  - generic [ref=e316]:
+                    - heading "Club League Match" [level=4] [ref=e317]
+                    - generic [ref=e318]: Completed
+                  - paragraph [ref=e319]: Red Bears vs Blue Eagles
+                  - generic [ref=e320]:
+                    - generic [ref=e321]:
+                      - img [ref=e322]
+                      - generic [ref=e325]: 1 hour ago
+                    - generic [ref=e326]:
+                      - img [ref=e327]
+                      - generic [ref=e332]: 20 players
+              - generic [ref=e333]:
+                - img [ref=e335]
+                - generic [ref=e337]:
+                  - generic [ref=e338]:
+                    - 'heading "Casual Game #15430" [level=4] [ref=e339]'
+                    - generic [ref=e340]: Completed
+                  - paragraph [ref=e341]: Mafia victory - 8 players
+                  - generic [ref=e342]:
+                    - generic [ref=e343]:
+                      - img [ref=e344]
+                      - generic [ref=e347]: 1 hour ago
+                    - generic [ref=e348]:
+                      - img [ref=e349]
+                      - generic [ref=e354]: 8 players
+          - generic [ref=e355]:
+            - heading "Quick Stats" [level=3] [ref=e357]
+            - generic [ref=e358]:
+              - generic [ref=e359]:
+                - heading "Today's Activity" [level=4] [ref=e360]
+                - generic [ref=e361]:
+                  - generic [ref=e362]:
+                    - generic [ref=e363]: Games Completed
+                    - generic [ref=e364]: "47"
+                  - generic [ref=e365]:
+                    - generic [ref=e366]: Active Players
+                    - generic [ref=e367]: "312"
+                  - generic [ref=e368]:
+                    - generic [ref=e369]: Tournaments Running
+                    - generic [ref=e370]: "5"
+              - generic [ref=e371]:
+                - heading "System Status" [level=4] [ref=e372]
+                - generic [ref=e373]:
+                  - generic [ref=e374]:
+                    - generic [ref=e375]: Data Collection
+                    - generic [ref=e378]: Active
+                  - generic [ref=e379]:
+                    - generic [ref=e380]: Database
+                    - generic [ref=e383]: Healthy
+                  - generic [ref=e384]:
+                    - generic [ref=e385]: Real-time Updates
+                    - generic [ref=e388]: Connected
+                  - generic [ref=e389]:
+                    - generic [ref=e390]: Last Update
+                    - generic [ref=e391]: 13:15:54
+  - alert [ref=e392]
+```
