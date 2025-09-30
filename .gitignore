@@ -118,3 +118,15 @@ Icon
 
 # venv for verifier wrapper
 data-collection/.venv_verify_parsing/
+
+# Additional backup and temporary files
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+
+# Memory Bank backups
+memory-bank/*.bak
+memory-bank/*.backup
+memory-bank/.qa_validation_status

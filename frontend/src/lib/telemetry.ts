@@ -27,7 +27,7 @@ export async function reportError(errorReport: ErrorReport): Promise<void> {
   }
 }
 
-export function initTelemetry(env?: Record<string, string>) {
+export function initTelemetry() {
   // Initialize telemetry provider in the future. Currently a noop.
   return
 }
@@ -39,18 +39,15 @@ export function captureError(error: unknown, metadata?: Record<string, unknown>)
       // send to provider
     } else {
       // Console fallback for CI/logging
-      // eslint-disable-next-line no-console
       console.error('[telemetry] captureError', error, metadata)
     }
   } catch (e) {
     // swallow errors from telemetry to avoid breaking app flow
-    // eslint-disable-next-line no-console
     console.error('[telemetry] captureError failed', e)
   }
 }
 
 export function captureBreadcrumb(message: string, data?: Record<string, unknown>) {
   // lightweight breadcrumb capture
-  // eslint-disable-next-line no-console
   console.log('[telemetry] breadcrumb', message, data)
 }
