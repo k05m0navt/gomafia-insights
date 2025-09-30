@@ -1,0 +1,20 @@
+---
+alwaysApply: true
+---
+usage:
+  agent_instructions:
+    - "Always read `memory-bank/style-guide.md` before proposing edits that affect project workflow, branching, CI, or deployment."
+    - "When proposing workflow or branch policy edits, include a one-line justification and link to `CONTRIBUTING.md` or `memory-bank/style-guide.md` in the PR body."
+    - "Do not push directly to `main`; create a branch following the naming convention and open a PR targeting `develop` or `staging` as appropriate."
+    - "For infra and CI changes, request review from CODEOWNERS and ensure the `style-check` CI job passes."
+
+verifier_integration_instructions:
+  - "Validator scripts (e.g., `scripts/validate_agent_output.py`) should load this file and implement the listed checks."
+  - "CI job `style-check` should run the validator and fail the job on severity `error` violations."
+
+notes:
+  - "This rule file is intended to be consumed by both human reviewers and automated validators (agents). Keep it synchronized with `memory-bank/style-guide.md`."
+description:
+globs:
+alwaysApply: true
+---

@@ -25,6 +25,13 @@ from bs4 import BeautifulSoup
 # Module-level helpers for normalization and JSON extraction
 import html as _html
 
+# Compiled regex patterns and JSON keyset for parsing
+ELO_PATTERN = re.compile(r'(?:Эло|ELO|Рейтинг|Rating)\s*(?:\([^)]*\))?\s*[:\-]?\s*([0-9\s,\.]+)', re.I)
+GAMES_PATTERN = re.compile(r'(?:игр[а-яА-Я]*|games(?: played)?|games)\s*[:\-]?\s*([0-9\s,\.]+)', re.I)
+WINS_PATTERN = re.compile(r'(?:выигра(?:л|но|ли)|wins?|won)\s*[:\-]?\s*([0-9\s,\.]+)', re.I)
+WR_PERCENT_PATTERN = re.compile(r'(\d{1,3}[.,]?\d?)\s*%\s*(?:выигр|win|win rate)?', re.I)
+KEYSET_FOR_JSON_SEARCH = {k.lower() for k in ('player','profile','rating','elo','Рейтинг','Эло','wins','games','winRate','win_rate','win')}
+
 
 def normalize_text(s: Optional[str]) -> str:
     """Normalize whitespace and common unicode spacing characters to regular spaces and collapse them.
